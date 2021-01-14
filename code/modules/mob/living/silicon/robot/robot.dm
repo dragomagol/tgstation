@@ -1,117 +1,3 @@
-/mob/living/silicon/robot
-	name = "Cyborg"
-	real_name = "Cyborg"
-	icon = 'icons/mob/robots.dmi'
-	icon_state = "robot"
-	maxHealth = 100
-	health = 100
-	bubble_icon = "robot"
-	designation = "Default" //used for displaying the prefix & getting the current module of cyborg
-	has_limbs = 1
-	hud_type = /datum/hud/robot
-
-	radio = /obj/item/radio/borg
-
-	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
-	light_system = MOVABLE_LIGHT_DIRECTIONAL
-	light_on = FALSE
-
-	var/custom_name = ""
-	var/braintype = "Cyborg"
-	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
-	var/obj/item/mmi/mmi = null
-
-	var/shell = FALSE
-	var/deployed = FALSE
-	var/mob/living/silicon/ai/mainframe = null
-	var/datum/action/innate/undeployment/undeployment_action = new
-
-	/// the last health before updating - to check net change in health
-	var/previous_health
-//Hud stuff
-
-	var/atom/movable/screen/inv1 = null
-	var/atom/movable/screen/inv2 = null
-	var/atom/movable/screen/inv3 = null
-	var/atom/movable/screen/hands = null
-
-	var/shown_robot_modules = 0	//Used to determine whether they have the module menu shown or not
-	var/atom/movable/screen/robot_modules_background
-
-//3 Modules can be activated at any one time.
-	var/obj/item/robot_module/module = null
-	var/obj/item/module_active = null
-	held_items = list(null, null, null) //we use held_items for the module holding, because that makes sense to do!
-
-	/// For checking which modules are disabled or not.
-	var/disabled_modules
-
-	var/mutable_appearance/eye_lights
-
-	var/mob/living/silicon/ai/connected_ai = null
-	var/obj/item/stock_parts/cell/cell = /obj/item/stock_parts/cell/high ///If this is a path, this gets created as an object in Initialize.
-
-	var/opened = FALSE
-	var/emagged = FALSE
-	var/emag_cooldown = 0
-	var/wiresexposed = FALSE
-
-	/// Random serial number generated for each cyborg upon its initialization
-	var/ident = 0
-	var/locked = TRUE
-	var/list/req_access = list(ACCESS_ROBOTICS)
-
-	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list(), "Burglar"=list())
-
-	var/magpulse = FALSE // Magboot-like effect.
-	var/ionpulse = FALSE // Jetpack-like effect.
-	var/ionpulse_on = FALSE // Jetpack-like effect.
-	var/datum/effect_system/trail_follow/ion/ion_trail // Ionpulse effect.
-
-	var/low_power_mode = 0 //whether the robot has no charge left.
-	var/datum/effect_system/spark_spread/spark_system // So they can initialize sparks whenever/N
-
-	var/lawupdate = 1 //Cyborgs will sync their laws with their AI by default
-	var/scrambledcodes = FALSE // Used to determine if a borg shows up on the robotics console.  Setting to TRUE hides them.
-	var/lockcharge = FALSE //Boolean of whether the borg is locked down or not
-
-	var/toner = 0
-	var/tonermax = 40
-
-	///If the lamp isn't broken.
-	var/lamp_functional = TRUE
-	///If the lamp is turned on
-	var/lamp_enabled = FALSE
-	///Set lamp color
-	var/lamp_color = COLOR_WHITE
-	///Set to true if a doomsday event is locking our lamp to on and RED
-	var/lamp_doom = FALSE
-	///Lamp brightness. Starts at 3, but can be 1 - 5.
-	var/lamp_intensity = 3
-	///Lamp button reference
-	var/atom/movable/screen/robot/lamp/lampButton
-
-	var/sight_mode = 0
-	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
-
-	///The reference to the built-in tablet that borgs carry.
-	var/obj/item/modular_computer/tablet/integrated/modularInterface
-	var/atom/movable/screen/robot/modPC/interfaceButton
-
-	var/list/upgrades = list()
-
-	var/hasExpanded = FALSE
-	var/obj/item/hat
-	var/hat_offset = -3
-
-	can_buckle = TRUE
-	buckle_lying = 0
-	/// What types of mobs are allowed to ride/buckle to this mob
-	var/static/list/can_ride_typecache = typecacheof(/mob/living/carbon/human)
-
-/mob/living/silicon/robot/get_cell()
-	return cell
-
 /mob/living/silicon/robot/Initialize(mapload)
 	spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(5, 0, src)
@@ -182,6 +68,9 @@
 	toner = tonermax
 	diag_hud_set_borgcell()
 	logevent("System brought online.")
+
+/mob/living/silicon/robot/get_cell()
+	return cell
 
 /mob/living/silicon/robot/proc/create_modularInterface()
 	if(!modularInterface)
@@ -616,107 +505,14 @@
 		cell = null
 	qdel(src)
 
-///This is the subtype that gets created by robot suits. It's needed so that those kind of borgs don't have a useless cell in them
-/mob/living/silicon/robot/nocell
-	cell = null
-
-/mob/living/silicon/robot/modules
-	var/set_module = /obj/item/robot_module
-
-/mob/living/silicon/robot/modules/Initialize()
-	. = ..()
-	module.transform_to(set_module)
-
-/mob/living/silicon/robot/modules/medical
-	set_module = /obj/item/robot_module/medical
-	icon_state = "medical"
-
-/mob/living/silicon/robot/modules/engineering
-	set_module = /obj/item/robot_module/engineering
-	icon_state = "engineer"
-
-/mob/living/silicon/robot/modules/security
-	set_module = /obj/item/robot_module/security
-	icon_state = "sec"
-
-/mob/living/silicon/robot/modules/clown
-	set_module = /obj/item/robot_module/clown
-	icon_state = "clown"
-
-/mob/living/silicon/robot/modules/peacekeeper
-	set_module = /obj/item/robot_module/peacekeeper
-	icon_state = "peace"
-
-/mob/living/silicon/robot/modules/miner
-	set_module = /obj/item/robot_module/miner
-	icon_state = "miner"
-
-/mob/living/silicon/robot/modules/janitor
-	set_module = /obj/item/robot_module/janitor
-	icon_state = "janitor"
-
-/mob/living/silicon/robot/modules/syndicate
-	icon_state = "synd_sec"
-	faction = list(ROLE_SYNDICATE)
-	bubble_icon = "syndibot"
-	req_access = list(ACCESS_SYNDICATE)
-	lawupdate = FALSE
-	scrambledcodes = TRUE // These are rogue borgs.
-	ionpulse = TRUE
-	var/playstyle_string = "<span class='big bold'>You are a Syndicate assault cyborg!</span><br>\
-							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
-							<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/syndicate
-	cell = /obj/item/stock_parts/cell/hyper
-	radio = /obj/item/radio/borg/syndicate
-
-/mob/living/silicon/robot/modules/syndicate/Initialize()
-	. = ..()
-	laws = new /datum/ai_laws/syndicate_override()
-	addtimer(CALLBACK(src, .proc/show_playstyle), 5)
-
-/mob/living/silicon/robot/modules/syndicate/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-	return ..()
-
-/mob/living/silicon/robot/modules/syndicate/proc/show_playstyle()
-	if(playstyle_string)
-		to_chat(src, playstyle_string)
-
-/mob/living/silicon/robot/modules/syndicate/ResetModule()
-	return
-
-/mob/living/silicon/robot/modules/syndicate/medical
-	icon_state = "synd_medical"
-	playstyle_string = "<span class='big bold'>You are a Syndicate medical cyborg!</span><br>\
-						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
-						Your defibrillator paddles can revive operatives through their hardsuits, or can be used on harm intent to shock enemies! \
-						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/syndicate_medical
-
-/mob/living/silicon/robot/modules/syndicate/saboteur
-	icon_state = "synd_engi"
-	playstyle_string = "<span class='big bold'>You are a Syndicate saboteur cyborg!</span><br>\
-						<b>You are armed with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your destination tagger will allow you to stealthily traverse the disposal network across the station \
-						Your welder will allow you to repair the operatives' exosuits, but also yourself and your fellow cyborgs \
-						Your cyborg chameleon projector allows you to assume the appearance and registered name of a Nanotrasen engineering borg, and undertake covert actions on the station \
-						Be aware that almost any physical contact or incidental damage will break your camouflage \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/saboteur
-
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
 		return
 	switch(notifytype)
 		if(NEW_BORG) //New Cyborg
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - New cyborg connection detected: <a href='?src=[REF(connected_ai)];track=[html_encode(name)]'>[name]</a></span><br>")
-		if(NEW_MODULE) //New Module
-			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg module change detected: [name] has loaded the [designation] module.</span><br>")
+		if(NEW_MODEL) //New Model
+			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg model change detected: [name] has loaded the [designation] model.</span><br>")
 		if(RENAME) //New Name
 			to_chat(connected_ai, "<br><br><span class='notice'>NOTICE - Cyborg reclassification detected: [oldname] is now designated as [newname].</span><br>")
 		if(AI_SHELL) //New Shell
@@ -1082,7 +878,6 @@
 	for(var/i in buckled_mobs)
 		var/mob/unbuckle_me_now = i
 		unbuckle_mob(unbuckle_me_now, FALSE)
-
 
 /mob/living/silicon/robot/proc/TryConnectToAI()
 	set_connected_ai(select_active_ai_with_fewest_borgs(z))
