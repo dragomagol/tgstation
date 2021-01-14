@@ -119,29 +119,29 @@
 	if (href_list["showalerts"])
 		robot_alerts()
 
-/mob/living/silicon/robot/proc/pick_module()
-	if(module.type != /obj/item/robot_module)
+/mob/living/silicon/robot/proc/pick_model()
+	if(module.type != /obj/item/robot_model)
 		return
 
 	if(wires.is_cut(WIRE_RESET_MODULE))
-		to_chat(src,"<span class='userdanger'>ERROR: Module installer reply timeout. Please check internal connections.</span>")
+		to_chat(src,"<span class='userdanger'>ERROR: Model installer reply timeout. Please check internal connections.</span>")
 		return
 
-	var/list/modulelist = list("Engineering" = /obj/item/robot_module/engineering, \
-	"Medical" = /obj/item/robot_module/medical, \
-	"Miner" = /obj/item/robot_module/miner, \
-	"Janitor" = /obj/item/robot_module/janitor, \
-	"Service" = /obj/item/robot_module/butler)
+	var/list/model_list = list("Engineering" = /obj/item/robot_model/engineering, \
+	"Medical" = /obj/item/robot_model/medical, \
+	"Miner" = /obj/item/robot_model/miner, \
+	"Janitor" = /obj/item/robot_model/janitor, \
+	"Service" = /obj/item/robot_model/service)
 	if(!CONFIG_GET(flag/disable_peaceborg))
-		modulelist["Peacekeeper"] = /obj/item/robot_module/peacekeeper
+		model_list["Peacekeeper"] = /obj/item/robot_model/peacekeeper
 	if(!CONFIG_GET(flag/disable_secborg))
-		modulelist["Security"] = /obj/item/robot_module/security
+		model_list["Security"] = /obj/item/robot_model/security
 
-	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in sortList(modulelist)
-	if(!input_module || module.type != /obj/item/robot_module)
+	var/input_module = input("Please, select a model!", "Robot", null, null) as null|anything in sortList(model_list)
+	if(!input_module || module.type != /obj/item/robot_model)
 		return
 
-	module.transform_to(modulelist[input_module])
+	module.transform_to(model_list[input_module])
 
 /mob/living/silicon/robot/proc/updatename(client/C)
 	if(shell)

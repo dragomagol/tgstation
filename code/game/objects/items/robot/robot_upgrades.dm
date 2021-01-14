@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/locked = FALSE
 	var/installed = 0
-	var/require_module = 0
+	var/require_model = 0
 	var/list/module_type = null
 	///	Bitflags listing module compatibility. Used in the exosuit fabricator for creating sub-categories.
 	var/list/module_flags = NONE
@@ -78,7 +78,7 @@
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/security)
+	module_type = list(/obj/item/robot_model/security)
 	module_flags = BORG_MODULE_SECURITY
 
 /obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R, user = usr)
@@ -128,7 +128,7 @@
 	desc = "A diamond drill replacement for the mining module's standard drill."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/miner)
+	module_type = list(/obj/item/robot_model/miner)
 	module_flags = BORG_MODULE_MINER
 
 /obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R, user = usr)
@@ -161,7 +161,7 @@
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/miner)
+	module_type = list(/obj/item/robot_model/miner)
 	module_flags = BORG_MODULE_MINER
 
 /obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
@@ -189,7 +189,7 @@
 	desc = "A trash bag of holding replacement for the janiborg's standard trash bag."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/janitor)
+	module_type = list(/obj/item/robot_model/janitor)
 	module_flags = BORG_MODULE_JANITOR
 
 /obj/item/borg/upgrade/tboh/action(mob/living/silicon/robot/R)
@@ -217,7 +217,7 @@
 	desc = "An advanced mop replacement for the janiborg's standard mop."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/janitor)
+	module_type = list(/obj/item/robot_model/janitor)
 	module_flags = BORG_MODULE_JANITOR
 
 /obj/item/borg/upgrade/amop/action(mob/living/silicon/robot/R)
@@ -245,7 +245,7 @@
 	desc = "A tiny heating device to repair burnt and damaged hull platings with."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/janitor)
+	module_type = list(/obj/item/robot_model/janitor)
 	module_flags = BORG_MODULE_JANITOR
 
 /obj/item/borg/upgrade/prt/action(mob/living/silicon/robot/R)
@@ -290,7 +290,7 @@
 	icon_state = "ash_plating"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	require_module = 1
-	module_type = list(/obj/item/robot_module/miner)
+	module_type = list(/obj/item/robot_model/miner)
 	module_flags = BORG_MODULE_MINER
 
 /obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R, user = usr)
@@ -410,7 +410,7 @@
 		to produce more advanced and complex medical reagents."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/medical)
+	module_type = list(/obj/item/robot_model/medical)
 	module_flags = BORG_MODULE_MEDICAL
 	var/list/additional_reagents = list()
 
@@ -467,7 +467,7 @@
 		defibrillator, for on the scene revival."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/medical)
+	module_type = list(/obj/item/robot_model/medical)
 	module_flags = BORG_MODULE_MEDICAL
 
 /obj/item/borg/upgrade/defib/action(mob/living/silicon/robot/R, user = usr)
@@ -521,7 +521,7 @@
 		out procedures"
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/medical, /obj/item/robot_module/syndicate_medical)
+	module_type = list(/obj/item/robot_model/medical, /obj/item/robot_model/syndicate/medical)
 	module_flags = BORG_MODULE_MEDICAL
 
 /obj/item/borg/upgrade/processor/action(mob/living/silicon/robot/R, user = usr)
@@ -607,7 +607,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "borgrped"
 	require_module = TRUE
-	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)
+	module_type = list(/obj/item/robot_model/engineering, /obj/item/robot_model/syndicate/saboteur)
 	module_flags = BORG_MODULE_ENGINEERING
 
 /obj/item/borg/upgrade/rped/action(mob/living/silicon/robot/R, user = usr)
@@ -636,7 +636,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinpointer_crew"
 	require_module = TRUE
-	module_type = list(/obj/item/robot_module/medical, /obj/item/robot_module/syndicate_medical)
+	module_type = list(/obj/item/robot_model/medical, /obj/item/robot_model/syndicate/medical)
 	module_flags = BORG_MODULE_MEDICAL
 	var/datum/action/crew_monitor
 
@@ -688,14 +688,14 @@
 	name = "borg module picker (Clown)"
 	desc = "Allows you to to turn a cyborg into a clown, honk."
 	icon_state = "cyborg_upgrade3"
-	new_module = /obj/item/robot_module/clown
+	new_module = /obj/item/robot_model/clown
 
 /obj/item/borg/upgrade/circuit_app
 	name = "circuit manipulation apparatus"
 	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
-	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)
+	module_type = list(/obj/item/robot_model/engineering, /obj/item/robot_model/syndicate/saboteur)
 	module_flags = BORG_MODULE_ENGINEERING
 
 /obj/item/borg/upgrade/circuit_app/action(mob/living/silicon/robot/R, user = usr)
@@ -722,7 +722,7 @@
 	desc = "A supplementary beaker storage apparatus for medical cyborgs."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
-	module_type = list(/obj/item/robot_module/medical)
+	module_type = list(/obj/item/robot_model/medical)
 	module_flags = BORG_MODULE_MEDICAL
 
 /obj/item/borg/upgrade/beaker_app/action(mob/living/silicon/robot/R, user = usr)
@@ -749,7 +749,7 @@
 	desc = "An experimental push broom used for efficiently pushing refuse."
 	icon_state = "cyborg_upgrade3"
 	require_module = TRUE
-	module_type = list(/obj/item/robot_module/janitor)
+	module_type = list(/obj/item/robot_model/janitor)
 	module_flags = BORG_MODULE_JANITOR
 
 /obj/item/borg/upgrade/broomer/action(mob/living/silicon/robot/R, user = usr)

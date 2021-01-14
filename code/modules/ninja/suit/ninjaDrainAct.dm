@@ -278,7 +278,7 @@
 		UnlinkSelf()
 		ionpulse = TRUE
 		laws = new /datum/ai_laws/ninja_override()
-		module.transform_to(pick(/obj/item/robot_module/syndicate, /obj/item/robot_module/syndicate_medical, /obj/item/robot_module/saboteur))
+		module.transform_to(pick(/obj/item/robot_model/syndicate, /obj/item/robot_model/syndicate/medical, /obj/item/robot_model/syndicate/saboteur))
 
 		var/datum/antagonist/ninja/ninja_antag = ninja.mind.has_antag_datum(/datum/antagonist/ninja)
 		if(!ninja_antag)
