@@ -10,8 +10,6 @@
 	has_limbs = 1
 	hud_type = /datum/hud/robot
 
-	var/obj/item/robot_model/set_model = null //Engineering, medical, etc.
-
 	radio = /obj/item/radio/borg
 
 	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
