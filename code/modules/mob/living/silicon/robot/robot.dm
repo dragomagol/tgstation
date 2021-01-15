@@ -26,6 +26,8 @@
 
 	create_modularInterface()
 
+	model = new /obj/item/robot_model(src)
+
 	module = new /obj/item/robot_module(src)
 	module.rebuild_modules()
 
@@ -120,7 +122,7 @@
 		robot_alerts()
 
 /mob/living/silicon/robot/proc/pick_model()
-	if(module.type != /obj/item/robot_model)
+	if(model.type != /obj/item/robot_model)
 		return
 
 	if(wires.is_cut(WIRE_RESET_MODULE))
@@ -635,7 +637,7 @@
 	custom_name = newname
 
 
-/mob/living/silicon/robot/proc/ResetModule()
+/mob/living/silicon/robot/proc/ResetModel()
 	SEND_SIGNAL(src, COMSIG_BORG_SAFE_DECONSTRUCT)
 	uneq_all()
 	shown_robot_modules = FALSE

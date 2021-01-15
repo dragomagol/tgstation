@@ -23,8 +23,8 @@
 	if(QDELETED(item_module))
 		CRASH("activate_module called with improper item_module")
 
-	if(!(item_module in module.modules))
-		CRASH("activate_module called with item_module not in module.modules")
+	if(!(item_module in model.modules))
+		CRASH("activate_module called with item_module not in model.modules")
 
 	if(activated(item_module))
 		to_chat(src, "<span class='warning'>That module is already activated.</span>")

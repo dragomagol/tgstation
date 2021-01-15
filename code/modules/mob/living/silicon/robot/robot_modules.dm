@@ -1,46 +1,6 @@
 /obj/item/robot_module
-	name = "Default"
-	icon = 'icons/obj/module.dmi'
-	icon_state = "std_mod"
-	w_class = WEIGHT_CLASS_GIGANTIC
-	inhand_icon_state = "electronic"
-	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
-	flags_1 = CONDUCT_1
-	///Host of this module
+	///Host of this model
 	var/mob/living/silicon/robot/robot
-
-	var/list/basic_modules = list() //a list of paths, converted to a list of instances on New()
-	var/list/emag_modules = list() //ditto
-	var/list/modules = list() //holds all the usable modules
-	var/list/added_modules = list() //modules not inherient to the robot module, are kept when the module changes
-	var/list/storages = list()
-
-	var/list/radio_channels = list()
-
-	var/cyborg_base_icon = "robot" //produces the icon for the borg and, if no special_light_key is set, the lights
-	var/special_light_key //if we want specific lights, use this instead of copying lights in the dmi
-
-	var/moduleselect_icon = "nomod"
-
-	var/magpulsing = FALSE
-	var/clean_on_move = FALSE
-	var/breakable_modules = TRUE //Whether the borg loses tool slots with damage.
-	var/locked_transform = TRUE //Whether swapping to this module should lockcharge the borg
-
-	var/did_feedback = FALSE
-
-	var/hat_offset = -3
-
-	var/list/ride_offset_x = list("north" = 0, "south" = 0, "east" = -6, "west" = 6)
-	var/list/ride_offset_y = list("north" = 4, "south" = 4, "east" = 3, "west" = 3)
-	var/allow_riding = TRUE
-	var/canDispose = FALSE // Whether the borg can stuff itself into disposal
-
-	/**
-	* List of traits that will be applied to the mob if this module is used.
-	*/
-	var/list/module_traits = null
 
 /obj/item/robot_module/Initialize()
 	. = ..()
@@ -255,7 +215,7 @@
 
 /obj/item/robot_model/janitor/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
-	var/obj/item/lightreplacer/LR = locate(/obj/item/lightreplacer) in basic_modules
+	var/obj/item/lightreplacer/LR = locate(/obj/item/lightreplacer) in robot.basic_modules
 	if(LR)
 		for(var/i in 1 to coeff)
 			LR.Charge(R)

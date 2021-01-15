@@ -8,8 +8,8 @@
 	icon_state = "cyborg_upgrade"
 	w_class = WEIGHT_CLASS_SMALL
 	var/locked = FALSE
-	var/installed = 0
-	var/require_model = 0
+	var/installed = FALSE
+	var/require_model = FALSE
 	var/list/module_type = null
 	///	Bitflags listing module compatibility. Used in the exosuit fabricator for creating sub-categories.
 	var/list/module_flags = NONE
@@ -127,7 +127,7 @@
 	name = "mining cyborg diamond drill"
 	desc = "A diamond drill replacement for the mining module's standard drill."
 	icon_state = "cyborg_upgrade3"
-	require_module = 1
+	require_model = TRUE
 	module_type = list(/obj/item/robot_model/miner)
 	module_flags = BORG_MODULE_MINER
 
@@ -160,7 +160,7 @@
 	name = "mining cyborg satchel of holding"
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
 	icon_state = "cyborg_upgrade3"
-	require_module = 1
+	require_model = TRUE
 	module_type = list(/obj/item/robot_model/miner)
 	module_flags = BORG_MODULE_MINER
 
@@ -289,7 +289,7 @@
 	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to a mining cyborg's chassis, enabling them to withstand exposure to molten rock."
 	icon_state = "ash_plating"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	require_module = 1
+	require_model = TRUE
 	module_type = list(/obj/item/robot_model/miner)
 	module_flags = BORG_MODULE_MINER
 
