@@ -26,10 +26,10 @@
 
 	create_modularInterface()
 
-	model = new /obj/item/robot_model(src)
+	set_model = new /obj/item/robot_model(src)
 
-	module = new /obj/item/robot_module(src)
-	module.rebuild_modules()
+	set_model.module = new /obj/item/robot_module(src) // TODO
+	set_model.module.rebuild_modules()
 
 	if(lawupdate)
 		make_laws()

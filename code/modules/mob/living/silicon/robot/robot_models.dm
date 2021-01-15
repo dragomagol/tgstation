@@ -13,7 +13,7 @@
 
 /mob/living/silicon/robot/models/Initialize()
 	. = ..()
-	module.transform_to(set_model)
+	set_model.transform_to(set_model)
 
 /mob/living/silicon/robot/models/clown
 	set_model = /obj/item/robot_model/clown
@@ -62,10 +62,10 @@
 	modelselect_icon = "miner"
 	hat_offset = 0
 
-	robot.radio_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY)
+	radio_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY)
 
 
-mob/living/silicon/robot/models/miner/be_transformed_to(obj/item/robot_model/old_model)
+mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 	var/mob/living/silicon/robot/cyborg = loc
 	var/list/miner_icons = list(
 		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
@@ -91,7 +91,7 @@ mob/living/silicon/robot/models/miner/be_transformed_to(obj/item/robot_model/old
 	icon_state = "peace"
 	cyborg_base_icon = "peace"
 	modelselect_icon = "standard"
-	at_offset = -2
+	hat_offset = -2
 
 
 /mob/living/silicon/robot/models/security
@@ -107,14 +107,14 @@ mob/living/silicon/robot/models/miner/be_transformed_to(obj/item/robot_model/old
 /mob/living/silicon/robot/models/service
 	set_model = /obj/item/robot_model/service
 	icon_state = "service"
-	robot.modelselect_icon = "service"
-	robot.special_light_key = "service"
-	robot.hat_offset = 0
+	modelselect_icon = "service"
+	special_light_key = "service"
+	hat_offset = 0
 
-	robot.radio_channels = list(RADIO_CHANNEL_SERVICE)
+	radio_channels = list(RADIO_CHANNEL_SERVICE)
 
 
-/mob/living/silicon/robot/models/service/be_transformed_to(obj/item/robot_model/old_model)
+/mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 	var/mob/living/silicon/robot/cyborg = loc
 	var/list/service_icons = list(
 		"Bro" = image(icon = 'icons/mob/robots.dmi', icon_state = "brobot"),
@@ -203,28 +203,30 @@ mob/living/silicon/robot/models/miner/be_transformed_to(obj/item/robot_model/old
 
 
 /mob/living/silicon/robot/models/syndicate/kiltborg
-	set_model = /obj/item/robot_model/kiltborg
+	set_model = /obj/item/robot_model/syndicate/kiltborg
 	icon_state = "kiltborg"
 
 /mob/living/silicon/robot/models/be_transformed_to(obj/item/robot_module/old_module)
 	. = ..()
-	qdel(robot.radio)
-	radio = new /obj/item/radio/borg/syndicate(robot)
+	qdel(radio)
+	radio = new /obj/item/radio/borg/syndicate(src)
 	scrambledcodes = TRUE
 	maxHealth = 50 //DIE IN THREE HITS, LIKE A REAL SCOT
 	break_cyborg_slot(3) //YOU ONLY HAVE TWO ITEMS ANYWAY
-	var/obj/item/pinpointer/nuke/diskyfinder = locate(/obj/item/pinpointer/nuke) in robot.basic_modules
-	diskyfinder.attack_self(robot)
+	var/obj/item/pinpointer/nuke/diskyfinder = locate(/obj/item/pinpointer/nuke) in set_model.basic_modules
+	diskyfinder.attack_self(src)
 
 /mob/living/silicon/robot/models/do_transform_delay() //AUTO-EQUIPPING THESE TOOLS ANY EARLIER CAUSES RUNTIMES OH YEAH
 	. = ..()
-	equip_module_to_slot(locate(/obj/item/claymore/highlander/robot) in basic_modules, 1)
-	equip_module_to_slot(locate(/obj/item/pinpointer/nuke) in basic_modules, 2)
-	place_on_head(new /obj/item/clothing/head/beret/highlander(robot)) //THE ONLY PART MORE IMPORTANT THAN THE SWORD IS THE HAT
-	ADD_TRAIT(robot.hat, TRAIT_NODROP, HIGHLANDER)
+	equip_module_to_slot(locate(/obj/item/claymore/highlander/robot) in set_model.basic_modules, 1)
+	equip_module_to_slot(locate(/obj/item/pinpointer/nuke) in set_model.basic_modules, 2)
+	place_on_head(new /obj/item/clothing/head/beret/highlander(src)) //THE ONLY PART MORE IMPORTANT THAN THE SWORD IS THE HAT
+	ADD_TRAIT(hat, TRAIT_NODROP, HIGHLANDER)
 
 
-// This is for the specific behaviour of each model, which is in the form of an upgrade item
+/**
+ * This is for the specific behaviour of each model, which is in the form of an upgrade item
+ */
 // -------------------------------------------- Default
 /obj/item/robot_model
 	name = "Default"

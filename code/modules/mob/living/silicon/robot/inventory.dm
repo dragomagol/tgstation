@@ -5,7 +5,7 @@
  * Returns the thing in our active hand (whatever is in our active module-slot, in this case)
  */
 /mob/living/silicon/robot/get_active_held_item()
-	return module_active
+	return set_model.module_active
 
 /**
  * Parent proc - triggers when an item/module is unequipped from a cyborg.
@@ -23,14 +23,14 @@
 	if(QDELETED(item_module))
 		CRASH("activate_module called with improper item_module")
 
-	if(!(item_module in model.modules))
+	if(!(item_module in set_model.modules))
 		CRASH("activate_module called with item_module not in model.modules")
 
 	if(activated(item_module))
 		to_chat(src, "<span class='warning'>That module is already activated.</span>")
 		return FALSE
 
-	if(disabled_modules & BORG_MODULE_ALL_DISABLED)
+	if(set_model.disabled_modules & BORG_MODULE_ALL_DISABLED)
 		to_chat(src, "<span class='warning'>All modules are disabled!</span>")
 		return FALSE
 
@@ -56,11 +56,11 @@
 		hud_used.toggle_show_robot_modules()
 		storage_was_closed = TRUE
 	switch(module_num)
-		if(1)
+		if(BORG_CHOOSE_MODULE_ONE)
 			item_module.screen_loc = inv1.screen_loc
-		if(2)
+		if(BORG_CHOOSE_MODULE_TWO)
 			item_module.screen_loc = inv2.screen_loc
-		if(3)
+		if(BORG_CHOOSE_MODULE_THREE)
 			item_module.screen_loc = inv3.screen_loc
 
 	held_items[module_num] = item_module
@@ -92,8 +92,8 @@
 	if(QDELETED(item_module))
 		CRASH("unequip_module_from_slot called with improper item_module")
 
-	if(!(item_module in module.modules))
-		CRASH("unequip_module_from_slot called with item_module not in module.modules")
+	if(!(item_module in set_model.modules))
+		CRASH("unequip_module_from_slot called with item_module not in set_model.modules")
 
 	item_module.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
@@ -107,18 +107,18 @@
 	if(client)
 		client.screen -= item_module
 
-	if(module_active == item_module)
-		module_active = null
+	if(set_model.module_active == item_module)
+		set_model.module_active = null
 
 	switch(module_num)
-		if(1)
-			if(!(disabled_modules & BORG_MODULE_ALL_DISABLED))
+		if(BORG_CHOOSE_MODULE_ONE)
+			if(!(set_model.disabled_modules & BORG_MODULE_ALL_DISABLED))
 				inv1.icon_state = initial(inv1.icon_state)
-		if(2)
-			if(!(disabled_modules & BORG_MODULE_TWO_DISABLED))
+		if(BORG_CHOOSE_MODULE_TWO)
+			if(!(set_model.disabled_modules & BORG_MODULE_TWO_DISABLED))
 				inv2.icon_state = initial(inv2.icon_state)
-		if(3)
-			if(!(disabled_modules & BORG_MODULE_THREE_DISABLED))
+		if(BORG_CHOOSE_MODULE_THREE)
+			if(!(set_model.disabled_modules & BORG_MODULE_THREE_DISABLED))
 				inv3.icon_state = initial(inv3.icon_state)
 
 	if(item_module.item_flags & DROPDEL)
@@ -147,12 +147,12 @@
 			return FALSE
 
 	switch(module_num)
-		if(1)
-			if(disabled_modules & BORG_MODULE_ALL_DISABLED)
+		if(BORG_CHOOSE_MODULE_ONE)
+			if(set_model.disabled_modules & BORG_MODULE_ALL_DISABLED)
 				return FALSE
 
 			inv1.icon_state = "[initial(inv1.icon_state)] +b"
-			disabled_modules |= BORG_MODULE_ALL_DISABLED
+			set_model.disabled_modules |= BORG_MODULE_ALL_DISABLED
 
 			playsound(src, 'sound/machines/warning-buzzer.ogg', 75, TRUE, TRUE)
 			audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: ALL modules OFFLINE.\"</span>")
@@ -163,23 +163,23 @@
 
 			to_chat(src, "<span class='userdanger'>CRITICAL ERROR: ALL modules OFFLINE.</span>")
 
-		if(2)
-			if(disabled_modules & BORG_MODULE_TWO_DISABLED)
+		if(BORG_CHOOSE_MODULE_TWO)
+			if(set_model.disabled_modules & BORG_MODULE_TWO_DISABLED)
 				return FALSE
 
 			inv2.icon_state = "[initial(inv2.icon_state)] +b"
-			disabled_modules |= BORG_MODULE_TWO_DISABLED
+			set_model.disabled_modules |= BORG_MODULE_TWO_DISABLED
 
 			playsound(src, 'sound/machines/warning-buzzer.ogg', 60, TRUE, TRUE)
 			audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module [module_num] OFFLINE.\"</span>")
 			to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module [module_num] OFFLINE.</span>")
 
-		if(3)
-			if(disabled_modules & BORG_MODULE_THREE_DISABLED)
+		if(BORG_CHOOSE_MODULE_THREE)
+			if(set_model.disabled_modules & BORG_MODULE_THREE_DISABLED)
 				return FALSE
 
 			inv3.icon_state = "[initial(inv3.icon_state)] +b"
-			disabled_modules |= BORG_MODULE_THREE_DISABLED
+			set_model.disabled_modules |= BORG_MODULE_THREE_DISABLED
 
 			playsound(src, 'sound/machines/warning-buzzer.ogg', 50, TRUE, TRUE)
 			audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module [module_num] OFFLINE.\"</span>")
@@ -205,27 +205,29 @@
 		return FALSE
 
 	switch(module_num)
-		if(1)
-			if(!(disabled_modules & BORG_MODULE_ALL_DISABLED))
+		if(BORG_CHOOSE_MODULE_ONE)
+			if(!(set_model.disabled_modules & BORG_MODULE_ALL_DISABLED))
 				return FALSE
 
 			inv1.icon_state = initial(inv1.icon_state)
-			disabled_modules &= ~BORG_MODULE_ALL_DISABLED
+			set_model.disabled_modules &= ~BORG_MODULE_ALL_DISABLED
 			if(builtInCamera)
 				builtInCamera.status = TRUE
 				to_chat(src, "<span class='notice'>You hear your built in security camera focus adjust as it comes back online!</span>")
-		if(2)
-			if(!(disabled_modules & BORG_MODULE_TWO_DISABLED))
+
+		if(BORG_CHOOSE_MODULE_TWO)
+			if(!(set_model.disabled_modules & BORG_MODULE_TWO_DISABLED))
 				return FALSE
 
 			inv2.icon_state = initial(inv2.icon_state)
-			disabled_modules &= ~BORG_MODULE_TWO_DISABLED
-		if(3)
-			if(!(disabled_modules & BORG_MODULE_THREE_DISABLED))
+			set_model.disabled_modules &= ~BORG_MODULE_TWO_DISABLED
+
+		if(BORG_CHOOSE_MODULE_THREE)
+			if(!(set_model.disabled_modules & BORG_MODULE_THREE_DISABLED))
 				return FALSE
 
 			inv3.icon_state = initial(inv3.icon_state)
-			disabled_modules &= ~BORG_MODULE_THREE_DISABLED
+			set_model.disabled_modules &= ~BORG_MODULE_THREE_DISABLED
 
 	to_chat(src, "<span class='notice'>ERROR CLEARED: Module [module_num] back online.</span>")
 
@@ -263,8 +265,8 @@
  * Unequips the active held item, if there is one.
  */
 /mob/living/silicon/robot/proc/uneq_active()
-	if(module_active)
-		unequip_module_from_slot(module_active, get_selected_module())
+	if(set_model.module_active)
+		unequip_module_from_slot(set_model.module_active, get_selected_module())
 
 /**
  * Unequips all held items.
@@ -303,11 +305,11 @@
 	/// The number of module slots we're checking
 	var/max_number = 3
 	if(!check_all_slots)
-		if(disabled_modules & BORG_MODULE_ALL_DISABLED)
+		if(set_model.disabled_modules & BORG_MODULE_ALL_DISABLED)
 			max_number = 0
-		else if(disabled_modules & BORG_MODULE_TWO_DISABLED)
+		else if(set_model.disabled_modules & BORG_MODULE_TWO_DISABLED)
 			max_number = 1
-		else if(disabled_modules & BORG_MODULE_THREE_DISABLED)
+		else if(set_model.disabled_modules & BORG_MODULE_THREE_DISABLED)
 			max_number = 2
 
 	return module_num < 1 || module_num > max_number
@@ -316,8 +318,8 @@
  * Returns the slot number of the selected module, or zero if no modules are selected.
  */
 /mob/living/silicon/robot/proc/get_selected_module()
-	if(module_active)
-		return held_items.Find(module_active)
+	if(set_model.module_active)
+		return held_items.Find(set_model.module_active)
 
 	return 0
 
@@ -331,16 +333,16 @@
 		return FALSE
 
 	switch(module_num)
-		if(1)
-			if(module_active != held_items[module_num])
+		if(BORG_CHOOSE_MODULE_ONE)
+			if(set_model.module_active != held_items[module_num])
 				inv1.icon_state = "[initial(inv1.icon_state)] +a"
-		if(2)
-			if(module_active != held_items[module_num])
+		if(BORG_CHOOSE_MODULE_TWO)
+			if(set_model.module_active != held_items[module_num])
 				inv2.icon_state = "[initial(inv2.icon_state)] +a"
-		if(3)
-			if(module_active != held_items[module_num])
+		if(BORG_CHOOSE_MODULE_THREE)
+			if(set_model.module_active != held_items[module_num])
 				inv3.icon_state = "[initial(inv3.icon_state)] +a"
-	module_active = held_items[module_num]
+	set_model.module_active = held_items[module_num]
 	return TRUE
 
 /**
@@ -350,16 +352,16 @@
  */
 /mob/living/silicon/robot/proc/deselect_module(module_num)
 	switch(module_num)
-		if(1)
-			if(module_active == held_items[module_num])
+		if(BORG_CHOOSE_MODULE_ONE)
+			if(set_model.module_active == held_items[module_num])
 				inv1.icon_state = initial(inv1.icon_state)
-		if(2)
-			if(module_active == held_items[module_num])
+		if(BORG_CHOOSE_MODULE_TWO)
+			if(set_model.module_active == held_items[module_num])
 				inv2.icon_state = initial(inv2.icon_state)
-		if(3)
-			if(module_active == held_items[module_num])
+		if(BORG_CHOOSE_MODULE_THREE)
+			if(set_model.module_active == held_items[module_num])
 				inv3.icon_state = initial(inv3.icon_state)
-	module_active = null
+	set_model.module_active = null
 	return TRUE
 
 /**
@@ -375,7 +377,7 @@
 		deselect_module(module_num)
 		return TRUE
 
-	if(module_active != held_items[module_num])
+	if(set_model.module_active != held_items[module_num])
 		deselect_module(get_selected_module())
 
 	return select_module(module_num)
@@ -404,5 +406,5 @@
 	cycle_modules()
 
 /mob/living/silicon/robot/can_hold_items(obj/item/I)
-	return (I && (I in module.modules)) //Only if it's part of our module.
+	return (I && (I in set_model.modules)) //Only if it's part of our module.
 
