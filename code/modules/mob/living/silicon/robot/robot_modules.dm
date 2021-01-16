@@ -2,7 +2,7 @@
 	///Host of this model
 	var/mob/living/silicon/robot/robot
 
-/obj/item/robot_module/Initialize()
+/obj/item/robot_model/Initialize()
 	. = ..()
 	for(var/i in basic_modules)
 		var/obj/item/I = new i(src)
@@ -13,7 +13,7 @@
 		emag_modules += I
 		emag_modules -= i
 
-/obj/item/robot_module/Destroy()
+/obj/item/robot_model/Destroy()
 	basic_modules.Cut()
 	emag_modules.Cut()
 	modules.Cut()
@@ -39,10 +39,10 @@
 		if(!(m in R.held_items))
 			. += m
 
-/obj/item/robot_module/proc/get_or_create_estorage(storage_type)
+/obj/item/robot_model/proc/get_or_create_estorage(storage_type)
 	return (locate(storage_type) in storages) || new storage_type(src)
 
-/obj/item/robot_module/proc/add_module(obj/item/I, nonstandard, requires_rebuild)
+/obj/item/robot_model/proc/add_module(obj/item/I, nonstandard, requires_rebuild)
 	if(istype(I, /obj/item/stack))
 		var/obj/item/stack/sheet_module = I
 		if(ispath(sheet_module.source, /datum/robot_energy_storage))
@@ -68,7 +68,7 @@
 		rebuild_modules()
 	return I
 
-/obj/item/robot_module/proc/remove_module(obj/item/I, delete_after)
+/obj/item/robot_model/proc/remove_module(obj/item/I, delete_after)
 	basic_modules -= I
 	modules -= I
 	emag_modules -= I
@@ -77,7 +77,7 @@
 	if(delete_after)
 		qdel(I)
 
-/obj/item/robot_module/proc/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
+/obj/item/robot_model/proc/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	for(var/datum/robot_energy_storage/st in storages)
 		st.energy = min(st.max_energy, st.energy + coeff * st.recharge_rate)
 
@@ -98,7 +98,7 @@
 
 	R.toner = R.tonermax
 
-/obj/item/robot_module/proc/rebuild_modules() //builds the usable module list from the modules we have
+/obj/item/robot_model/proc/rebuild_modules() //builds the usable module list from the modules we have
 	var/mob/living/silicon/robot/R = loc
 	var/list/held_modules = R.held_items.Copy()
 	var/active_module = R.module_active
@@ -119,15 +119,16 @@
 	if(R.hud_used)
 		R.hud_used.update_robot_modules_display()
 
-/obj/item/robot_module/proc/transform_to(new_module_type)
+// -------------------------------------------- Changing between Models
+/obj/item/robot_model/proc/transform_to(new_module_type)
 	var/mob/living/silicon/robot/R = loc
-	var/obj/item/robot_module/RM = new new_module_type(R)
+	var/obj/item/robot_model/RM = new new_model_type(R)
 	RM.robot = R
 	if(!RM.be_transformed_to(src))
 		qdel(RM)
 		return
-	R.module = RM
-	R.update_module_innate()
+	R.set_model = RM
+	R.update_model_innate()
 	RM.rebuild_modules()
 	R.radio.recalculateChannels()
 
@@ -135,14 +136,14 @@
 	qdel(src)
 	return RM
 
-/obj/item/robot_module/proc/be_transformed_to(obj/item/robot_module/old_module)
-	for(var/i in old_module.added_modules)
+/obj/item/robot_model/proc/be_transformed_to(obj/item/robot_model/old_model)
+	for(var/i in old_model.added_modules)
 		added_modules += i
-		old_module.added_modules -= i
-	did_feedback = old_module.did_feedback
+		old_model.added_modules -= i
+	did_feedback = old_model.did_feedback
 	return TRUE
 
-/obj/item/robot_module/proc/do_transform_animation()
+/obj/item/robot_model/proc/do_transform_animation()
 	var/mob/living/silicon/robot/R = loc
 	if(R.hat)
 		R.hat.forceMove(get_turf(R))
@@ -151,13 +152,13 @@
 	R.setDir(SOUTH)
 	do_transform_delay()
 
-/obj/item/robot_module/proc/do_transform_delay()
+/obj/item/robot_model/proc/do_transform_delay()
 	var/mob/living/silicon/robot/R = loc
 	var/prev_lockcharge = R.lockcharge
 	sleep(1)
 	flick("[cyborg_base_icon]_transform", R)
 	R.notransform = TRUE
-	if(locked_transform)
+	if(R.locked_transform)
 		R.SetLockdown(TRUE)
 		R.set_anchored(TRUE)
 	R.logevent("Chassis configuration has been set to [name].")
@@ -174,7 +175,7 @@
 	R.notify_ai(NEW_MODEL)
 	if(R.hud_used)
 		R.hud_used.update_robot_modules_display()
-	SSblackbox.record_feedback("tally", "cyborg_modules", 1, R.module)
+	SSblackbox.record_feedback("tally", "cyborg_models", 1, R.set_model)
 
 /**
  * Checks if we are allowed to interact with a radial menu

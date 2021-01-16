@@ -126,7 +126,7 @@
 
 	held_items[module_num] = null
 	item_module.cyborg_unequip(src)
-	item_module.forceMove(module) //Return item to module so it appears in its contents, so it can be taken out again.
+	item_module.forceMove(set_model) //Return item to module so it appears in its contents, so it can be taken out again.
 
 	observer_screen_update(item_module, FALSE)
 	hud_used.update_robot_modules_display()

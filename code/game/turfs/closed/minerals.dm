@@ -131,8 +131,8 @@
 		return
 	else if(iscyborg(AM))
 		var/mob/living/silicon/robot/R = AM
-		if(R.module_active && R.module_active.tool_behaviour == TOOL_MINING)
-			attackby(R.module_active, R)
+		if(R.module_active && R.set_model.module_active.tool_behaviour == TOOL_MINING)
+			attackby(R.set_model.module_active, R)
 			return
 	else
 		return

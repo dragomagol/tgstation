@@ -81,7 +81,7 @@
 
 	data["Laws"] = borgo.laws.get_law_list(TRUE, TRUE, FALSE)
 	data["borgLog"] = tablet.borglog
-	data["borgUpgrades"] = borgo.upgrades
+	data["borgUpgrades"] = borgo.set_model.upgrades
 	return data
 
 /datum/computer_file/program/robotact/ui_act(action, params)

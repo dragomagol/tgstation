@@ -42,7 +42,7 @@
 	hat_offset = -5
 
 	radio_channels = list(RADIO_CHANNEL_SERVICE)
-	clean_on_move = TRUE
+	set_model.clean_on_move = TRUE
 
 
 /mob/living/silicon/robot/models/medical
@@ -63,27 +63,6 @@
 	hat_offset = 0
 
 	radio_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY)
-
-
-mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
-	var/mob/living/silicon/robot/cyborg = loc
-	var/list/miner_icons = list(
-		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
-		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin"),
-		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner")
-		)
-	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 38, require_near = TRUE)
-	switch(miner_robot_icon)
-		if("Asteroid Miner")
-			cyborg_base_icon = "minerOLD"
-			special_light_key = "miner"
-		if("Spider Miner")
-			cyborg_base_icon = "spidermin"
-		if("Lavaland Miner")
-			cyborg_base_icon = "miner"
-		else
-			return FALSE
-	return ..()
 
 
 /mob/living/silicon/robot/models/peacekeeper
@@ -114,36 +93,6 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 	radio_channels = list(RADIO_CHANNEL_SERVICE)
 
 
-/mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
-	var/mob/living/silicon/robot/cyborg = loc
-	var/list/service_icons = list(
-		"Bro" = image(icon = 'icons/mob/robots.dmi', icon_state = "brobot"),
-		"Butler" = image(icon = 'icons/mob/robots.dmi', icon_state = "service_m"),
-		"Kent" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
-		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat"),
-		"Waitress" = image(icon = 'icons/mob/robots.dmi', icon_state = "service_f")
-		)
-	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 38, require_near = TRUE)
-	switch(service_robot_icon)
-		if("Bro")
-			cyborg_base_icon = "brobot"
-		if("Butler")
-			cyborg_base_icon = "service_m"
-		if("Kent")
-			cyborg_base_icon = "kent"
-			special_light_key = "medical"
-			hat_offset = 3
-		if("Tophat")
-			cyborg_base_icon = "tophat"
-			special_light_key = null
-			hat_offset = INFINITY //He is already wearing a hat
-		if("Waitress")
-			cyborg_base_icon = "service_f"
-		else
-			return FALSE
-	return ..()
-
-
 // -------------------------------------------- Syndicate Cyborgs
 /mob/living/silicon/robot/models/syndicate // default is assault borg
 	icon_state = "synd_sec"
@@ -160,6 +109,11 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 	set_model = /obj/item/robot_model/syndicate
 	cell = /obj/item/stock_parts/cell/hyper
 	radio = /obj/item/radio/borg/syndicate
+
+	cyborg_base_icon = "synd_sec"
+	modelselect_icon = "malf"
+	hat_offset = 3
+
 
 /mob/living/silicon/robot/models/syndicate/Initialize()
 	. = ..()
@@ -189,6 +143,10 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
+	cyborg_base_icon = "synd_medical"
+	modelselect_icon = "malf"
+	hat_offset = 3
+
 
 /mob/living/silicon/robot/models/syndicate/saboteur
 	set_model = /obj/item/robot_model/syndicate/saboteur
@@ -201,32 +159,17 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 						Be aware that almost any physical contact or incidental damage will break your camouflage \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
-
-/mob/living/silicon/robot/models/syndicate/kiltborg
+/mob/living/silicon/robot/model/syndicate/kiltborg
 	set_model = /obj/item/robot_model/syndicate/kiltborg
-	icon_state = "kiltborg"
-
-/mob/living/silicon/robot/models/be_transformed_to(obj/item/robot_module/old_module)
-	. = ..()
-	qdel(radio)
-	radio = new /obj/item/radio/borg/syndicate(src)
-	scrambledcodes = TRUE
-	maxHealth = 50 //DIE IN THREE HITS, LIKE A REAL SCOT
-	break_cyborg_slot(3) //YOU ONLY HAVE TWO ITEMS ANYWAY
-	var/obj/item/pinpointer/nuke/diskyfinder = locate(/obj/item/pinpointer/nuke) in set_model.basic_modules
-	diskyfinder.attack_self(src)
-
-/mob/living/silicon/robot/models/do_transform_delay() //AUTO-EQUIPPING THESE TOOLS ANY EARLIER CAUSES RUNTIMES OH YEAH
-	. = ..()
-	equip_module_to_slot(locate(/obj/item/claymore/highlander/robot) in set_model.basic_modules, 1)
-	equip_module_to_slot(locate(/obj/item/pinpointer/nuke) in set_model.basic_modules, 2)
-	place_on_head(new /obj/item/clothing/head/beret/highlander(src)) //THE ONLY PART MORE IMPORTANT THAN THE SWORD IS THE HAT
-	ADD_TRAIT(hat, TRAIT_NODROP, HIGHLANDER)
+	icon_state = "synd_engi"
+	cyborg_base_icon = "kilt"
+	modelselect_icon = "kilt"
+	hat_offset = -2
 
 
-/**
+/************************************************************************************************
  * This is for the specific behaviour of each model, which is in the form of an upgrade item
- */
+ ************************************************************************************************/
 // -------------------------------------------- Default
 /obj/item/robot_model
 	name = "Default"
@@ -238,20 +181,18 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	flags_1 = CONDUCT_1
 
- 	/**
-	* List of traits that will be applied to the mob if this module is used.
-	*/
-	var/list/model_traits = null
-
 	//Host of this model
-	var/mob/living/silicon/robot/robot
+	var/mob/living/silicon/robot/robot = src // ************************** TODO
 
-	// Model's modules!
+ 	//List of traits that will be applied to the mob if this module is used.
+	var/list/model_traits = null
+	var/clean_on_move = FALSE
+
+	// ---------------------- Model's modules! Expanded on in robot_modules.dm
 	var/obj/item/module_active = null
-	held_items = list(null, null, null) //we use held_items for the module holding, because that makes sense to do!
 
 	var/breakable_modules = TRUE // Whether the borg loses tool slots with damage.
-	var/disabled_modules // For checking which modules (1, 2, 3) are disabled or not.
+	var/disabled_modules = list() // For checking which modules (1, 2, 3) are disabled or not.
 
 	var/list/basic_modules = list() //a list of paths, converted to a list of instances on New()
 	var/list/modules = list() //holds all the usable modules for this model (incl upgrades)
@@ -259,6 +200,8 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 	var/list/added_modules = list() //modules not inherent to the robot model, are kept when the model changes
 	var/list/upgrades = list()
 	var/list/emag_modules = list() //a list of paths, converted to a list of instances on New()
+
+	var/list/storages = list()
 
 // -------------------------------------------- Clown
 /obj/item/robot_model/clown
@@ -381,6 +324,35 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 	emag_modules = list(/obj/item/borg/stun)
 	var/obj/item/t_scanner/adv_mining_scanner/cyborg/mining_scanner //built in memes.
 
+/obj/item/robot_module/miner/be_transformed_to(obj/item/robot_module/old_module)
+	var/mob/living/silicon/robot/cyborg = loc
+	var/list/miner_icons = list(
+		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
+		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin"),
+		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner")
+		)
+	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 38, require_near = TRUE)
+	switch(miner_robot_icon)
+		if("Asteroid Miner")
+			robot.cyborg_base_icon = "minerOLD"
+			special_light_key = "miner"
+		if("Spider Miner")
+			robot.cyborg_base_icon = "spidermin"
+		if("Lavaland Miner")
+			robot.cyborg_base_icon = "miner"
+		else
+			return FALSE
+	return ..()
+
+/obj/item/robot_module/miner/rebuild_modules()
+	. = ..()
+	if(!mining_scanner)
+		mining_scanner = new(src)
+
+/obj/item/robot_module/miner/Destroy()
+	QDEL_NULL(mining_scanner)
+	return ..()
+
 // -------------------------------------------- Peacekeeper
 /obj/item/robot_model/peacekeeper
 	name = "Peacekeeper"
@@ -394,9 +366,9 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 		/obj/item/extinguisher,
 		/obj/item/borg/projectile_dampen)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/peace/hacked)
-	robot.model_traits = list(TRAIT_PUSHIMMUNE)
+	model_traits = list(TRAIT_PUSHIMMUNE)
 
-/obj/item/robot_module/peacekeeper/do_transform_animation()
+/obj/item/robot_model/peacekeeper/do_transform_animation()
 	..()
 	to_chat(loc, "<span class='userdanger'>Under ASIMOV, you are an enforcer of the PEACE and preventer of HUMAN HARM. \
 	You are not a security module and you are expected to follow orders and prevent harm above all else. Space law means nothing to you.</span>")
@@ -443,6 +415,35 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 		/obj/item/borg/apparatus/beaker/service)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/borgshaker/hacked)
 
+/obj/item/robot_model/butler/be_transformed_to(obj/item/robot_model/old_model)
+	var/mob/living/silicon/robot/cyborg = loc
+	var/list/service_icons = list(
+		"Bro" = image(icon = 'icons/mob/robots.dmi', icon_state = "brobot"),
+		"Butler" = image(icon = 'icons/mob/robots.dmi', icon_state = "service_m"),
+		"Kent" = image(icon = 'icons/mob/robots.dmi', icon_state = "kent"),
+		"Tophat" = image(icon = 'icons/mob/robots.dmi', icon_state = "tophat"),
+		"Waitress" = image(icon = 'icons/mob/robots.dmi', icon_state = "service_f")
+		)
+	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 38, require_near = TRUE)
+	switch(service_robot_icon)
+		if("Bro")
+			robot.cyborg_base_icon = "brobot"
+		if("Butler")
+			robot.cyborg_base_icon = "service_m"
+		if("Kent")
+			robot.cyborg_base_icon = "kent"
+			robot.special_light_key = "medical"
+			robot.hat_offset = 3
+		if("Tophat")
+			robot.cyborg_base_icon = "tophat"
+			robot.special_light_key = null
+			robot.hat_offset = INFINITY //He is already wearing a hat
+		if("Waitress")
+			robot.cyborg_base_icon = "service_f"
+		else
+			return FALSE
+	return ..()
+
 // -------------------------------------------- Syndicate Assault
 /obj/item/robot_model/syndicate
 	name = "Syndicate Assault"
@@ -455,11 +456,7 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 		/obj/item/crowbar/cyborg,
 		/obj/item/extinguisher/mini,
 		/obj/item/pinpointer/syndicate_cyborg)
-
-	robot.cyborg_base_icon = "synd_sec"
-	robot.modelselect_icon = "malf"
-	robot.model_traits = list(TRAIT_PUSHIMMUNE)
-	hrobot.at_offset = 3
+	model_traits = list(TRAIT_PUSHIMMUNE)
 
 /obj/item/robot_model/syndicate/rebuild_modules()
 	..()
@@ -494,11 +491,7 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 		/obj/item/stack/medical/gauze,
 		/obj/item/gun/medbeam,
 		/obj/item/organ_storage)
-
-	robot.cyborg_base_icon = "synd_medical"
-	robot.modelselect_icon = "malf"
-	robot.model_traits = list(TRAIT_PUSHIMMUNE)
-	robot.hat_offset = 3
+	model_traits = list(TRAIT_PUSHIMMUNE)
 
 // -------------------------------------------- Syndicate Saboteur
 /obj/item/robot_model/syndicate/saboteur
@@ -540,8 +533,22 @@ mob/living/silicon/robot/be_transformed_to(obj/item/robot_model/old_model)
 	basic_modules = list(
 		/obj/item/claymore/highlander/robot,
 		/obj/item/pinpointer/nuke,)
-	robot.cyborg_base_icon = "kilt"
-	robot.modelselect_icon = "kilt"
-	robot.hat_offset = -2
-	robot.breakable_modules = FALSE
-	robot.locked_transform = FALSE //GO GO QUICKLY AND SLAUGHTER THEM ALL
+	breakable_modules = FALSE
+	locked_transform = FALSE //GO GO QUICKLY AND SLAUGHTER THEM ALL
+
+/obj/item/robot_model/syndicate/kiltborg/be_transformed_to(obj/item/robot_module/old_module)
+	. = ..()
+	qdel(robot.radio)
+	robot.radio = new /obj/item/radio/borg/syndicate(robot)
+	robot.scrambledcodes = TRUE
+	robot.maxHealth = 50 //DIE IN THREE HITS, LIKE A REAL SCOT
+	robot.break_cyborg_slot(3) //YOU ONLY HAVE TWO ITEMS ANYWAY
+	var/obj/item/pinpointer/nuke/diskyfinder = locate(/obj/item/pinpointer/nuke) in basic_modules
+	diskyfinder.attack_self(robot)
+
+/obj/item/robot_model/syndicate/kiltborg/do_transform_delay() //AUTO-EQUIPPING THESE TOOLS ANY EARLIER CAUSES RUNTIMES OH YEAH
+	. = ..()
+	robot.equip_module_to_slot(locate(/obj/item/claymore/highlander/robot) in basic_modules, 1)
+	robot.equip_module_to_slot(locate(/obj/item/pinpointer/nuke) in basic_modules, 2)
+	robot.place_on_head(new /obj/item/clothing/head/beret/highlander(robot)) //THE ONLY PART MORE IMPORTANT THAN THE SWORD IS THE HAT
+	ADD_TRAIT(robot.hat, TRAIT_NODROP, HIGHLANDER)

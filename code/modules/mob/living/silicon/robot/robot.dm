@@ -107,7 +107,7 @@
 			radio.keyslot.forceMove(T)
 			radio.keyslot = null
 	QDEL_NULL(wires)
-	QDEL_NULL(module)
+	QDEL_NULL(set_model)
 	QDEL_NULL(eye_lights)
 	QDEL_NULL(inv1)
 	QDEL_NULL(inv2)
@@ -122,7 +122,7 @@
 		robot_alerts()
 
 /mob/living/silicon/robot/proc/pick_model()
-	if(model.type != /obj/item/robot_model)
+	if(set_model.type != /obj/item/robot_model)
 		return
 
 	if(wires.is_cut(WIRE_RESET_MODULE))
@@ -140,10 +140,10 @@
 		model_list["Security"] = /obj/item/robot_model/security
 
 	var/input_module = input("Please, select a model!", "Robot", null, null) as null|anything in sortList(model_list)
-	if(!input_module || module.type != /obj/item/robot_model)
+	if(!input_module || set_model.type != /obj/item/robot_model)
 		return
 
-	module.transform_to(model_list[input_module])
+	set_model.transform_to(model_list[input_module])
 
 /mob/living/silicon/robot/proc/updatename(client/C)
 	if(shell)
@@ -224,8 +224,8 @@
 	else
 		. += text("No Cell Inserted!")
 
-	if(module)
-		for(var/datum/robot_energy_storage/st in module.storages)
+	if(set_model)
+		for(var/datum/robot_energy_storage/st in set_model.storages)
 			. += "[st.name]: [st.energy]/[st.max_energy]"
 	if(connected_ai)
 		. += "Master AI: [connected_ai.name]"
@@ -323,16 +323,16 @@
 /mob/living/silicon/robot/update_icons()
 	cut_overlays()
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
-	icon_state = module.cyborg_base_icon
+	icon_state = cyborg_base_icon
 	if(stat != DEAD && !(HAS_TRAIT(src, TRAIT_KNOCKEDOUT) || IsStun() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
 		if(lamp_enabled || lamp_doom)
-			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
+			eye_lights.icon_state = "[special_light_key ? "[special_light_key]":"[cyborg_base_icon]"]_l"
 			eye_lights.color = lamp_doom? COLOR_RED : lamp_color
 			eye_lights.plane = 19 //glowy eyes
 		else
-			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e"
+			eye_lights.icon_state = "[special_light_key ? "[special_light_key]":"[cyborg_base_icon]"]_e"
 			eye_lights.color = COLOR_WHITE
 			eye_lights.plane = -1
 		eye_lights.icon = icon
@@ -411,7 +411,7 @@
 
 /mob/living/silicon/robot/proc/SetEmagged(new_state)
 	emagged = new_state
-	module.rebuild_modules()
+	set_model.rebuild_modules()
 	update_icons()
 	if(emagged)
 		throw_alert("hacked", /atom/movable/screen/alert/hacked)
@@ -530,7 +530,7 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	if(!module.breakable_modules)
+	if(!set_model.breakable_modules)
 		return
 
 	/// the current percent health of the robot (-1 to 1)
@@ -649,10 +649,10 @@
 		hasExpanded = FALSE
 		update_transform()
 	logevent("Chassis configuration has been reset.")
-	module.transform_to(/obj/item/robot_module)
+	set_model.transform_to(/obj/item/robot_module)
 
 	// Remove upgrades.
-	for(var/obj/item/borg/upgrade/I in upgrades)
+	for(var/obj/item/borg/upgrade/I in set_model.upgrades)
 		I.forceMove(get_turf(src))
 
 	ionpulse = FALSE
@@ -661,29 +661,29 @@
 	return 1
 
 /mob/living/silicon/robot/proc/has_module()
-	if(!module || module.type == /obj/item/robot_module)
+	if(!set_model || set_model.type == /obj/item/robot_module)
 		. = FALSE
 	else
 		. = TRUE
 
-/mob/living/silicon/robot/proc/update_module_innate()
-	designation = module.name
+/mob/living/silicon/robot/proc/update_model_innate()
+	designation = name
 	if(hands)
-		hands.icon_state = module.moduleselect_icon
+		hands.icon_state = modelselect_icon
 
-	REMOVE_TRAITS_IN(src, MODULE_TRAIT)
-	if(module.module_traits)
-		for(var/trait in module.module_traits)
-			ADD_TRAIT(src, trait, MODULE_TRAIT)
+	REMOVE_TRAITS_IN(src, set_model.MODEL_TRAIT)
+	if(set_model.model_traits)
+		for(var/trait in set_model.model_traits)
+			ADD_TRAIT(src, trait, set_model.MODEL_TRAIT)
 
-	if(module.clean_on_move)
+	if(set_model.clean_on_move)
 		AddElement(/datum/element/cleaning)
 	else
 		RemoveElement(/datum/element/cleaning)
 
-	hat_offset = module.hat_offset
+	hat_offset = set_model.hat_offset
 
-	magpulse = module.magpulsing
+	magpulse = magpulsing
 	INVOKE_ASYNC(src, .proc/updatename)
 
 
@@ -707,7 +707,7 @@
 
 ///Use this to add upgrades to robots. It'll register signals for when the upgrade is moved or deleted, if not single use.
 /mob/living/silicon/robot/proc/add_to_upgrades(obj/item/borg/upgrade/new_upgrade, mob/user)
-	if(new_upgrade in upgrades)
+	if(new_upgrade in set_model.upgrades)
 		return FALSE
 	if(!user.temporarilyRemoveItemFromInventory(new_upgrade)) //calling the upgrade's dropped() proc /before/ we add action buttons
 		return FALSE
@@ -721,7 +721,7 @@
 		logevent("Firmware [new_upgrade] run successfully.")
 		qdel(new_upgrade)
 		return FALSE
-	upgrades += new_upgrade
+	set_model.upgrades += new_upgrade
 	new_upgrade.forceMove(src)
 	RegisterSignal(new_upgrade, COMSIG_MOVABLE_MOVED, .proc/remove_from_upgrades)
 	RegisterSignal(new_upgrade, COMSIG_PARENT_QDELETING, .proc/on_upgrade_deleted)
@@ -733,7 +733,7 @@
 	if(loc == src)
 		return
 	old_upgrade.deactivate(src)
-	upgrades -= old_upgrade
+	set_model.upgrades -= old_upgrade
 	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 
 ///Called when an applied upgrade is deleted.
@@ -741,7 +741,7 @@
 	SIGNAL_HANDLER
 	if(!QDELETED(src))
 		old_upgrade.deactivate(src)
-	upgrades -= old_upgrade
+	set_model.upgrades -= old_upgrade
 	UnregisterSignal(old_upgrade, list(COMSIG_MOVABLE_MOVED, COMSIG_PARENT_QDELETING))
 
 /**
@@ -752,7 +752,7 @@
  */
 /mob/living/silicon/robot/proc/make_shell(obj/item/borg/upgrade/ai/board)
 	if(!board)
-		upgrades |= new /obj/item/borg/upgrade/ai(src)
+		set_model.upgrades |= new /obj/item/borg/upgrade/ai(src)
 	shell = TRUE
 	braintype = "AI Shell"
 	name = "Empty AI Shell-[ident]"
@@ -866,7 +866,7 @@
 
 	if(stat || incapacitated())
 		return
-	if(module && !module.allow_riding)
+	if(set_model && !allow_riding)
 		M.visible_message("<span class='boldwarning'>Unfortunately, [M] just can't seem to hold onto [src]!</span>")
 		return
 
@@ -898,8 +898,8 @@
 			aicamera.stored[i] = TRUE
 
 /mob/living/silicon/robot/proc/charge(datum/source, amount, repairs)
-	if(module)
-		module.respawn_consumable(src, amount * 0.005)
+	if(set_model)
+		set_model.respawn_consumable(src, amount * 0.005)
 	if(cell)
 		cell.charge = min(cell.charge + amount, cell.maxcharge)
 	if(repairs)

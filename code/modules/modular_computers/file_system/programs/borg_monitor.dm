@@ -30,7 +30,7 @@
 			continue
 
 		var/list/upgrade
-		for(var/obj/item/borg/upgrade/I in R.upgrades)
+		for(var/obj/item/borg/upgrade/I in R.set_model.upgrades)
 			upgrade += "\[[I.name]\] "
 
 		var/shell = FALSE
@@ -43,7 +43,7 @@
 			status = R.stat,
 			shell_discon = shell,
 			charge = R.cell ? round(R.cell.percent()) : null,
-			module = R.module ? "[R.module.name] Module" : "No Module Detected",
+			model = R.set_model ? "[R.set_model.name] Model" : "No Model Detected",
 			upgrades = upgrade,
 			ref = REF(R)
 		)

@@ -15,6 +15,9 @@
 	var/obj/item/robot_suit/robot_suit = null //Used for deconstruction to remember what the borg was constructed out of..
 	var/obj/item/mmi/mmi = null
 
+	// at some point i am definitely going to be annoyed about this being here
+	held_items = list(null, null, null) //we use held_items for the module holding, because that makes sense to do!
+
 	var/shell = FALSE
 	var/deployed = FALSE
 	var/mob/living/silicon/ai/mainframe = null
@@ -94,13 +97,11 @@
 
 // Model
 	var/obj/item/robot_model/set_model = null
-
-	var/list/storages = list()
+	var/modelselect_icon = "nomod"
 
 	var/magpulse = FALSE // Magboot-like effect.
 	var/magpulsing = FALSE
 
-	var/clean_on_move = FALSE
 	var/locked_transform = TRUE //Whether swapping to this module should lockcharge the borg
 
 	var/did_feedback = FALSE
