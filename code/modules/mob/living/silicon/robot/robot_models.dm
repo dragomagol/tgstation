@@ -16,60 +16,35 @@
 
 /mob/living/silicon/robot/models/clown
 	set_model = /obj/item/robot_model/clown
+	icon_state = "clown"
 
 /mob/living/silicon/robot/models/engineering
 	set_model = /obj/item/robot_model/engineering
+	icon_state = "engineer"
 
 /mob/living/silicon/robot/models/janitor
 	set_model = /obj/item/robot_model/janitor
+	icon_state = "janitor"
 
 /mob/living/silicon/robot/models/medical
 	set_model = /obj/item/robot_model/medical
 	icon_state = "medical"
-	cyborg_base_icon = "medical"
-	modelselect_icon = "medical"
-	hat_offset = 3
-
-	radio_channels = list(RADIO_CHANNEL_MEDICAL)
-
 
 /mob/living/silicon/robot/models/miner
 	set_model = /obj/item/robot_model/miner
 	icon_state = "miner"
-	cyborg_base_icon = "miner"
-	modelselect_icon = "miner"
-	hat_offset = 0
-
-	radio_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY)
-
 
 /mob/living/silicon/robot/models/peacekeeper
 	set_model = /obj/item/robot_model/peacekeeper
 	icon_state = "peace"
-	cyborg_base_icon = "peace"
-	modelselect_icon = "standard"
-	hat_offset = -2
-
 
 /mob/living/silicon/robot/models/security
 	set_model = /obj/item/robot_model/security
 	icon_state = "sec"
-	cyborg_base_icon = "sec"
-	modelselect_icon = "security"
-	hat_offset = 3
-
-	radio_channels = list(RADIO_CHANNEL_SECURITY)
-
 
 /mob/living/silicon/robot/models/service
 	set_model = /obj/item/robot_model/service
 	icon_state = "service"
-	modelselect_icon = "service"
-	special_light_key = "service"
-	hat_offset = 0
-
-	radio_channels = list(RADIO_CHANNEL_SERVICE)
-
 
 // -------------------------------------------- Syndicate Cyborgs
 /mob/living/silicon/robot/models/syndicate // default is assault borg
@@ -87,10 +62,6 @@
 	set_model = /obj/item/robot_model/syndicate
 	cell = /obj/item/stock_parts/cell/hyper
 	radio = /obj/item/radio/borg/syndicate
-
-	cyborg_base_icon = "synd_sec"
-	modelselect_icon = "malf"
-	hat_offset = 3
 
 
 /mob/living/silicon/robot/models/syndicate/Initialize()
@@ -129,11 +100,6 @@
 /mob/living/silicon/robot/models/syndicate/saboteur
 	set_model = /obj/item/robot_model/syndicate/saboteur
 	icon_state = "synd_engi"
-	cyborg_base_icon = "synd_engi"
-	modelselect_icon = "malf"
-	magpulsing = TRUE
-	hat_offset = -4
-	canDispose = TRUE
 
 	playstyle_string = "<span class='big bold'>You are a Syndicate saboteur cyborg!</span><br>\
 						<b>You are armed with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
@@ -147,18 +113,12 @@
 /mob/living/silicon/robot/model/syndicate/kiltborg
 	set_model = /obj/item/robot_model/syndicate/kiltborg
 	icon_state = "synd_engi"
-	cyborg_base_icon = "kilt"
-	modelselect_icon = "kilt"
-	hat_offset = -2
-
-	locked_transform = FALSE //GO GO QUICKLY AND SLAUGHTER THEM ALL
-
 
 /************************************************************************************************
  * This is for the specific behaviour of each model, which is in the form of an upgrade item
  ************************************************************************************************/
 // -------------------------------------------- Default
-/obj/item/robot_module
+/obj/item/robot_model
 	name = "Default"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
@@ -177,7 +137,7 @@
 	var/cyborg_base_icon = "robot" //produces the icon for the borg and, if no special_light_key is set, the lights
 	var/special_light_key //if we want specific lights, use this instead of copying lights in the dmi
 
-	var/moduleselect_icon = "nomod"
+	var/moduelselect_icon = "nomod"
 
 	var/magpulsing = FALSE
 	var/clean_on_move = FALSE
@@ -212,7 +172,6 @@
 // -------------------------------------------- Clown
 /obj/item/robot_model/clown
 	name = "Clown"
-	icon_state = "clown"
 	modelselect_icon = "service"
 	cyborg_base_icon = "clown"
 	hat_offset = -2
@@ -242,7 +201,6 @@
 // -------------------------------------------- Engineering
 /obj/item/robot_model/engineering
 	name = "Engineering"
-	icon_state = "engineer"
 	cyborg_base_icon = "engineer"
 	modelselect_icon = "engineer"
 	hat_offset = -4
@@ -307,6 +265,12 @@
 // -------------------------------------------- Medical
 /obj/item/robot_model/medical
 	name = "Medical"
+	cyborg_base_icon = "medical"
+	modelselect_icon = "medical"
+	hat_offset = 3
+
+	radio_channels = list(RADIO_CHANNEL_MEDICAL)
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/healthanalyzer,
@@ -335,6 +299,12 @@
 // -------------------------------------------- Miner
 /obj/item/robot_model/miner
 	name = "Miner"
+	cyborg_base_icon = "miner"
+	modelselect_icon = "miner"
+	hat_offset = 0
+
+	radio_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY)
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/meson,
@@ -384,6 +354,10 @@
 // -------------------------------------------- Peacekeeper
 /obj/item/robot_model/peacekeeper
 	name = "Peacekeeper"
+	cyborg_base_icon = "peace"
+	modelselect_icon = "standard"
+	hat_offset = -2
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/rsf/cookiesynth,
@@ -404,6 +378,12 @@
 // -------------------------------------------- Security
 /obj/item/robot_model/security
 	name = "Security"
+	cyborg_base_icon = "sec"
+	modelselect_icon = "security"
+	hat_offset = 3
+
+	radio_channels = list(RADIO_CHANNEL_SECURITY)
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
@@ -422,6 +402,12 @@
 // -------------------------------------------- Service (formerly known as Butler)
 /obj/item/robot_model/service
 	name = "Service"
+	modelselect_icon = "service"
+	special_light_key = "service"
+	hat_offset = 0
+
+	radio_channels = list(RADIO_CHANNEL_SERVICE)
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/reagent_containers/glass/beaker/large, //I know a shaker is more appropiate but this is for ease of identification
@@ -455,19 +441,19 @@
 	var/service_robot_icon = show_radial_menu(cyborg, cyborg, service_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 38, require_near = TRUE)
 	switch(service_robot_icon)
 		if("Bro")
-			robot.cyborg_base_icon = "brobot"
+			cyborg.cyborg_base_icon = "brobot"
 		if("Butler")
-			robot.cyborg_base_icon = "service_m"
+			cyborg.cyborg_base_icon = "service_m"
 		if("Kent")
-			robot.cyborg_base_icon = "kent"
-			robot.special_light_key = "medical"
-			robot.hat_offset = 3
+			cyborg.cyborg_base_icon = "kent"
+			special_light_key = "medical"
+			hat_offset = 3
 		if("Tophat")
-			robot.cyborg_base_icon = "tophat"
-			robot.special_light_key = null
-			robot.hat_offset = INFINITY //He is already wearing a hat
+			cyborg.cyborg_base_icon = "tophat"
+			special_light_key = null
+			hat_offset = INFINITY //He is already wearing a hat
 		if("Waitress")
-			robot.cyborg_base_icon = "service_f"
+			cyborg.cyborg_base_icon = "service_f"
 		else
 			return FALSE
 	return ..()
@@ -475,6 +461,10 @@
 // -------------------------------------------- Syndicate Assault
 /obj/item/robot_model/syndicate
 	name = "Syndicate Assault"
+	cyborg_base_icon = "synd_sec"
+	modelselect_icon = "malf"
+	hat_offset = 3
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/melee/transforming/energy/sword/cyborg,
@@ -524,6 +514,12 @@
 // -------------------------------------------- Syndicate Saboteur
 /obj/item/robot_model/syndicate/saboteur
 	name = "Syndicate Saboteur"
+	cyborg_base_icon = "synd_engi"
+	modelselect_icon = "malf"
+	magpulsing = TRUE
+	hat_offset = -4
+	canDispose = TRUE
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/thermal,
@@ -553,6 +549,12 @@
 // -------------------------------------------- Highlander
 /obj/item/robot_model/syndicate/kiltborg
 	name = "Highlander"
+	cyborg_base_icon = "kilt"
+	modelselect_icon = "kilt"
+	hat_offset = -2
+
+	locked_transform = FALSE //GO GO QUICKLY AND SLAUGHTER THEM ALL
+
 	basic_modules = list(
 		/obj/item/claymore/highlander/robot,
 		/obj/item/pinpointer/nuke,)
