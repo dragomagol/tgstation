@@ -677,7 +677,7 @@
 	name = "borg module picker (Standard)"
 	desc = "Allows you to to turn a cyborg into a standard cyborg."
 	icon_state = "cyborg_upgrade3"
-	var/obj/item/robot_module/new_module = null
+	var/obj/item/robot_model/new_model = null
 
 /obj/item/borg/upgrade/transform/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()

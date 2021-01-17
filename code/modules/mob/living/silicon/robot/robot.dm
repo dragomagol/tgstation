@@ -137,11 +137,11 @@
 	if(!CONFIG_GET(flag/disable_secborg))
 		model_list["Security"] = /obj/item/robot_model/security
 
-	var/input_module = input("Please, select a model!", "Robot", null, null) as null|anything in sortList(model_list)
-	if(!input_module || set_model.type != /obj/item/robot_model)
+	var/input_model = input("Please, select a model!", "Robot", null, null) as null|anything in sortList(model_list)
+	if(!input_model || set_model.type != /obj/item/robot_model)
 		return
 
-	set_model.transform_to(model_list[input_module])
+	set_model.transform_to(model_list[input_model])
 
 /mob/living/silicon/robot/proc/updatename(client/C)
 	if(shell)
@@ -647,7 +647,7 @@
 		hasExpanded = FALSE
 		update_transform()
 	logevent("Chassis configuration has been reset.")
-	set_model.transform_to(/obj/item/robot_module)
+	set_model.transform_to(/obj/item/robot_model)
 
 	// Remove upgrades.
 	for(var/obj/item/borg/upgrade/I in set_model.upgrades)
@@ -656,10 +656,10 @@
 	ionpulse = FALSE
 	revert_shell()
 
-	return 1
+	return TRUE
 
 /mob/living/silicon/robot/proc/has_module()
-	if(!set_model || set_model.type == /obj/item/robot_module)
+	if(!set_model || set_model.type == /obj/item/robot_model)
 		. = FALSE
 	else
 		. = TRUE
@@ -669,7 +669,7 @@
 	if(hands)
 		hands.icon_state = modelselect_icon
 
-	REMOVE_TRAITS_IN(src, set_model.model_traits) // ********************* Probably going to cause issues
+	REMOVE_TRAITS_IN(src, set_model.model_traits)
 	if(set_model.model_traits)
 		for(var/trait in set_model.model_traits)
 			ADD_TRAIT(src, trait, set_model.model_traits)

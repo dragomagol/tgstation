@@ -16,33 +16,12 @@
 
 /mob/living/silicon/robot/models/clown
 	set_model = /obj/item/robot_model/clown
-	icon_state = "clown"
-	modelselect_icon = "service"
-	cyborg_base_icon = "clown"
-	hat_offset = -2
-
 
 /mob/living/silicon/robot/models/engineering
 	set_model = /obj/item/robot_model/engineering
-	icon_state = "engineer"
-	cyborg_base_icon = "engineer"
-	modelselect_icon = "engineer"
-	hat_offset = -4
-
-	radio_channels = list(RADIO_CHANNEL_ENGINEERING)
-	magpulsing = TRUE
-
 
 /mob/living/silicon/robot/models/janitor
 	set_model = /obj/item/robot_model/janitor
-	icon_state = "janitor"
-	cyborg_base_icon = "janitor"
-	modelselect_icon = "janitor"
-	hat_offset = -5
-
-	radio_channels = list(RADIO_CHANNEL_SERVICE)
-	clean_on_move = TRUE
-
 
 /mob/living/silicon/robot/models/medical
 	set_model = /obj/item/robot_model/medical
@@ -179,7 +158,7 @@
  * This is for the specific behaviour of each model, which is in the form of an upgrade item
  ************************************************************************************************/
 // -------------------------------------------- Default
-/obj/item/robot_model
+/obj/item/robot_module
 	name = "Default"
 	icon = 'icons/obj/module.dmi'
 	icon_state = "std_mod"
@@ -192,29 +171,52 @@
 	//Host of this model
 	var/mob/living/silicon/robot/robot
 
+	var/list/radio_channels = list()
+
+	// ---------------------- Model characteristics
+	var/cyborg_base_icon = "robot" //produces the icon for the borg and, if no special_light_key is set, the lights
+	var/special_light_key //if we want specific lights, use this instead of copying lights in the dmi
+
+	var/moduleselect_icon = "nomod"
+
+	var/magpulsing = FALSE
+	var/clean_on_move = FALSE
+
+	var/locked_transform = TRUE //Whether swapping to this module should lockcharge the borg
+
 	var/did_feedback = FALSE
 
- 	//List of traits that will be applied to the mob if this module is used.
-	var/list/model_traits = null
+	var/allow_riding = TRUE
+	var/canDispose = FALSE // Whether the borg can stuff itself into disposal
+	var/list/ride_offset_x = list("north" = 0, "south" = 0, "east" = -6, "west" = 6)
+	var/list/ride_offset_y = list("north" = 4, "south" = 4, "east" = 3, "west" = 3)
+
+	var/hat_offset = -3
 
 	// ---------------------- Model's modules! Expanded on in robot_modules.dm
-	var/obj/item/module_active = null
-
-	var/breakable_modules = TRUE // Whether the borg loses tool slots with damage.
-	var/disabled_modules = list() // For checking which modules (1, 2, 3) are disabled or not.
-
 	var/list/basic_modules = list() //a list of paths, converted to a list of instances on New()
-	var/list/modules = list() //holds all the usable modules for this model (incl upgrades)
+	var/list/modules = list() //holds all the usable modules
 
-	var/list/added_modules = list() //modules not inherent to the robot model, are kept when the model changes
-	var/list/upgrades = list()
 	var/list/emag_modules = list() //a list of paths, converted to a list of instances on New()
 
+	var/list/added_modules = list() //modules not inherient to the robot module, are kept when the module changes
+	var/list/upgrades = list()
+
 	var/list/storages = list()
+
+	var/breakable_modules = TRUE //Whether the borg loses tool slots with damage.
+
+	//List of traits that will be applied to the mob if this module is used.
+	var/list/module_traits = null
 
 // -------------------------------------------- Clown
 /obj/item/robot_model/clown
 	name = "Clown"
+	icon_state = "clown"
+	modelselect_icon = "service"
+	cyborg_base_icon = "clown"
+	hat_offset = -2
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/toy/crayon/rainbow,
@@ -240,6 +242,14 @@
 // -------------------------------------------- Engineering
 /obj/item/robot_model/engineering
 	name = "Engineering"
+	icon_state = "engineer"
+	cyborg_base_icon = "engineer"
+	modelselect_icon = "engineer"
+	hat_offset = -4
+
+	radio_channels = list(RADIO_CHANNEL_ENGINEERING)
+	magpulsing = TRUE
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/borg/sight/meson,
@@ -269,6 +279,14 @@
 // -------------------------------------------- Janitor
 /obj/item/robot_model/janitor
 	name = "Janitor"
+	icon_state = "janitor"
+	cyborg_base_icon = "janitor"
+	modelselect_icon = "janitor"
+	hat_offset = -5
+
+	radio_channels = list(RADIO_CHANNEL_SERVICE)
+	clean_on_move = TRUE
+
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/screwdriver/cyborg,
