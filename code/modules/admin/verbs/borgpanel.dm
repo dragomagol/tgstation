@@ -45,7 +45,7 @@
 		"ref" = REF(borg),
 		"name" = "[borg]",
 		"emagged" = borg.emagged,
-		"active_module" = "[borg.module.type]",
+		"active_model" = "[borg.set_model.type]",
 		"lawupdate" = borg.lawupdate,
 		"lockdown" = borg.lockcharge,
 		"scrambledcodes" = borg.scrambledcodes
@@ -53,7 +53,7 @@
 	.["upgrades"] = list()
 	for (var/upgradetype in subtypesof(/obj/item/borg/upgrade)-/obj/item/borg/upgrade/hypospray) //hypospray is a dummy parent for hypospray upgrades
 		var/obj/item/borg/upgrade/upgrade = upgradetype
-		if (initial(upgrade.module_type) && !is_type_in_list(borg.module, initial(upgrade.module_type))) // Upgrade requires a different module
+		if (initial(upgrade.module_type) && !is_type_in_list(borg.set_model, initial(upgrade.module_type))) // Upgrade requires a different model
 			continue
 		var/installed = FALSE
 		if (locate(upgradetype) in borg)

@@ -88,7 +88,7 @@
 			R.logevent("Motor Controller fault [mend?"cleared":"detected"]")
 		if(WIRE_RESET_MODULE)
 			if(R.has_module() && !mend)
-				R.ResetModule()
+				R.ResetModel()
 
 /datum/wires/robot/can_reveal_wires(mob/user)
 	if(HAS_TRAIT(user, TRAIT_KNOW_CYBORG_WIRES))

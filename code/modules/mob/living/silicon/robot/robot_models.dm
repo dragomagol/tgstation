@@ -1,8 +1,7 @@
-/**
- * The models of each cyborg (engineering, medical...). Contains information on what modules each model gets,
- * as well as other specific behaviours relevant to each model.
- */
-
+/************************************************************************************************
+ * The models of each cyborg (engineering, medical...). Contains information on specific
+ * behaviours relevant to each model.
+ ************************************************************************************************/
 //This is the subtype that gets created by robot suits. It's needed so that those kind of borgs don't have a useless cell in them
 /mob/living/silicon/robot/nocell
 	cell = null
@@ -42,7 +41,7 @@
 	hat_offset = -5
 
 	radio_channels = list(RADIO_CHANNEL_SERVICE)
-	set_model.clean_on_move = TRUE
+	clean_on_move = TRUE
 
 
 /mob/living/silicon/robot/models/medical
@@ -151,6 +150,12 @@
 /mob/living/silicon/robot/models/syndicate/saboteur
 	set_model = /obj/item/robot_model/syndicate/saboteur
 	icon_state = "synd_engi"
+	cyborg_base_icon = "synd_engi"
+	modelselect_icon = "malf"
+	magpulsing = TRUE
+	hat_offset = -4
+	canDispose = TRUE
+
 	playstyle_string = "<span class='big bold'>You are a Syndicate saboteur cyborg!</span><br>\
 						<b>You are armed with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 						Your destination tagger will allow you to stealthily traverse the disposal network across the station \
@@ -159,12 +164,15 @@
 						Be aware that almost any physical contact or incidental damage will break your camouflage \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
 
+
 /mob/living/silicon/robot/model/syndicate/kiltborg
 	set_model = /obj/item/robot_model/syndicate/kiltborg
 	icon_state = "synd_engi"
 	cyborg_base_icon = "kilt"
 	modelselect_icon = "kilt"
 	hat_offset = -2
+
+	locked_transform = FALSE //GO GO QUICKLY AND SLAUGHTER THEM ALL
 
 
 /************************************************************************************************
@@ -182,11 +190,12 @@
 	flags_1 = CONDUCT_1
 
 	//Host of this model
-	var/mob/living/silicon/robot/robot = src // ************************** TODO
+	var/mob/living/silicon/robot/robot
+
+	var/did_feedback = FALSE
 
  	//List of traits that will be applied to the mob if this module is used.
 	var/list/model_traits = null
-	var/clean_on_move = FALSE
 
 	// ---------------------- Model's modules! Expanded on in robot_modules.dm
 	var/obj/item/module_active = null
@@ -324,32 +333,33 @@
 	emag_modules = list(/obj/item/borg/stun)
 	var/obj/item/t_scanner/adv_mining_scanner/cyborg/mining_scanner //built in memes.
 
-/obj/item/robot_module/miner/be_transformed_to(obj/item/robot_module/old_module)
+/obj/item/robot_model/miner/be_transformed_to(obj/item/robot_model/old_model)
 	var/mob/living/silicon/robot/cyborg = loc
 	var/list/miner_icons = list(
 		"Asteroid Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "minerOLD"),
 		"Spider Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "spidermin"),
 		"Lavaland Miner" = image(icon = 'icons/mob/robots.dmi', icon_state = "miner")
 		)
-	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_module), radius = 38, require_near = TRUE)
+
+	var/miner_robot_icon = show_radial_menu(cyborg, cyborg, miner_icons, custom_check = CALLBACK(src, .proc/check_menu, cyborg, old_model), radius = 38, require_near = TRUE)
 	switch(miner_robot_icon)
 		if("Asteroid Miner")
-			robot.cyborg_base_icon = "minerOLD"
-			special_light_key = "miner"
+			cyborg.cyborg_base_icon = "minerOLD"
+			cyborg.special_light_key = "miner"
 		if("Spider Miner")
-			robot.cyborg_base_icon = "spidermin"
+			cyborg.cyborg_base_icon = "spidermin"
 		if("Lavaland Miner")
-			robot.cyborg_base_icon = "miner"
+			cyborg.cyborg_base_icon = "miner"
 		else
 			return FALSE
 	return ..()
 
-/obj/item/robot_module/miner/rebuild_modules()
+/obj/item/robot_model/miner/rebuild_modules()
 	. = ..()
 	if(!mining_scanner)
 		mining_scanner = new(src)
 
-/obj/item/robot_module/miner/Destroy()
+/obj/item/robot_model/miner/Destroy()
 	QDEL_NULL(mining_scanner)
 	return ..()
 
@@ -519,13 +529,8 @@
 		/obj/item/pinpointer/syndicate_cyborg,
 		/obj/item/borg_chameleon,
 		)
-
-	robot.cyborg_base_icon = "synd_engi"
-	robot.modelselect_icon = "malf"
 	model_traits = list(TRAIT_PUSHIMMUNE)
-	robot.magpulsing = TRUE
-	robot.hat_offset = -4
-	robot.canDispose = TRUE
+
 
 // -------------------------------------------- Highlander
 /obj/item/robot_model/syndicate/kiltborg
@@ -534,9 +539,8 @@
 		/obj/item/claymore/highlander/robot,
 		/obj/item/pinpointer/nuke,)
 	breakable_modules = FALSE
-	locked_transform = FALSE //GO GO QUICKLY AND SLAUGHTER THEM ALL
 
-/obj/item/robot_model/syndicate/kiltborg/be_transformed_to(obj/item/robot_module/old_module)
+/obj/item/robot_model/syndicate/kiltborg/be_transformed_to(obj/item/robot_model/old_model)
 	. = ..()
 	qdel(robot.radio)
 	robot.radio = new /obj/item/radio/borg/syndicate(robot)

@@ -1,7 +1,7 @@
-/obj/item/robot_module
-	///Host of this model
-	var/mob/living/silicon/robot/robot
-
+/************************************************************************************************
+ * This is specifically for the behaviours of the modules belonging to the borg.
+ * For each of the choosable tools at the borg's disposal, see robot_items.dm and robot_upgrades.dm
+ ************************************************************************************************/
 /obj/item/robot_model/Initialize()
 	. = ..()
 	for(var/i in basic_modules)
@@ -21,7 +21,7 @@
 	storages.Cut()
 	return ..()
 
-/obj/item/robot_module/emp_act(severity)
+/obj/item/robot_model/emp_act(severity)
 	. = ..()
 	if(. & EMP_PROTECT_CONTENTS)
 		return
@@ -29,15 +29,15 @@
 		O.emp_act(severity)
 	..()
 
-/obj/item/robot_module/proc/get_usable_modules()
+/obj/item/robot_model/proc/get_usable_modules()
 	. = modules.Copy()
 
-/obj/item/robot_module/proc/get_inactive_modules()
+/obj/item/robot_model/proc/get_inactive_modules()
 	. = list()
 	var/mob/living/silicon/robot/R = loc
-	for(var/m in get_usable_modules())
-		if(!(m in R.held_items))
-			. += m
+	for(var/module in get_usable_modules())
+		if(!(module in R.held_items))
+			. += module
 
 /obj/item/robot_model/proc/get_or_create_estorage(storage_type)
 	return (locate(storage_type) in storages) || new storage_type(src)
@@ -81,7 +81,7 @@
 	for(var/datum/robot_energy_storage/st in storages)
 		st.energy = min(st.max_energy, st.energy + coeff * st.recharge_rate)
 
-	for(var/obj/item/I in get_usable_modules())
+	for(var/obj/item/I in R.set_model.get_usable_modules())
 		if(istype(I, /obj/item/assembly/flash))
 			var/obj/item/assembly/flash/F = I
 			F.times_used = 0
@@ -101,7 +101,7 @@
 /obj/item/robot_model/proc/rebuild_modules() //builds the usable module list from the modules we have
 	var/mob/living/silicon/robot/R = loc
 	var/list/held_modules = R.held_items.Copy()
-	var/active_module = R.module_active
+	var/active_module = R.set_model.module_active
 	R.uneq_all()
 	modules = list()
 	for(var/obj/item/I in basic_modules)
@@ -120,7 +120,7 @@
 		R.hud_used.update_robot_modules_display()
 
 // -------------------------------------------- Changing between Models
-/obj/item/robot_model/proc/transform_to(new_module_type)
+/obj/item/robot_model/proc/transform_to(new_model_type)
 	var/mob/living/silicon/robot/R = loc
 	var/obj/item/robot_model/RM = new new_model_type(R)
 	RM.robot = R
@@ -156,7 +156,7 @@
 	var/mob/living/silicon/robot/R = loc
 	var/prev_lockcharge = R.lockcharge
 	sleep(1)
-	flick("[cyborg_base_icon]_transform", R)
+	flick("[R.cyborg_base_icon]_transform", R)
 	R.notransform = TRUE
 	if(R.locked_transform)
 		R.SetLockdown(TRUE)
@@ -184,12 +184,12 @@
  * * user The cyborg mob interacting with the menu
  * * old_module The old cyborg's module
  */
-/obj/item/robot_module/proc/check_menu(mob/living/silicon/robot/user, obj/item/robot_module/old_module)
+/obj/item/robot_model/proc/check_menu(mob/living/silicon/robot/user, obj/item/robot_model/old_model)
 	if(!istype(user))
 		return FALSE
 	if(user.incapacitated())
 		return FALSE
-	if(user.module != old_module)
+	if(user.set_model != old_model)
 		return FALSE
 	return TRUE
 
@@ -216,7 +216,7 @@
 
 /obj/item/robot_model/janitor/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
-	var/obj/item/lightreplacer/LR = locate(/obj/item/lightreplacer) in robot.basic_modules
+	var/obj/item/lightreplacer/LR = locate(/obj/item/lightreplacer) in basic_modules
 	if(LR)
 		for(var/i in 1 to coeff)
 			LR.Charge(R)

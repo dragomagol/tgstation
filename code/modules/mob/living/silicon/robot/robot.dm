@@ -27,9 +27,7 @@
 	create_modularInterface()
 
 	set_model = new /obj/item/robot_model(src)
-
-	set_model.module = new /obj/item/robot_module(src) // TODO
-	set_model.module.rebuild_modules()
+	set_model.rebuild_modules()
 
 	if(lawupdate)
 		make_laws()
@@ -671,17 +669,17 @@
 	if(hands)
 		hands.icon_state = modelselect_icon
 
-	REMOVE_TRAITS_IN(src, set_model.MODEL_TRAIT)
+	REMOVE_TRAITS_IN(src, set_model.model_traits) // ********************* Probably going to cause issues
 	if(set_model.model_traits)
 		for(var/trait in set_model.model_traits)
-			ADD_TRAIT(src, trait, set_model.MODEL_TRAIT)
+			ADD_TRAIT(src, trait, set_model.model_traits)
 
-	if(set_model.clean_on_move)
+	if(clean_on_move)
 		AddElement(/datum/element/cleaning)
 	else
 		RemoveElement(/datum/element/cleaning)
 
-	hat_offset = set_model.hat_offset
+	hat_offset = hat_offset
 
 	magpulse = magpulsing
 	INVOKE_ASYNC(src, .proc/updatename)
