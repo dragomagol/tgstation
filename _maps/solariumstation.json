@@ -1,0 +1,29 @@
+{
+	"version": 1,
+	"map_name": "Solarium Station",
+	"map_path": "map_files/SolariumStation",
+	"map_file": "SolariumStationV2.dmm",
+	"shuttles": {
+		"emergency": "emergency_box",
+		"ferry": "ferry_fancy",
+		"cargo": "cargo_box",
+		"whiteship": "whiteship_delta"
+	},
+	"traits": [
+		{
+			"Up": 1,
+			"Linkage": "Cross"
+		},
+		{
+			"Up": 1,
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		},
+		{
+			"Down": -1,
+			"Baseturf": "/turf/open/openspace",
+			"Linkage": "Cross"
+		}
+	]
+}
