@@ -1,8 +1,8 @@
 {
 	"version": 1,
-	"map_name": "Tutorial Station",
-	"map_path": "map_files/TutorialStation",
-	"map_file": "TutorialStation.dmm",
+	"map_name": "Mapping Tutorial Mission",
+	"map_path": "map_files/debug",
+	"map_file": "mappingtutorial.dmm",
 	"traits": [
 		{
 			"Up": 1,

@@ -40,5 +40,5 @@ endmap
 map multiz_debug
 endmap
 
-map tutorialstation
+map mappingtutorial
 endmap
