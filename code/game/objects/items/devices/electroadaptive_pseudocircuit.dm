@@ -6,10 +6,13 @@
 	icon_state = "boris"
 	w_class = WEIGHT_CLASS_TINY
 	custom_materials = list(/datum/material/iron = 50, /datum/material/glass = 300)
-	var/recharging = FALSE
+
+	//source = /datum/robot_energy_storage/circuit
 	var/circuits = 5 //How many circuits the pseudocircuit has left
+
+	var/recharging = FALSE
 	var/static/recycleable_circuits = typecacheof(list(/obj/item/electronics/firelock, /obj/item/electronics/airalarm, /obj/item/electronics/firealarm, \
-	/obj/item/electronics/apc))//A typecache of circuits consumable for material
+	/obj/item/electronics/airlock, /obj/item/electronics/apc))//A typecache of circuits consumable for material
 
 /obj/item/electroadaptive_pseudocircuit/Initialize()
 	. = ..()
@@ -19,31 +22,31 @@
 	. = ..()
 	if(iscyborg(user))
 		. += "<span class='notice'>It has material for <b>[circuits]</b> circuit[circuits == 1 ? "" : "s"]. Use the pseudocircuit on existing circuits to gain material.</span>\n"+\
-		"<span class='notice'>Serves as a substitute for <b>fire/air alarm</b>, <b>firelock</b>, and <b>APC</b> electronics.</span>\n"+\
+		"<span class='notice'>Serves as a substitute for <b>fire/air alarm</b>, <b>firelock</b>, <b>airlock</b>, and <b>APC</b> electronics.</span>\n"+\
 		"<span class='notice'>It can also be used on an APC with no power cell to <b>fabricate a low-capacity cell</b> at a high power cost.</span>"
 
-/obj/item/electroadaptive_pseudocircuit/proc/adapt_circuit(mob/living/silicon/robot/R, circuit_cost = 0)
-	if(QDELETED(R) || !istype(R))
+/obj/item/electroadaptive_pseudocircuit/proc/adapt_circuit(mob/living/silicon/robot/borg, circuit_cost = 0)
+	if(QDELETED(borg) || !istype(borg))
 		return
-	if(!R.cell)
-		to_chat(R, "<span class='warning'>You need a power cell installed for that.</span>")
+	if(!borg.cell)
+		to_chat(borg, "<span class='warning'>You need a power cell installed for that.</span>")
 		return
-	if(!R.cell.use(circuit_cost))
-		to_chat(R, "<span class='warning'>You don't have the energy for that (you need [DisplayEnergy(circuit_cost)].)</span>")
+	if(!borg.cell.use(circuit_cost))
+		to_chat(borg, "<span class='warning'>You don't have the energy for that (you need [DisplayEnergy(circuit_cost)].)</span>")
 		return
 	if(recharging)
-		to_chat(R, "<span class='warning'>[src] needs some time to recharge first.</span>")
+		to_chat(borg, "<span class='warning'>[src] needs some time to recharge first.</span>")
 		return
 	if(!circuits)
-		to_chat(R, "<span class='warning'>You need more material. Use [src] on existing simple circuits to break them down.</span>")
+		to_chat(borg, "<span class='warning'>You need more material. Use [src] on existing simple circuits to break them down.</span>")
 		return
-	playsound(R, 'sound/items/rped.ogg', 50, TRUE)
+	playsound(borg, 'sound/items/rped.ogg', 50, TRUE)
 	recharging = TRUE
 	circuits--
 	maptext = MAPTEXT(circuits)
 	icon_state = "[initial(icon_state)]_recharging"
 	var/recharge_time = min(600, circuit_cost * 5)  //40W of cost for one fabrication = 20 seconds of recharge time; this is to prevent spamming
-	addtimer(CALLBACK(src, .proc/recharge), recharge_time)
+	addtimer(CALLBACK(src, .proc/recharge), recharge_time) // Display this time visually
 	return TRUE //The actual circuit magic itself is done on a per-object basis
 
 /obj/item/electroadaptive_pseudocircuit/afterattack(atom/target, mob/living/user, proximity)

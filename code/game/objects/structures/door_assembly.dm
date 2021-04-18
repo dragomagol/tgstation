@@ -146,21 +146,38 @@
 			state = AIRLOCK_ASSEMBLY_NEEDS_WIRES
 			name = "secured airlock assembly"
 
-	else if(istype(W, /obj/item/electronics/airlock) && state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
-		W.play_tool_sound(src, 100)
-		user.visible_message("<span class='notice'>[user] installs the electronics into the airlock assembly.</span>", \
-							"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
-		if(do_after(user, 40, target = src))
-			if( state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
-				return
-			if(!user.transferItemToLoc(W, src))
-				return
+	else if(state == AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS )
+		if (istype(W, /obj/item/electronics/airlock))
+			W.play_tool_sound(src, 100)
+			user.visible_message("<span class='notice'>[user] installs the electronics into the airlock assembly.</span>", \
+								"<span class='notice'>You start to install electronics into the airlock assembly...</span>")
+			if(do_after(user, 40, target = src))
+				if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
+					return
+				if(!user.transferItemToLoc(W, src))
+					return
 
-			to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
-			state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
-			name = "near finished airlock assembly"
-			electronics = W
+				to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
+				state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
+				name = "near finished airlock assembly"
+				electronics = W
 
+		else if (istype(W, /obj/item/electroadaptive_pseudocircuit))
+			var/obj/item/electroadaptive_pseudocircuit/pseudocircuit = W
+			if(!pseudocircuit.adapt_circuit(user, 15))
+				return
+			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
+								"<span class='notice'>You adapt some airlock electronics and slot them into the assembly.</span>")
+			if(do_after(user, 40, target = src))
+				if(state != AIRLOCK_ASSEMBLY_NEEDS_ELECTRONICS)
+					return
+				if(!user.transferItemToLoc(W, src))
+					return
+
+				to_chat(user, "<span class='notice'>You install the airlock electronics.</span>")
+				state = AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER
+				name = "near finished airlock assembly"
+				electronics = W
 
 	else if((W.tool_behaviour == TOOL_CROWBAR) && state == AIRLOCK_ASSEMBLY_NEEDS_SCREWDRIVER )
 		user.visible_message("<span class='notice'>[user] removes the electronics from the airlock assembly.</span>", \

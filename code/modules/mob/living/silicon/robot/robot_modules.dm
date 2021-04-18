@@ -671,6 +671,12 @@
 	recharge_rate = 2
 	name = "Wire Synthesizer"
 
+/// adaptive pseudocircuit material
+/datum/robot_energy_storage/circuit
+	max_energy = 5
+	recharge_rate = 1
+	name = "Simple Circuit Synthesizer"
+
 /datum/robot_energy_storage/medical
 	max_energy = 2500
 	recharge_rate = 250
