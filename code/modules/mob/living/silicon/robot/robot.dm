@@ -755,15 +755,14 @@
 	if(!user.temporarilyRemoveItemFromInventory(new_upgrade)) //calling the upgrade's dropped() proc /before/ we add action buttons
 		return FALSE
 	if(!new_upgrade.action(src, user))
+		if(new_upgrade.one_use)
+			logevent("Firmware [new_upgrade] run successfully.")
+			qdel(new_upgrade)
 		to_chat(user, "<span class='danger'>Upgrade error.</span>")
 		new_upgrade.forceMove(loc) //gets lost otherwise
 		return FALSE
 	to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
 	to_chat(src, "----------------\nNew hardware detected...Identified as \"<b>[new_upgrade]</b>\"...Setup complete.\n----------------")
-	if(new_upgrade.one_use)
-		logevent("Firmware [new_upgrade] run successfully.")
-		qdel(new_upgrade)
-		return FALSE
 	upgrades += new_upgrade
 	new_upgrade.forceMove(src)
 	RegisterSignal(new_upgrade, COMSIG_MOVABLE_MOVED, .proc/remove_from_upgrades)
