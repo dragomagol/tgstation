@@ -758,6 +758,7 @@
 		if(new_upgrade.one_use)
 			logevent("Firmware [new_upgrade] run successfully.")
 			qdel(new_upgrade)
+			return FALSE
 		to_chat(user, "<span class='danger'>Upgrade error.</span>")
 		new_upgrade.forceMove(loc) //gets lost otherwise
 		return FALSE
