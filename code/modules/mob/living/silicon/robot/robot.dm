@@ -755,8 +755,9 @@
 	if(!user.temporarilyRemoveItemFromInventory(new_upgrade)) //calling the upgrade's dropped() proc /before/ we add action buttons
 		return FALSE
 	if(!new_upgrade.action(src, user))
-		if(new_upgrade.one_use)
+		if(new_upgrade.one_use && src.stat != CONSCIOUS)
 			logevent("Firmware [new_upgrade] run successfully.")
+			to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
 			qdel(new_upgrade)
 			return FALSE
 		to_chat(user, "<span class='danger'>Upgrade error.</span>")
