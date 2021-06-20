@@ -1,0 +1,1843 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"bF" = (
+/obj/structure/table,
+/turf/open/floor/iron/dark,
+/area/icemoon/underground/unexplored)
+"bP" = (
+/obj/item/shovel,
+/obj/item/pickaxe/drill/jackhammer,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/ruin/powered/excavation/pit)
+"cn" = (
+/turf/closed/wall/r_wall/rust,
+/area/ruin/powered/excavation/orientation)
+"dl" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/powered/excavation/prison_dock)
+"dH" = (
+/obj/structure/closet,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/suit/hooded/wintercoat/security,
+/obj/item/clothing/neck/stripedredscarf,
+/obj/item/clothing/neck/stripedredscarf,
+/obj/item/clothing/neck/stripedredscarf,
+/obj/item/clothing/neck/stripedredscarf,
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 4
+	},
+/area/ruin/powered/excavation/prison_dock)
+"eh" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/noslip,
+/area/ruin/powered/excavation/orientation)
+"fr" = (
+/obj/structure/table,
+/obj/item/folder/blue,
+/obj/item/pen,
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 8
+	},
+/area/ruin/powered/excavation/orientation)
+"gJ" = (
+/obj/structure/railing{
+	dir = 6
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"gT" = (
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/effect/turf_decal/box,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"hE" = (
+/turf/open/floor/plating/snowed,
+/area/icemoon/underground/unexplored)
+"hM" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/open/floor/iron/dark/textured_large,
+/area/ruin/powered/excavation/prison_dock)
+"id" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/orientation)
+"jr" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/iron/dark,
+/area/ruin/powered/excavation/orientation)
+"kf" = (
+/obj/structure/railing,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"mq" = (
+/obj/machinery/space_heater,
+/obj/machinery/light/cold/directional/south,
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 1
+	},
+/area/ruin/powered/excavation/prison_dock)
+"nx" = (
+/obj/machinery/space_heater,
+/turf/open/floor/iron/dark/smooth_edge,
+/area/ruin/powered/excavation/prison_dock)
+"nL" = (
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 4
+	},
+/area/ruin/powered/excavation/prison_dock)
+"oU" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"pr" = (
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
+/turf/open/floor/iron/dark/textured_large,
+/area/ruin/powered/excavation/orientation)
+"pF" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/noslip,
+/area/ruin/powered/excavation/orientation)
+"qk" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/tank_dispenser,
+/obj/machinery/light/cold/directional/west,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"qF" = (
+/turf/open/floor/iron/dark/smooth_edge,
+/area/ruin/powered/excavation/orientation)
+"rb" = (
+/turf/closed/wall/r_wall,
+/area/ruin/powered/excavation/orientation)
+"rt" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/obj/structure/railing/corner,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"sY" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"ty" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/obj/machinery/light/cold/directional/north,
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 1
+	},
+/area/ruin/powered/excavation/orientation)
+"uE" = (
+/obj/machinery/atmospherics/pipe/smart/simple/green/visible{
+	dir = 4
+	},
+/turf/closed/wall/r_wall,
+/area/ruin/powered/excavation/orientation)
+"uJ" = (
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/iron/dark/smooth_edge,
+/area/ruin/powered/excavation/orientation)
+"vm" = (
+/obj/structure/table,
+/obj/item/folder/blue,
+/obj/item/pen,
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 1
+	},
+/area/ruin/powered/excavation/orientation)
+"vs" = (
+/obj/machinery/portable_atmospherics/canister/toxins,
+/turf/open/floor/engine/plasma,
+/area/ruin/powered/excavation/orientation)
+"vW" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 4
+	},
+/area/ruin/powered/excavation/orientation)
+"wU" = (
+/obj/machinery/portable_atmospherics/scrubber/huge,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"xA" = (
+/obj/structure/flora/rock/pile/icy,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/ruin/powered/excavation/pit)
+"xB" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 8
+	},
+/area/ruin/powered/excavation/prison_dock)
+"xQ" = (
+/obj/machinery/light/cold/directional/south,
+/turf/open/floor/iron/dark/smooth_edge,
+/area/ruin/powered/excavation/orientation)
+"yR" = (
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 1
+	},
+/area/ruin/powered/excavation/prison_dock)
+"ze" = (
+/obj/structure/railing{
+	dir = 9
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"zD" = (
+/obj/structure/railing/corner{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"zE" = (
+/turf/open/floor/iron/dark/smooth_edge,
+/area/ruin/powered/excavation/prison_dock)
+"zF" = (
+/obj/structure/stairs,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/ruin/powered/excavation/pit)
+"zV" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/obj/machinery/light/cold/directional/north,
+/turf/open/floor/iron/dark,
+/area/icemoon/underground/unexplored)
+"Aa" = (
+/obj/structure/railing{
+	dir = 10
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Al" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/turf/open/floor/iron/dark/smooth_corner,
+/area/ruin/powered/excavation/orientation)
+"AZ" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/turf/closed/wall/r_wall/rust,
+/area/ruin/powered/excavation/orientation)
+"Bi" = (
+/obj/structure/extinguisher_cabinet/directional/east,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"BM" = (
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Cd" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/orientation)
+"CW" = (
+/obj/machinery/shower{
+	dir = 1
+	},
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"DA" = (
+/turf/open/floor/engine/plasma,
+/area/ruin/powered/excavation/orientation)
+"DV" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/tank_dispenser,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Ee" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/powered/excavation/orientation)
+"Eu" = (
+/obj/machinery/door/airlock/maintenance/external/glass,
+/turf/open/floor/noslip,
+/area/ruin/powered/excavation/orientation)
+"EP" = (
+/obj/structure/railing/corner{
+	dir = 8
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Fb" = (
+/obj/item/kirbyplants/random,
+/turf/open/floor/iron/dark/smooth_corner,
+/area/ruin/powered/excavation/prison_dock)
+"FV" = (
+/turf/closed/wall/r_wall,
+/area/ruin/powered/excavation/prison_dock)
+"Gf" = (
+/obj/effect/spawner/structure/window/reinforced/tinted,
+/turf/open/floor/plating,
+/area/ruin/powered/excavation/pit)
+"Gl" = (
+/obj/structure/railing/corner,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Hg" = (
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/ruin/powered/excavation/pit)
+"HH" = (
+/obj/structure/chair{
+	dir = 8
+	},
+/turf/open/floor/iron/dark,
+/area/icemoon/underground/unexplored)
+"HU" = (
+/turf/open/floor/iron/dark,
+/area/icemoon/underground/unexplored)
+"Ie" = (
+/obj/structure/chair,
+/obj/item/restraints/handcuffs,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/ruin/powered/excavation/pit)
+"IZ" = (
+/obj/structure/extinguisher_cabinet/directional/west,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on,
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 8
+	},
+/area/ruin/powered/excavation/orientation)
+"Jy" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/obj/structure/closet,
+/obj/item/clothing/gloves/color/plasmaman,
+/obj/item/clothing/gloves/color/plasmaman,
+/obj/item/clothing/gloves/color/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/shoes/plate/blue,
+/obj/item/clothing/shoes/plate/blue,
+/obj/item/clothing/shoes/plate/blue,
+/obj/machinery/light/cold/directional/west,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"JA" = (
+/obj/structure/railing{
+	dir = 5
+	},
+/obj/machinery/light/floor,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Kt" = (
+/obj/effect/turf_decal/box,
+/obj/machinery/shower{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Lx" = (
+/obj/structure/extinguisher_cabinet/directional/west,
+/obj/item/holosign_creator/atmos,
+/obj/item/holosign_creator/atmos,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"LF" = (
+/obj/machinery/door/airlock/maintenance/external,
+/turf/open/floor/iron/dark,
+/area/ruin/powered/excavation/prison_dock)
+"LY" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/turf/open/floor/iron/dark,
+/area/ruin/powered/excavation/orientation)
+"Oo" = (
+/obj/structure/railing/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Pc" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/closet,
+/obj/item/clothing/gloves/color/plasmaman,
+/obj/item/clothing/gloves/color/plasmaman,
+/obj/item/clothing/gloves/color/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/under/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/head/helmet/space/plasmaman,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/mask/breath,
+/obj/item/clothing/shoes/plate/blue,
+/obj/item/clothing/shoes/plate/blue,
+/obj/item/clothing/shoes/plate/blue,
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Pd" = (
+/obj/machinery/atmospherics/components/unary/outlet_injector/atmos/toxin_input{
+	dir = 4
+	},
+/turf/open/floor/engine/plasma,
+/area/ruin/powered/excavation/orientation)
+"Pw" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/obj/machinery/light/cold/directional/south,
+/turf/open/floor/iron/dark/smooth_corner{
+	dir = 4
+	},
+/area/ruin/powered/excavation/prison_dock)
+"Qj" = (
+/obj/structure/closet,
+/obj/item/clothing/suit/hooded/wintercoat,
+/obj/item/clothing/suit/hooded/wintercoat,
+/obj/item/clothing/suit/hooded/wintercoat,
+/obj/item/clothing/suit/hooded/wintercoat,
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 8
+	},
+/area/ruin/powered/excavation/prison_dock)
+"Qn" = (
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/ruin/powered/excavation/pit)
+"Rd" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Rh" = (
+/obj/machinery/light/cold/directional/north,
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 1
+	},
+/area/ruin/powered/excavation/prison_dock)
+"Se" = (
+/turf/open/floor/iron/dark/textured_large,
+/area/ruin/powered/excavation/orientation)
+"TJ" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"TN" = (
+/obj/machinery/airalarm/directional/north,
+/turf/open/floor/iron/dark/smooth_corner,
+/area/ruin/powered/excavation/orientation)
+"TP" = (
+/turf/open/floor/iron/dark,
+/area/ruin/powered/excavation/prison_dock)
+"Ua" = (
+/turf/open/lava/plasma/ice_moon,
+/area/ruin/powered/excavation/pit)
+"Ue" = (
+/obj/docking_port/stationary{
+	name = "Colonid Excavation Site"
+	},
+/turf/open/floor/plating/snowed,
+/area/icemoon/underground/unexplored)
+"Uk" = (
+/obj/structure/flora/rock/icy,
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/ruin/powered/excavation/pit)
+"Vi" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Vr" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/visible,
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 1
+	},
+/area/ruin/powered/excavation/orientation)
+"Wy" = (
+/obj/item/toy/plush/plasmamanplushie{
+	desc = "A stuffed toy that resembles your purple coworkers. Whoever named this one had a sense of irony.";
+	name = "Ziram IX"
+	},
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/ruin/powered/excavation/pit)
+"Xg" = (
+/obj/machinery/atmospherics/components/binary/pump/on{
+	dir = 4
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/orientation)
+"Xp" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"Xy" = (
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plating/snowed,
+/area/ruin/powered/excavation/pit)
+"XV" = (
+/turf/closed/wall/r_wall/rust,
+/area/ruin/powered/excavation/pit)
+"YA" = (
+/turf/closed/wall/r_wall,
+/area/ruin/powered/excavation/pit)
+"YO" = (
+/turf/closed/wall/r_wall,
+/area/icemoon/underground/unexplored)
+"Zj" = (
+/obj/structure/table,
+/obj/item/folder/blue,
+/obj/item/pen,
+/turf/open/floor/iron/dark/smooth_edge{
+	dir = 4
+	},
+/area/ruin/powered/excavation/orientation)
+"ZA" = (
+/turf/open/floor/plating/asteroid/snow/icemoon,
+/area/icemoon/underground/unexplored)
+"ZJ" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/turf/open/floor/plating,
+/area/ruin/powered/excavation/orientation)
+"ZK" = (
+/obj/structure/chair{
+	dir = 1
+	},
+/turf/open/floor/iron/dark/smooth_edge,
+/area/ruin/powered/excavation/prison_dock)
+
+(1,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(2,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(3,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(4,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(5,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(6,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(7,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(8,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(9,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+XV
+XV
+XV
+XV
+XV
+XV
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(10,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+XV
+Jy
+Pc
+DV
+qk
+XV
+ZA
+ZA
+ZA
+ZA
+rb
+rb
+rb
+rb
+rb
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(11,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+YA
+YA
+XV
+Xp
+BM
+BM
+TJ
+YA
+XV
+XV
+ZA
+ZA
+rb
+DA
+DA
+DA
+rb
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(12,1,1) = {"
+ZA
+hE
+hE
+hE
+ZA
+FV
+FV
+FV
+FV
+FV
+ZA
+XV
+YA
+BM
+BM
+BM
+BM
+BM
+BM
+BM
+Lx
+YA
+YA
+ZA
+rb
+DA
+vs
+DA
+rb
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(13,1,1) = {"
+hE
+hE
+hE
+hE
+hE
+FV
+Fb
+Qj
+dH
+FV
+XV
+XV
+BM
+Gl
+Rd
+Rd
+Rd
+Rd
+Rd
+Rd
+zD
+BM
+YA
+YA
+rb
+DA
+DA
+Pd
+rb
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(14,1,1) = {"
+hE
+hE
+hE
+hE
+hE
+dl
+yR
+TP
+TP
+Pw
+YA
+BM
+Gl
+gJ
+Qn
+Ua
+Ua
+Qn
+Qn
+Uk
+JA
+zD
+Kt
+YA
+rb
+rb
+ZJ
+uE
+rb
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(15,1,1) = {"
+hE
+hE
+hE
+hE
+Ue
+LF
+yR
+TP
+TP
+ZK
+YA
+BM
+kf
+bP
+Ua
+Ua
+Ua
+Ua
+Ua
+Qn
+Qn
+Vi
+gT
+XV
+id
+Cd
+Cd
+Xg
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(16,1,1) = {"
+hE
+hE
+hE
+hE
+hE
+dl
+yR
+TP
+TP
+zE
+XV
+BM
+kf
+Qn
+Qn
+Ua
+Ua
+Ua
+Ua
+Ua
+Ua
+Vi
+CW
+XV
+cn
+cn
+AZ
+uE
+cn
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(17,1,1) = {"
+hE
+hE
+hE
+hE
+hE
+FV
+Rh
+TP
+TP
+zE
+hM
+BM
+rt
+Hg
+Qn
+Ua
+Ua
+Ua
+Ua
+Ua
+Ua
+Vi
+sY
+eh
+pr
+pF
+Al
+vW
+cn
+cn
+cn
+ZA
+ZA
+ZA
+ZA
+"}
+(18,1,1) = {"
+hE
+hE
+hE
+hE
+hE
+dl
+yR
+TP
+TP
+zE
+XV
+BM
+kf
+Ie
+Qn
+Ua
+Ua
+Ua
+Ua
+Ua
+zF
+oU
+TJ
+XV
+Ee
+rb
+Vr
+qF
+Eu
+Se
+Eu
+ZA
+ZA
+ZA
+ZA
+"}
+(19,1,1) = {"
+hE
+hE
+hE
+hE
+hE
+LF
+yR
+TP
+TP
+zE
+YA
+BM
+kf
+Ie
+Qn
+Ua
+Ua
+Ua
+Ua
+Ua
+Qn
+Vi
+BM
+YA
+TN
+IZ
+LY
+xQ
+cn
+cn
+cn
+ZA
+ZA
+ZA
+ZA
+"}
+(20,1,1) = {"
+hE
+hE
+hE
+hE
+hE
+dl
+yR
+TP
+TP
+nx
+XV
+BM
+kf
+Ie
+Qn
+Qn
+Ua
+Ua
+Qn
+Qn
+xA
+Vi
+wU
+XV
+ty
+jr
+jr
+uJ
+rb
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(21,1,1) = {"
+hE
+hE
+hE
+hE
+hE
+FV
+xB
+nL
+nL
+mq
+XV
+BM
+EP
+Aa
+xA
+Wy
+Qn
+Qn
+Qn
+Qn
+ze
+Oo
+wU
+XV
+fr
+Zj
+Zj
+vm
+rb
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(22,1,1) = {"
+ZA
+hE
+hE
+hE
+ZA
+FV
+FV
+LF
+FV
+FV
+XV
+XV
+BM
+EP
+Xy
+Xy
+Xy
+Xy
+Xy
+Xy
+Oo
+BM
+YA
+YA
+Ee
+Ee
+Ee
+Ee
+cn
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(23,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+HU
+HU
+HU
+HU
+HU
+YA
+YA
+BM
+BM
+Bi
+BM
+BM
+BM
+BM
+BM
+XV
+YA
+YO
+bF
+bF
+bF
+bF
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(24,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+HU
+HU
+HU
+HU
+HU
+HU
+YA
+YA
+Gf
+XV
+Gf
+Gf
+Gf
+XV
+Gf
+XV
+HU
+YO
+zV
+HH
+HH
+HH
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(25,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(26,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(27,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(28,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(29,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+YO
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(30,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+YO
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+HU
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(31,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+YO
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(32,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(33,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(34,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}
+(35,1,1) = {"
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+ZA
+"}

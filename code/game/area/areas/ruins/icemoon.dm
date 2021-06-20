@@ -17,3 +17,15 @@
 	base_icon_state = "block"
 	smoothing_flags = NONE
 	canSmoothWith = null
+
+/area/ruin/powered/excavation/pit
+	name = "Colonid Excavation Pit"
+	icon_state = "purple"
+
+/area/ruin/powered/excavation/orientation
+	name = "New Employee Orientation"
+	icon_state = "green"
+
+/area/ruin/powered/excavation/prison_dock
+	name = "Prison Transfer Dock"
+	icon_state = "bluenew"
