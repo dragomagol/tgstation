@@ -240,17 +240,6 @@
 /obj/machinery/light/directional/north,
 /turf/open/floor/wood,
 /area/centcom/control)
-"bq" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "NEL";
-	name = "North Events Wing Left"
-	},
-/turf/open/floor/iron/textured_large,
-/area/centcom/control)
 "bs" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -273,17 +262,6 @@
 	dir = 1
 	},
 /turf/open/floor/carpet/orange,
-/area/centcom/control)
-"bu" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "MEN";
-	name = "Maint Events Hall North"
-	},
-/turf/open/floor/iron/textured_half,
 /area/centcom/control)
 "bw" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -740,6 +718,12 @@
 	},
 /turf/open/floor/carpet/lone,
 /area/centcom/control)
+"ec" = (
+/obj/effect/landmark/latejoin,
+/turf/open/floor/iron/edge{
+	dir = 8
+	},
+/area/centcom/control)
 "ed" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 9
@@ -929,6 +913,13 @@
 /obj/structure/filingcabinet/security,
 /turf/open/floor/iron,
 /area/centcom/control)
+"fk" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 6
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron,
+/area/centcom/control)
 "fl" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -952,6 +943,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron,
 /area/centcom/control)
 "fp" = (
@@ -990,14 +982,6 @@
 /turf/open/floor/iron/edge{
 	dir = 8
 	},
-/area/centcom/control)
-"fE" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/poddoor/shutters{
-	id = "NEL";
-	name = "North Events Wing Left"
-	},
-/turf/open/floor/iron/textured_large,
 /area/centcom/control)
 "fF" = (
 /obj/effect/turf_decal/siding/white{
@@ -1471,6 +1455,15 @@
 /obj/machinery/light/directional/west,
 /turf/open/floor/iron/dark/textured,
 /area/centcom/control)
+"iu" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron/edge{
+	dir = 1
+	},
+/area/centcom/control)
 "iw" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 10
@@ -1506,6 +1499,10 @@
 /turf/open/floor/iron/smooth_half{
 	dir = 4
 	},
+/area/tdome/arena)
+"iH" = (
+/obj/effect/landmark/arena/start,
+/turf/open/floor/iron/smooth,
 /area/tdome/arena)
 "iP" = (
 /obj/effect/turf_decal/tile/blue{
@@ -1559,6 +1556,11 @@
 	},
 /obj/item/kirbyplants,
 /turf/open/floor/wood,
+/area/centcom/control)
+"ja" = (
+/obj/effect/turf_decal/siding/wood,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron/grimy,
 /area/centcom/control)
 "jb" = (
 /obj/structure/window/reinforced{
@@ -2284,14 +2286,6 @@
 	},
 /turf/open/floor/carpet/donk,
 /area/centcom/control)
-"nU" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/poddoor/shutters{
-	id = "NER";
-	name = "North Events Wing Right"
-	},
-/turf/open/floor/iron/textured_large,
-/area/centcom/control)
 "nZ" = (
 /obj/structure/fluff/tram_rail/floor{
 	pixel_y = 21
@@ -2359,6 +2353,15 @@
 "oo" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/wood,
+/area/centcom/control)
+"oq" = (
+/obj/structure/chair/sofa/corp/left{
+	dir = 1
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron/dark/textured_half{
+	dir = 1
+	},
 /area/centcom/control)
 "ot" = (
 /obj/effect/turf_decal/trimline/blue/filled/line{
@@ -2824,14 +2827,6 @@
 /obj/structure/rack,
 /turf/open/floor/iron/smooth,
 /area/centcom/supplypod)
-"rG" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/poddoor/shutters{
-	id = "SER";
-	name = "South Events Wing Right"
-	},
-/turf/open/floor/iron/textured_large,
-/area/centcom/control)
 "rJ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -3312,17 +3307,6 @@
 	dir = 1
 	},
 /area/centcom/control)
-"uG" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "SEL";
-	name = "South Events Wing Left"
-	},
-/turf/open/floor/iron/textured_large,
-/area/centcom/control)
 "uH" = (
 /obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/iron/edge{
@@ -3720,6 +3704,11 @@
 	dir = 1
 	},
 /area/centcom/control)
+"xo" = (
+/obj/machinery/light/directional/east,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron,
+/area/centcom/control)
 "xp" = (
 /obj/effect/turf_decal/siding/wood/corner{
 	dir = 1
@@ -3935,9 +3924,6 @@
 /obj/structure/table/glass,
 /obj/effect/turf_decal/siding/thinplating/dark{
 	dir = 8
-	},
-/obj/item/toy/plush/lizardplushie{
-	name = "Forges-The-Station"
 	},
 /turf/open/floor/carpet/red,
 /area/centcom/control)
@@ -4155,6 +4141,13 @@
 /area/centcom/control)
 "zK" = (
 /turf/open/space/basic,
+/area/centcom/control)
+"zL" = (
+/obj/structure/chair/sofa/corp/right,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron/dark/textured_half{
+	dir = 1
+	},
 /area/centcom/control)
 "zO" = (
 /obj/structure/flora/ausbushes/lavendergrass,
@@ -4380,6 +4373,10 @@
 	dir = 8
 	},
 /turf/open/floor/vault,
+/area/centcom/control)
+"Bo" = (
+/obj/machinery/computer/arena,
+/turf/open/floor/grass,
 /area/centcom/control)
 "Bq" = (
 /obj/machinery/door/airlock/centcom{
@@ -4767,17 +4764,6 @@
 /obj/item/modular_computer/tablet,
 /turf/open/floor/carpet/red,
 /area/centcom/control)
-"DD" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "SER";
-	name = "South Events Wing Right"
-	},
-/turf/open/floor/iron/textured_large,
-/area/centcom/control)
 "DF" = (
 /obj/machinery/computer/security{
 	dir = 4;
@@ -5134,14 +5120,6 @@
 	},
 /turf/open/floor/iron,
 /area/centcom/supplypod/loading/two)
-"FF" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/poddoor/shutters{
-	id = "MES";
-	name = "Maint Events Hall South"
-	},
-/turf/open/floor/iron/textured_half,
-/area/centcom/control)
 "FL" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -5804,6 +5782,7 @@
 "Jn" = (
 /obj/structure/chair/sofa/corp/right,
 /obj/machinery/light/directional/west,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
@@ -5920,6 +5899,15 @@
 	dir = 10
 	},
 /turf/open/floor/iron/half{
+	dir = 1
+	},
+/area/centcom/control)
+"JZ" = (
+/obj/structure/chair/sofa/corp/right{
+	dir = 1
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron/dark/textured_half{
 	dir = 1
 	},
 /area/centcom/control)
@@ -6284,17 +6272,6 @@
 	},
 /turf/open/floor/iron/dark/textured_large,
 /area/centcom/control)
-"Mn" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "MEN";
-	name = "Maint Events Hall North"
-	},
-/turf/open/floor/iron/textured_half,
-/area/centcom/control)
 "Mq" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -6410,17 +6387,6 @@
 	dir = 1
 	},
 /turf/open/floor/iron,
-/area/centcom/control)
-"Nf" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "MES";
-	name = "Maint Events Hall South"
-	},
-/turf/open/floor/iron/textured_half,
 /area/centcom/control)
 "Ni" = (
 /obj/effect/turf_decal/siding/thinplating/dark{
@@ -7074,14 +7040,6 @@
 	},
 /turf/open/floor/iron/sepia,
 /area/centcom/control)
-"RX" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/poddoor/shutters{
-	id = "MEN";
-	name = "Maint Events Hall North"
-	},
-/turf/open/floor/iron/textured_half,
-/area/centcom/control)
 "Sb" = (
 /obj/effect/turf_decal/siding/wood,
 /obj/structure/chair/comfy/black{
@@ -7092,11 +7050,19 @@
 /area/centcom/control)
 "Sc" = (
 /obj/structure/chair/office,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron,
 /area/centcom/control)
 "Sd" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/open/floor/vault,
+/area/centcom/control)
+"Sj" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 5
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron,
 /area/centcom/control)
 "Sl" = (
 /obj/effect/turf_decal/tile/neutral{
@@ -7301,6 +7267,7 @@
 	dir = 4
 	},
 /obj/structure/chair/office,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron,
 /area/centcom/control)
 "TL" = (
@@ -7490,17 +7457,6 @@
 	},
 /obj/structure/table/wood,
 /turf/open/floor/carpet/executive,
-/area/centcom/control)
-"UV" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/siding/wood{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "MES";
-	name = "Maint Events Hall South"
-	},
-/turf/open/floor/iron/textured_half,
 /area/centcom/control)
 "UW" = (
 /obj/effect/turf_decal/siding/wood,
@@ -7736,6 +7692,13 @@
 	},
 /turf/open/floor/wood,
 /area/centcom/control)
+"Wf" = (
+/obj/structure/chair/sofa/corp/left,
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/iron/dark/textured_half{
+	dir = 1
+	},
+/area/centcom/control)
 "Wi" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
@@ -7873,6 +7836,7 @@
 /obj/structure/chair/office{
 	dir = 1
 	},
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/iron,
 /area/centcom/control)
 "WK" = (
@@ -7974,16 +7938,6 @@
 	dir = 1
 	},
 /area/centcom/control)
-"Xc" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/poddoor/shutters{
-	id = "bluHall";
-	name = "Blue Hall"
-	},
-/turf/open/floor/iron/textured_half{
-	dir = 1
-	},
-/area/centcom/control)
 "Xe" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
@@ -8042,6 +7996,10 @@
 	},
 /turf/open/floor/carpet/executive,
 /area/centcom/control)
+"XC" = (
+/obj/effect/landmark/arena/end,
+/turf/open/floor/iron/smooth,
+/area/tdome/arena)
 "XE" = (
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
@@ -8074,16 +8032,6 @@
 	},
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/iron/grimy,
-/area/centcom/control)
-"XJ" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/poddoor/shutters{
-	id = "redHall";
-	name = "Red Hall"
-	},
-/turf/open/floor/iron/textured_half{
-	dir = 1
-	},
 /area/centcom/control)
 "XK" = (
 /obj/effect/turf_decal/siding/wood,
@@ -8192,14 +8140,6 @@
 	},
 /obj/structure/table,
 /turf/open/floor/iron,
-/area/centcom/control)
-"Yq" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/door/poddoor/shutters{
-	id = "SEL";
-	name = "South Events Wing Left"
-	},
-/turf/open/floor/iron/textured_large,
 /area/centcom/control)
 "Yt" = (
 /obj/effect/turf_decal/siding/wood/corner,
@@ -8373,17 +8313,6 @@
 	dir = 4
 	},
 /turf/open/floor/iron,
-/area/centcom/control)
-"ZX" = (
-/obj/effect/turf_decal/bot,
-/obj/effect/turf_decal/caution/stand_clear{
-	dir = 4
-	},
-/obj/machinery/door/poddoor/shutters{
-	id = "NER";
-	name = "North Events Wing Right"
-	},
-/turf/open/floor/iron/textured_large,
 /area/centcom/control)
 "ZY" = (
 /obj/effect/turf_decal/arrows{
@@ -16729,7 +16658,7 @@ tD
 tD
 tD
 tD
-tD
+ec
 tD
 YA
 tD
@@ -18514,7 +18443,7 @@ Mu
 YN
 Mu
 cN
-eD
+fk
 ga
 XV
 ga
@@ -18555,13 +18484,13 @@ ab
 ab
 Mu
 Td
-nM
+ja
 MW
 MW
 ga
 GS
 ga
-Rm
+Sj
 XE
 Mu
 YN
@@ -19085,7 +19014,7 @@ GS
 Mu
 GS
 Mu
-ex
+iu
 fO
 ga
 zK
@@ -19294,9 +19223,9 @@ Fz
 Vx
 SB
 Mu
-fE
-bq
-fE
+ab
+ab
+ab
 Mu
 GS
 GS
@@ -19321,9 +19250,9 @@ Mu
 GS
 GS
 Mu
-Yq
-uG
-Yq
+ab
+ab
+ab
 Mu
 jD
 LF
@@ -19562,14 +19491,14 @@ Cc
 ga
 kJ
 Pv
-xr
+JZ
 kJ
 Pv
 bm
 Jn
 Pv
 xr
-kJ
+zL
 Pv
 xr
 ga
@@ -19819,14 +19748,14 @@ Cc
 ga
 WR
 Pv
-id
+oq
 WR
 Pv
 id
-WR
+Wf
 Pv
 id
-WR
+Wf
 Pv
 id
 ga
@@ -20094,7 +20023,7 @@ ve
 ab
 ab
 ab
-ab
+QN
 Mz
 YB
 ga
@@ -20627,7 +20556,7 @@ WE
 Mu
 Mu
 GJ
-ex
+iu
 fO
 Mu
 zK
@@ -21120,7 +21049,7 @@ ga
 du
 pt
 ab
-ab
+QN
 ab
 ab
 QK
@@ -22426,7 +22355,7 @@ UY
 XR
 UY
 Zs
-ex
+iu
 fO
 ga
 zK
@@ -23711,7 +23640,7 @@ FL
 ga
 XV
 ga
-ex
+iu
 fO
 Mu
 zK
@@ -23925,7 +23854,7 @@ ab
 ab
 ab
 VN
-bu
+eY
 uC
 ab
 Ny
@@ -23944,7 +23873,7 @@ Mu
 cM
 ab
 VN
-Nf
+eY
 uC
 ab
 ab
@@ -24182,7 +24111,7 @@ ab
 ab
 ab
 gp
-RX
+ab
 jH
 ab
 VV
@@ -24201,9 +24130,9 @@ fp
 MZ
 ab
 gp
-FF
-jH
 ab
+jH
+QN
 ab
 ab
 ab
@@ -24439,7 +24368,7 @@ ab
 ab
 ab
 gp
-RX
+ab
 jH
 ab
 ab
@@ -24458,7 +24387,7 @@ ab
 ab
 ab
 gp
-FF
+ab
 jH
 ab
 ab
@@ -24696,7 +24625,7 @@ ab
 ab
 ab
 gp
-RX
+ab
 jH
 ab
 ab
@@ -24715,7 +24644,7 @@ ab
 ab
 ab
 gp
-FF
+ab
 jH
 ab
 ab
@@ -24953,7 +24882,7 @@ ab
 ab
 ab
 gp
-RX
+ab
 jH
 ab
 ab
@@ -24972,7 +24901,7 @@ ab
 ab
 ab
 gp
-FF
+ab
 jH
 ab
 ab
@@ -25210,7 +25139,7 @@ ab
 ab
 ab
 gp
-RX
+ab
 jH
 ab
 ab
@@ -25229,7 +25158,7 @@ ab
 ab
 ab
 gp
-FF
+ab
 jH
 ab
 ab
@@ -25253,7 +25182,7 @@ ga
 Mu
 mD
 CO
-ex
+iu
 gp
 eg
 NY
@@ -25467,7 +25396,7 @@ ab
 ab
 ab
 gp
-RX
+ab
 jH
 ab
 Wx
@@ -25486,7 +25415,7 @@ dq
 HF
 ab
 gp
-FF
+ab
 jH
 ab
 ab
@@ -25724,7 +25653,7 @@ ab
 ab
 ab
 ET
-Mn
+Xe
 UC
 ab
 Ny
@@ -25743,11 +25672,11 @@ Mu
 cM
 ab
 ET
-UV
+Xe
 UC
 ab
 ab
-ab
+QN
 ab
 up
 fo
@@ -26281,7 +26210,7 @@ Nq
 Mu
 XV
 Mu
-ex
+iu
 fO
 Mu
 ng
@@ -26795,7 +26724,7 @@ DW
 ga
 XV
 Mu
-ex
+iu
 Kw
 Mu
 ng
@@ -27261,9 +27190,9 @@ Mu
 Mu
 Mu
 Mu
-nU
-ZX
-nU
+ab
+ab
+ab
 Mu
 Mu
 Mu
@@ -27288,9 +27217,9 @@ Mu
 Mu
 Mu
 Mu
-rG
-DD
-rG
+ab
+ab
+ab
 Mu
 Mu
 Mu
@@ -27823,7 +27752,7 @@ Di
 Mu
 ga
 Mu
-ex
+iu
 fO
 Mu
 ng
@@ -28038,7 +27967,7 @@ ab
 fp
 fp
 MZ
-ab
+QN
 ab
 ab
 ab
@@ -28052,14 +27981,14 @@ ab
 ab
 ab
 ZM
-ab
+QN
 ab
 ab
 ab
 VV
 fp
 fp
-ab
+QN
 ab
 ab
 wb
@@ -28291,7 +28220,7 @@ ab
 ZM
 ab
 ab
-ab
+QN
 ab
 ab
 ab
@@ -28302,7 +28231,7 @@ ab
 wb
 ab
 ab
-ho
+xo
 ab
 ab
 ho
@@ -28323,7 +28252,7 @@ wb
 ab
 ab
 ab
-ab
+QN
 ab
 ab
 ab
@@ -28543,7 +28472,7 @@ ab
 ab
 ab
 ab
-ab
+QN
 ab
 ZM
 ab
@@ -28583,18 +28512,18 @@ ab
 ab
 ab
 ab
-ab
+QN
 VV
 fp
 fp
 MZ
-ab
+QN
 ab
 Ny
 Zs
 ab
 ab
-ab
+QN
 fO
 Mu
 ng
@@ -28849,7 +28778,7 @@ ab
 ab
 Ny
 Zs
-ab
+QN
 Wx
 dq
 ZF
@@ -31933,7 +31862,7 @@ hD
 hD
 hD
 hD
-hD
+iH
 Ar
 zK
 zK
@@ -48061,7 +47990,7 @@ zK
 zK
 zK
 Ar
-hD
+XC
 hD
 hD
 hD
@@ -54285,7 +54214,7 @@ mf
 ew
 YQ
 KT
-GS
+Bo
 Mu
 MC
 zK
@@ -55531,8 +55460,8 @@ Mu
 Mu
 Mu
 Mu
-Xc
-Xc
+jH
+gp
 Mu
 Mu
 Mu
@@ -55559,8 +55488,8 @@ Mu
 Mu
 Mu
 Mu
-XJ
-XJ
+jH
+gp
 Mu
 Mu
 Mu
