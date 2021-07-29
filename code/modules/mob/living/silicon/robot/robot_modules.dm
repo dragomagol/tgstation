@@ -256,6 +256,8 @@
 	radio_channels = list(RADIO_CHANNEL_ENGINEERING)
 	emag_modules = list(/obj/item/borg/stun)
 	cyborg_base_icon = "engineer"
+	greyscale_config = /datum/greyscale_config/engineering_borg
+	greyscale_colors = "#555555"
 	model_select_icon = "engineer"
 	magpulsing = TRUE
 	hat_offset = -4

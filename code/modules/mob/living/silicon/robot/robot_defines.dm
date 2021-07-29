@@ -168,6 +168,8 @@
 /mob/living/silicon/robot/model/engineering
 	set_model = /obj/item/robot_model/engineering
 	icon_state = "engineer"
+	greyscale_config = /datum/greyscale_config/engineering_borg
+	greyscale_colors = "#555555"
 
 // --------------------- Janitor
 /mob/living/silicon/robot/model/janitor

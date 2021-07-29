@@ -1,0 +1,21 @@
+{
+    "engineer": [
+        {
+            "type": "icon_state",
+            "icon_state": "machinery",
+            "blend_mode": "overlay"
+        },
+		{
+            "type": "icon_state",
+            "icon_state": "cover",
+            "blend_mode": "overlay",
+			"color_ids": [ 1 ]
+        },
+		{
+            "type": "icon_state",
+            "icon_state": "trim",
+            "blend_mode": "overlay",
+			"color_ids": [ 2 ]
+        }
+    ]
+}

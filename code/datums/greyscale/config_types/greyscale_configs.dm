@@ -373,3 +373,7 @@
 
 /datum/greyscale_config/janicart_upgrade/installed
 	json_config = 'code/datums/greyscale/json_configs/janicart_upgrade_installed.json'
+
+/datum/greyscale_config/engineering_borg
+	icon_file = 'icons/mob/robots.dmi'
+	json_config = 'code/datums/greyscale/json_configs/engiborg.json'
