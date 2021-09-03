@@ -311,18 +311,66 @@
 	. = ..()
 	update_appearance()
 
+/**
+ * Checks if we are allowed to interact with a radial menu
+ *
+ * Arguments:
+ * * user The mob interacting with the menu
+ */
+/obj/item/rcl/proc/check_menu(mob/user)
+	if(!istype(user))
+		return FALSE
+	if(!user.is_holding(src))
+		return FALSE
+	if(user.incapacitated())
+		return FALSE
+	return TRUE
+
 /obj/item/rcl/ui_action_click(mob/user, action)
+	// Choose color
 	if(istype(action, /datum/action/item_action/rcl_col))
-		current_color_index++;
-		if (current_color_index > colors.len)
-			current_color_index = 1
-		var/cwname = colors[current_color_index]
-		to_chat(user, "Color changed to [cwname]!")
+		var/icon/pipecleaner = new('icons/obj/power.dmi')
+
+		var/list/possible_colors = list(
+			"black" = image(icon = pipecleaner.Blend(COLOR_ALMOST_BLACK), icon_state = "pipecleaner"),
+			"blue" = image(icon = pipecleaner.Blend(COLOR_BLUE), icon_state = "pipecleaner"),
+			"green" = image(icon = pipecleaner.Blend(COLOR_VIBRANT_LIME), icon_state = "pipecleaner"),
+			"red" = image(icon = pipecleaner.Blend(COLOR_RED), icon_state = "pipecleaner"),
+			"violet" = image(icon = pipecleaner.Blend(COLOR_MAGENTA), icon_state = "pipecleaner"),
+			"white" = image(icon = pipecleaner.Blend(COLOR_WHITE), icon_state = "pipecleaner"),
+			"yellow" = image(icon = pipecleaner.Blend(COLOR_YELLOW), icon_state = "pipecleaner")
+			)
+		var/picked_color = show_radial_menu(user, src, possible_colors, custom_check = CALLBACK(src, .proc/check_menu, user), radius = 38, require_near = TRUE)
+		// switch(picked_color)
+		// 	if("black")
+		// 		paint_color = COLOR_ALMOST_BLACK
+		// 	if("blue")
+		// 		paint_color = COLOR_BLUE
+		// 	if("green")
+		// 		paint_color = COLOR_VIBRANT_LIME
+		// 	if("red")
+		// 		paint_color = COLOR_RED
+		// 	if("violet")
+		// 		paint_color = COLOR_MAGENTA
+		// 	if("white")
+		// 		paint_color = COLOR_WHITE
+		// 	if("yellow")
+		// 		paint_color = COLOR_YELLOW
+		// 	else
+		// 		return
+
+		// current_color_index++;
+		// if (current_color_index > colors.len)
+		// 	current_color_index = 1
+		// var/cwname = colors[current_color_index]
+		// to_chat(user, "Color changed to [cwname]!")
 		if(loaded)
 			loaded.color = GLOB.pipe_cleaner_colors[colors[current_color_index]]
 			loaded.update_appearance()
 		if(wiring_gui_menu)
 			wiringGuiUpdate(user)
+
+	// Choose orientation
 	else if(istype(action, /datum/action/item_action/rcl_gui))
 		if(wiring_gui_menu) //The menu is already open, close it
 			QDEL_NULL(wiring_gui_menu)
