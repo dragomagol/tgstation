@@ -618,9 +618,6 @@
 /obj/structure/closet/cabinet
 	door_anim_time = 0
 
-/obj/structure/closet/acloset
-	door_anim_time = 0
-
 /obj/structure/closet/secure_closet/bar
 	door_anim_time = 0
 
