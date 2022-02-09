@@ -22272,6 +22272,9 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/maintenance)
 "bmq" = (
@@ -22292,6 +22295,9 @@
 	cyclelinkeddir = 8;
 	name = "Service Atmospherics Checkpoint";
 	req_access_txt = "24"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance)
@@ -26583,6 +26589,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/maintenance)
 "buI" = (
@@ -26601,6 +26610,9 @@
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 4
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/maintenance)
@@ -38271,6 +38283,9 @@
 	cyclelinkeddir = 8
 	},
 /obj/effect/turf_decal/sand/plating,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
 /turf/open/floor/plating,
 /area/maintenance)
 "bWt" = (
@@ -41589,12 +41604,12 @@
 /obj/machinery/door/airlock/external/glass{
 	cyclelinkeddir = 2
 	},
-/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/cable,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/hallway/primary/starboard)
+/area/maintenance/disposal)
 "cga" = (
 /obj/machinery/light/small/directional/east,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -56650,6 +56665,9 @@
 /obj/machinery/door/airlock/external/glass{
 	cyclelinkeddir = 8
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/maintenance)
 "cRf" = (
@@ -57313,6 +57331,9 @@
 	cyclelinkeddir = 8
 	},
 /obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/ruin/space/derelict{
 	valid_territory = 0
@@ -68331,6 +68352,15 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/open/floor/iron/grimy,
 /area/service/chapel/office)
+"jZi" = (
+/obj/machinery/door/airlock/external/glass{
+	cyclelinkeddir = 2
+	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
+/obj/structure/disposalpipe/segment,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plating,
+/area/hallway/primary/starboard)
 "kaE" = (
 /turf/open/floor/circuit/green{
 	dir = 9
@@ -69009,6 +69039,18 @@
 	dir = 10
 	},
 /area/shuttle/syndicate)
+"nfr" = (
+/obj/machinery/door/airlock/external/glass{
+	cyclelinkeddir = 8
+	},
+/obj/structure/barricade/wooden,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/ruin/space/derelict{
+	valid_territory = 0
+	})
 "nkk" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/open/floor/iron/white,
@@ -70059,6 +70101,17 @@
 /obj/machinery/recharge_station,
 /turf/open/floor/iron/grimy,
 /area/cargo/miningdock)
+"rqH" = (
+/obj/machinery/door/airlock/external/glass{
+	cyclelinkeddir = 8
+	},
+/obj/structure/barricade/wooden,
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance)
 "rux" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -70793,6 +70846,7 @@
 	cyclelinkeddir = 2
 	},
 /obj/structure/cable,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "udQ" = (
@@ -71545,6 +71599,15 @@
 /obj/item/storage/toolbox/mechanical/old,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
+"wZI" = (
+/obj/machinery/door/airlock/external/glass{
+	cyclelinkeddir = 8
+	},
+/obj/structure/barricade/wooden,
+/obj/effect/turf_decal/sand/plating,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plating,
+/area/maintenance)
 "xbV" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating,
@@ -76908,7 +76971,7 @@ aad
 aad
 cTw
 cTy
-cTB
+nfr
 cTz
 cTE
 cTC
@@ -83205,7 +83268,7 @@ cKv
 cKx
 cKy
 cpo
-cRc
+chl
 djz
 djR
 djF
@@ -92401,7 +92464,7 @@ djE
 djE
 djW
 djz
-bWs
+cgy
 djz
 djW
 djW
@@ -95111,7 +95174,7 @@ abC
 cCF
 uai
 cGl
-uai
+cfZ
 myR
 kQd
 xZk
@@ -106544,12 +106607,12 @@ djE
 djE
 cRr
 cYu
-bZN
+wZI
 cRw
 djA
 djA
 djA
-bZN
+rqH
 cYx
 cYC
 cYH
@@ -118091,7 +118154,7 @@ bcP
 bMu
 aem
 bOI
-bPO
+jZi
 bQP
 bPO
 bSA
