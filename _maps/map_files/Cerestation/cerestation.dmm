@@ -22183,12 +22183,12 @@
 /turf/open/floor/plating,
 /area/engineering/supermatter)
 "bnT" = (
-/obj/machinery/door/airlock/engineering/glass{
-	name = "Laser Room";
-	req_access_txt = "10"
-	},
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Laser Room";
+	req_one_access_txt = "10;24"
+	},
 /turf/open/floor/plating,
 /area/engineering/supermatter)
 "bnU" = (
@@ -24885,8 +24885,8 @@
 /turf/open/floor/plating,
 /area/engineering/supermatter/room)
 "btA" = (
-/obj/machinery/power/energy_accumulator/grounding_rod,
 /obj/structure/cable,
+/obj/machinery/power/energy_accumulator/grounding_rod/anchored,
 /turf/open/floor/engine{
 	name = "reinforced floor"
 	},
@@ -26015,7 +26015,7 @@
 	layer = 2.6;
 	name = "Emergency Lockdown Blastdoor"
 	},
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/reinforced/plasma,
 /turf/open/floor/plating,
 /area/engineering/break_room)
 "bwu" = (
@@ -26025,12 +26025,6 @@
 	id = "engineeringlockdown";
 	layer = 2.6;
 	name = "Emergency Lockdown Blastdoor"
-	},
-/obj/machinery/door/airlock/engineering{
-	cyclelinkeddir = null;
-	name = "Engineering Foyer";
-	req_access_txt = "0";
-	req_one_access_txt = "10;24"
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -26047,6 +26041,10 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering/glass{
+	name = "Engineering Foyer";
+	req_one_access_txt = "32;19"
+	},
 /turf/open/floor/iron,
 /area/engineering/break_room)
 "bwy" = (
@@ -26471,12 +26469,12 @@
 /area/engineering/supermatter/room)
 "bxz" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/engineering/glass{
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;
 	name = "Supermatter Chamber";
-	req_access_txt = "10"
+	req_one_access_txt = "10;24"
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/engine{
 	name = "reinforced floor"
 	},
@@ -27278,13 +27276,13 @@
 /turf/closed/wall/r_wall,
 /area/engineering/supermatter/room)
 "bzB" = (
-/obj/machinery/door/airlock/engineering/glass{
-	heat_proof = 1;
-	name = "Supermatter Chamber";
-	req_access_txt = "10"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
+	},
+/obj/machinery/door/airlock/engineering/glass/critical{
+	heat_proof = 1;
+	name = "Supermatter Chamber";
+	req_one_access_txt = "10;24"
 	},
 /turf/open/floor/engine{
 	name = "reinforced floor"
@@ -29135,11 +29133,11 @@
 /turf/open/floor/plating,
 /area/engineering/supermatter)
 "bEg" = (
+/obj/machinery/door/firedoor/heavy,
 /obj/machinery/door/airlock/engineering/glass{
 	name = "Supermatter Engine Room";
-	req_access_txt = "10"
+	req_one_access_txt = "10;24"
 	},
-/obj/machinery/door/firedoor/heavy,
 /turf/open/floor/plating,
 /area/engineering/supermatter)
 "bEh" = (
@@ -30283,10 +30281,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j1"
-	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -30295,14 +30289,12 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/structure/disposalpipe/junction{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/break_room)
 "bGT" = (
-/obj/machinery/door/airlock/engineering{
-	cyclelinkeddir = null;
-	name = "Engine Room";
-	req_access_txt = "10;11"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
@@ -30324,6 +30316,10 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering{
+	name = "Engine Room";
+	req_one_access_txt = "10;24"
+	},
 /turf/open/floor/iron,
 /area/engineering/supermatter)
 "bGU" = (
@@ -30426,11 +30422,6 @@
 /turf/open/floor/iron,
 /area/engineering/supermatter)
 "bHf" = (
-/obj/machinery/door/airlock/engineering{
-	cyclelinkeddir = null;
-	name = "Engine Room";
-	req_access_txt = "10;11"
-	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
 	},
@@ -30455,15 +30446,15 @@
 	},
 /obj/structure/cable,
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/engineering{
+	name = "Engine Room";
+	req_one_access_txt = "10;24"
+	},
 /turf/open/floor/iron,
 /area/engineering/supermatter)
 "bHg" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4{
 	dir = 4
-	},
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j1"
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -30475,6 +30466,9 @@
 	dir = 4
 	},
 /obj/structure/cable,
+/obj/structure/disposalpipe/junction{
+	dir = 4
+	},
 /turf/open/floor/iron,
 /area/engineering/break_room)
 "bHh" = (
@@ -35004,6 +34998,7 @@
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
 	},
+/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plating,
 /area/engineering/engine_smes)
 "bTj" = (
@@ -35204,10 +35199,6 @@
 /turf/open/floor/iron,
 /area/engineering/atmos)
 "bTJ" = (
-/turf/open/floor/plating,
-/area/engineering/engine_smes)
-"bTK" = (
-/obj/machinery/portable_atmospherics/canister/plasma,
 /turf/open/floor/plating,
 /area/engineering/engine_smes)
 "bTL" = (
@@ -52573,13 +52564,12 @@
 /obj/structure/sign/warning/enginesafety{
 	pixel_y = -32
 	},
-/obj/structure/disposalpipe/junction{
-	dir = 4;
-	icon_state = "pipe-j1"
-	},
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
+	},
+/obj/structure/disposalpipe/junction{
+	dir = 4
 	},
 /turf/open/floor/iron,
 /area/engineering/supermatter)
@@ -105131,7 +105121,7 @@ bQJ
 bRH
 bSz
 bTl
-bTK
+bTJ
 bUz
 bND
 bZN
