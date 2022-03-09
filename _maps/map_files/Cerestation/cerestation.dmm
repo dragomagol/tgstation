@@ -11336,11 +11336,7 @@
 /turf/open/floor/iron/dark,
 /area/cargo/warehouse)
 "aLq" = (
-/obj/machinery/quantumpad{
-	map_pad_id = "cargo-port";
-	map_pad_link_id = "security-aft";
-	name = "Security Quantum Pad"
-	},
+/obj/machinery/quantumpad,
 /turf/open/floor/iron/dark,
 /area/cargo/warehouse)
 "aLr" = (
@@ -39587,11 +39583,7 @@
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
 "ckj" = (
-/obj/machinery/quantumpad{
-	map_pad_id = "science-starboard";
-	map_pad_link_id = "arrivals-port";
-	name = "Arrivals Quantum Pad"
-	},
+/obj/machinery/quantumpad,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/aft)
 "ckk" = (
@@ -60974,11 +60966,7 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "eJy" = (
-/obj/machinery/quantumpad{
-	map_pad_id = "arrivals-port";
-	map_pad_link_id = "science-starboard";
-	name = "Science Quantum Pad"
-	},
+/obj/machinery/quantumpad,
 /turf/open/floor/iron/dark,
 /area/hallway/secondary/entry)
 "eJL" = (
@@ -63232,12 +63220,7 @@
 /turf/open/floor/iron/grimy,
 /area/cargo/warehouse)
 "kEb" = (
-/obj/machinery/quantumpad{
-	map_pad_id = "security-aft";
-	map_pad_link_id = "cargo-port";
-	name = "Cargo Quantum Pad"
-	},
-/obj/effect/baseturf_helper/asteroid,
+/obj/machinery/quantumpad,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/fore)
 "kEr" = (
