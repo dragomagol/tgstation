@@ -65114,22 +65114,6 @@
 	},
 /turf/closed/mineral/random/stationside/asteroid/porus,
 /area/maintenance/department/medical)
-"pcm" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment,
-/obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 4;
-	height = 17;
-	id = "arrivals_stationary";
-	name = "arrivals";
-	roundstart_template = /datum/map_template/shuttle/arrival/cere;
-	width = 9
-	},
-/turf/open/floor/iron,
-/area/hallway/secondary/entry)
 "pcA" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1;
@@ -115130,8 +115114,8 @@ cwc
 czU
 czU
 cyy
-pcm
-pcm
+czU
+czU
 czU
 czU
 cAM
@@ -122425,7 +122409,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+cFp
 aaa
 aaa
 aaa
