@@ -4,10 +4,10 @@
 	"map_path": "map_files/Cerestation",
 	"map_file": "cerestation.dmm",
 	"shuttles": {
-		"arrival": "arrival_cere",
+		"arrival": "arrival_box",
 		"emergency": "emergency_cere",
 		"ferry": "ferry_fancy",
-		"cargo": "cargo_cere",
+		"cargo": "cargo_box",
 		"whiteship": "whiteship_cere"
 	},
 	"traits": [
