@@ -799,11 +799,8 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "ads" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
-	},
 /obj/machinery/light/directional/west,
+/obj/machinery/porta_turret/ai,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "adt" = (
@@ -812,11 +809,8 @@
 /turf/open/floor/iron,
 /area/security/brig/upper)
 "adv" = (
-/obj/machinery/porta_turret/ai{
-	dir = 4;
-	installation = /obj/item/gun/energy/e_gun
-	},
 /obj/machinery/light/directional/east,
+/obj/machinery/porta_turret/ai,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "adC" = (
@@ -19724,7 +19718,8 @@
 /area/maintenance/port/fore)
 "bjm" = (
 /obj/machinery/conveyor/auto{
-	dir = 6
+	dir = 6;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -35746,8 +35741,9 @@
 /area/maintenance/department/medical)
 "bXI" = (
 /obj/machinery/light/small/directional/east,
-/obj/machinery/conveyor/inverted{
-	dir = 10
+/obj/machinery/conveyor/auto{
+	dir = 10;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -35922,8 +35918,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "bYl" = (
-/obj/machinery/conveyor/inverted{
-	dir = 10
+/obj/machinery/conveyor/auto{
+	dir = 10;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -37449,26 +37446,21 @@
 /turf/closed/wall,
 /area/hallway/secondary/exit/departure_lounge)
 "cdV" = (
-/obj/machinery/door/airlock/external{
-	cyclelinkeddir = 8;
-	name = "Supply Dock Airlock";
-	req_access_txt = "31"
+/obj/docking_port/stationary{
+	dir = 2;
+	dwidth = 4;
+	height = 17;
+	id = "arrivals_stationary";
+	name = "arrivals";
+	roundstart_template = /datum/map_template/shuttle/arrival/box;
+	width = 9
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/cargo/storage)
+/turf/open/space,
+/area/space)
 "cdW" = (
-/obj/machinery/door/airlock/external{
-	cyclelinkeddir = 4;
-	name = "Supply Dock Airlock";
-	req_access_txt = "31"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
-/turf/open/floor/plating,
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/random/structure/tank_holder,
+/turf/open/floor/iron,
 /area/cargo/storage)
 "cdX" = (
 /obj/machinery/door/airlock/external/glass{
@@ -41250,6 +41242,9 @@
 	dir = 8
 	},
 /obj/structure/cable,
+/obj/structure/disposalpipe/junction/flip{
+	dir = 8
+	},
 /turf/open/floor/iron,
 /area/hallway/primary/aft)
 "coG" = (
@@ -47467,8 +47462,9 @@
 /turf/open/floor/iron/grimy,
 /area/maintenance/aft/lesser)
 "cDm" = (
-/obj/machinery/conveyor/inverted{
-	dir = 9
+/obj/machinery/conveyor/auto{
+	dir = 9;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -47499,8 +47495,9 @@
 /turf/open/floor/plating,
 /area/maintenance/aft/lesser)
 "cDE" = (
-/obj/machinery/conveyor/inverted{
-	dir = 10
+/obj/machinery/conveyor/auto{
+	dir = 10;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft/lesser)
@@ -47521,8 +47518,9 @@
 /area/maintenance/aft/upper)
 "cDN" = (
 /obj/machinery/light/small/directional/south,
-/obj/machinery/conveyor/inverted{
-	dir = 9
+/obj/machinery/conveyor/auto{
+	dir = 9;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -48958,7 +48956,8 @@
 /area/maintenance/department/security)
 "cHY" = (
 /obj/machinery/conveyor/auto{
-	dir = 10
+	dir = 10;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
@@ -54997,8 +54996,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "djz" = (
-/turf/closed/wall,
-/area/maintenance)
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/random/structure/crate,
+/turf/open/floor/iron,
+/area/cargo/storage)
 "djB" = (
 /obj/machinery/light/small/directional/south,
 /turf/open/floor/plating,
@@ -60788,6 +60789,12 @@
 /obj/structure/cable,
 /turf/open/floor/iron/white,
 /area/science/genetics)
+"eBK" = (
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/obj/effect/turf_decal/delivery,
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/iron,
+/area/cargo/storage)
 "eCc" = (
 /obj/effect/baseturf_helper/asteroid,
 /obj/effect/turf_decal/sand/plating,
@@ -63142,6 +63149,11 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
+"kFg" = (
+/obj/effect/turf_decal/delivery,
+/obj/structure/reagent_dispensers/watertank/high,
+/turf/open/floor/iron,
+/area/cargo/storage)
 "kGq" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat/foyer)
@@ -63522,7 +63534,8 @@
 /area/maintenance/aft/upper)
 "lLO" = (
 /obj/machinery/conveyor/auto{
-	dir = 6
+	dir = 6;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -63667,8 +63680,9 @@
 /area/hallway/primary/fore)
 "lZv" = (
 /obj/machinery/light/small/directional/west,
-/obj/machinery/conveyor/inverted{
-	dir = 5
+/obj/machinery/conveyor/auto{
+	dir = 5;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -65365,13 +65379,12 @@
 /area/maintenance/port/aft)
 "pEU" = (
 /obj/docking_port/stationary{
-	dir = 2;
-	dwidth = 4;
-	height = 17;
-	id = "arrivals_stationary";
-	name = "arrivals";
-	roundstart_template = /datum/map_template/shuttle/arrival/cere;
-	width = 9
+	dir = 4;
+	dwidth = 5;
+	height = 7;
+	id = "supply_home";
+	name = "Cargo Bay";
+	width = 12
 	},
 /turf/open/space,
 /area/space)
@@ -65623,8 +65636,9 @@
 /area/hallway/primary/fore)
 "qar" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/conveyor/inverted{
-	dir = 6
+/obj/machinery/conveyor/auto{
+	dir = 6;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
@@ -66175,6 +66189,11 @@
 /obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plating,
 /area/maintenance/external/aft)
+"rqP" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/spawner/random/structure/crate_abandoned,
+/turf/open/floor/iron,
+/area/cargo/storage)
 "rrd" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -66969,16 +66988,8 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "twZ" = (
-/obj/docking_port/stationary{
-	dir = 8;
-	dwidth = 5;
-	height = 7;
-	id = "supply_home";
-	name = "Cargo Bay";
-	width = 12
-	},
-/turf/open/space/basic,
-/area/space)
+/turf/closed/mineral/random/stationside/asteroid/porus,
+/area/science/misc_lab)
 "tyc" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/sand/plating,
@@ -67005,8 +67016,9 @@
 /turf/open/floor/plating,
 /area/maintenance/external/aft)
 "tDA" = (
-/obj/machinery/conveyor/inverted{
-	dir = 6
+/obj/machinery/conveyor/auto{
+	dir = 6;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
@@ -67603,8 +67615,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "uXC" = (
-/obj/machinery/conveyor/inverted{
-	dir = 5
+/obj/machinery/conveyor/auto{
+	dir = 5;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
@@ -68636,7 +68649,8 @@
 /area/maintenance/port/aft)
 "xEp" = (
 /obj/machinery/conveyor/auto{
-	dir = 10
+	dir = 10;
+	flipped = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
@@ -89416,8 +89430,8 @@ cxq
 cym
 cxq
 vZg
-djz
-jFA
+cpw
+twZ
 cxo
 cGc
 cBl
@@ -89673,8 +89687,8 @@ cxr
 cRB
 cza
 aXE
-djz
-jFA
+cpw
+twZ
 cxo
 cxo
 cxo
@@ -111512,18 +111526,18 @@ aaa
 aaa
 aaa
 aaa
-cmf
-cup
-cup
-cmf
+csG
+cuo
+cuo
+csG
 aaa
 aaa
 aaa
 aaa
-cmf
-cup
-cup
-cmf
+csG
+cuo
+cuo
+csG
 aaa
 aaa
 aaa
@@ -111769,18 +111783,18 @@ aaa
 aaa
 aaa
 aaa
+cmf
+cup
+cup
+cmf
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+cmf
+cup
+cup
+cmf
 aaa
 aaa
 aaa
@@ -112795,9 +112809,9 @@ crL
 csG
 aaa
 aaa
-pEU
 aaa
 aaa
+cdV
 aaa
 aaa
 aaa
@@ -113825,18 +113839,18 @@ aaa
 aaa
 aaa
 aaa
+cmf
+cun
+cun
+cmf
 aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+cmf
+cun
+cun
+cmf
 aaa
 aaa
 aaa
@@ -114082,18 +114096,18 @@ aaa
 aaa
 aaa
 aaa
-cmf
-cun
-cun
-cmf
+csG
+cuo
+cuo
+csG
 aaa
 aaa
 aaa
 aaa
-cmf
-cun
-cun
-cmf
+csG
+cuo
+cuo
+csG
 aaa
 aaa
 aaa
@@ -121123,7 +121137,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+pEU
 aaa
 aaa
 aaa
@@ -122409,7 +122423,7 @@ aaa
 aaa
 aaa
 aaa
-cFp
+aaa
 aaa
 aaa
 aaa
@@ -122667,7 +122681,7 @@ aaa
 aaa
 aaa
 aaa
-twZ
+aaa
 aaa
 aaa
 aaa
@@ -122921,11 +122935,11 @@ ati
 axs
 axs
 axs
-arg
-cdW
-axs
-cdW
-arg
+aaa
+aaa
+aaa
+aaa
+aaa
 axs
 axs
 axs
@@ -123178,11 +123192,11 @@ anw
 aoy
 auf
 axs
-aBp
-aBp
 axs
-aBp
-aBp
+axs
+axs
+axs
+axs
 axs
 axl
 ayO
@@ -123434,13 +123448,13 @@ aZO
 anx
 aoB
 auf
-axs
-cdV
-cdV
-axs
-cdV
-cdV
-axs
+auf
+auf
+avu
+auf
+auf
+auf
+auf
 auf
 auf
 aAd
@@ -123692,11 +123706,11 @@ ati
 mJv
 auf
 auf
-auf
-avu
+kFg
+eBK
 ata
-auf
-auf
+arj
+djz
 auf
 auf
 auf
@@ -124206,10 +124220,10 @@ ati
 aoE
 auf
 auf
-arj
+cdW
 arj
 auf
-arj
+rqP
 arj
 auf
 axm
