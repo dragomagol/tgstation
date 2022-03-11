@@ -43542,6 +43542,7 @@
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_x = 32
 	},
+/obj/machinery/atmospherics/components/binary/tank_compressor,
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "cts" = (
@@ -49846,9 +49847,6 @@
 /turf/open/floor/iron,
 /area/science/mixing)
 "cKy" = (
-/obj/structure/closet/l3closet/scientist{
-	pixel_x = -2
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -61123,6 +61121,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/commons/fitness/recreation)
 "fKg" = (
@@ -61279,6 +61278,12 @@
 "gow" = (
 /turf/closed/wall/r_wall,
 /area/security/brig/upper)
+"goI" = (
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable,
+/obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
+/turf/open/floor/iron,
+/area/commons/fitness/recreation)
 "gqd" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/iron/grimy,
@@ -61396,6 +61401,22 @@
 	info = "Yeah sorry bud, you're gonna have to go put the bomb out there manually."
 	},
 /obj/item/crowbar,
+/obj/item/computer_hardware/hard_drive/portable{
+	pixel_x = -2
+	},
+/obj/item/computer_hardware/hard_drive/portable{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/computer_hardware/hard_drive/portable,
+/obj/item/computer_hardware/hard_drive/portable{
+	pixel_x = -5;
+	pixel_y = 8
+	},
+/obj/item/computer_hardware/hard_drive/portable{
+	pixel_x = -8;
+	pixel_y = -3
+	},
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "gIL" = (
@@ -63718,8 +63739,8 @@
 /turf/open/floor/plating/asteroid,
 /area/maintenance/starboard/greater)
 "meF" = (
-/obj/machinery/research,
 /obj/machinery/light/small/directional/west,
+/obj/machinery/research/anomaly_refinery,
 /turf/open/floor/iron/white,
 /area/science/mixing)
 "mfJ" = (
@@ -82956,7 +82977,7 @@ bXo
 bXo
 bOZ
 bXo
-bXo
+goI
 fJO
 cbt
 cbJ
@@ -103501,7 +103522,7 @@ fkH
 bRE
 bND
 bTi
-bTJ
+bUv
 bUv
 bND
 bZN
