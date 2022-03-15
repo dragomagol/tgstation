@@ -3580,7 +3580,7 @@
 "aoW" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
-/area/hallway/primary/central)
+/area/hallway/primary/starboard)
 "aoY" = (
 /obj/structure/dresser,
 /obj/structure/cable,
@@ -10943,8 +10943,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/structure/cable,
-/obj/machinery/power/apc/auto_name/directional/north,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "aKu" = (
@@ -11298,7 +11296,6 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4,
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "aLq" = (
@@ -11619,7 +11616,6 @@
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "aMn" = (
@@ -12001,7 +11997,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "aNs" = (
@@ -12021,7 +12016,6 @@
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "aNt" = (
@@ -12273,7 +12267,6 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/obj/structure/cable,
 /turf/open/floor/iron/dark,
 /area/hallway/primary/starboard)
 "aOh" = (
@@ -23230,9 +23223,7 @@
 /turf/open/floor/plating,
 /area/commons/storage/primary)
 "brz" = (
-/obj/machinery/door/airlock/external/glass{
-	cyclelinkeddir = 8
-	},
+/obj/machinery/door/airlock/external/glass,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -37098,9 +37089,6 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
@@ -37986,7 +37974,6 @@
 /area/hallway/primary/aft)
 "cgd" = (
 /obj/machinery/door/airlock/external{
-	cyclelinkeddir = 1;
 	name = "Construction Zone";
 	req_access = null;
 	req_access_txt = "0";
@@ -39412,9 +39399,6 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "ckM" = (
 /obj/machinery/door/airlock/external/glass,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 4
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
 	},
@@ -43187,7 +43171,6 @@
 "ctc" = (
 /obj/effect/turf_decal/sand/plating,
 /obj/machinery/door/airlock/engineering{
-	cyclelinkeddir = 1;
 	name = "Auxillary Base Construction";
 	req_access_txt = "0";
 	req_one_access_txt = "32;47;48"
@@ -52151,9 +52134,7 @@
 /turf/open/floor/plating,
 /area/maintenance/external/port)
 "cTB" = (
-/obj/machinery/door/airlock/external/glass{
-	cyclelinkeddir = 8
-	},
+/obj/machinery/door/airlock/external/glass,
 /obj/structure/barricade/wooden,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -52871,7 +52852,7 @@
 /obj/structure/disposalpipe/segment,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
-/area/hallway/primary/central)
+/area/hallway/primary/starboard)
 "cWs" = (
 /obj/structure/chair/wood,
 /obj/structure/cable,
@@ -52899,7 +52880,7 @@
 	c_tag = "Medbay-Cargo Bridge"
 	},
 /turf/open/floor/engine,
-/area/hallway/primary/central)
+/area/hallway/primary/starboard)
 "cWC" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -60661,6 +60642,9 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/fore/greater)
+"eJh" = (
+/turf/open/floor/engine,
+/area/hallway/primary/starboard)
 "eJy" = (
 /obj/machinery/quantumpad,
 /turf/open/floor/iron/dark,
@@ -60951,7 +60935,7 @@
 /obj/machinery/light/directional/east,
 /obj/structure/cable,
 /turf/open/floor/engine,
-/area/hallway/primary/central)
+/area/hallway/primary/starboard)
 "fHO" = (
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
@@ -60992,6 +60976,9 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space/basic,
 /area/space/nearstation)
+"fMD" = (
+/turf/closed/wall/r_wall,
+/area/hallway/primary/starboard)
 "fOI" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -61419,6 +61406,10 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/open/floor/iron/white,
 /area/science/lab)
+"gTv" = (
+/obj/effect/landmark/event_spawn,
+/turf/open/floor/engine,
+/area/hallway/primary/starboard)
 "gTA" = (
 /turf/closed/wall/rust,
 /area/commons/fitness)
@@ -62698,6 +62689,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating,
 /area/hallway/primary/starboard)
+"jEQ" = (
+/obj/structure/girder,
+/obj/effect/spawner/structure/window/hollow/reinforced/middle{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/hallway/primary/starboard)
 "jFA" = (
 /turf/closed/mineral/random/stationside/asteroid/porus,
 /area/maintenance)
@@ -63044,9 +63042,7 @@
 /area/maintenance/fore/greater)
 "kqC" = (
 /obj/structure/barricade/wooden,
-/obj/machinery/door/airlock/external/glass{
-	cyclelinkeddir = 8
-	},
+/obj/machinery/door/airlock/external/glass,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "krn" = (
@@ -63804,6 +63800,10 @@
 /obj/machinery/light/small/directional/east,
 /turf/open/floor/plating/asteroid,
 /area/maintenance/department/engine)
+"mgg" = (
+/obj/structure/cable,
+/turf/open/floor/engine,
+/area/hallway/primary/starboard)
 "mhg" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -68113,6 +68113,12 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/fore/greater)
+"vAc" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/middle{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/hallway/primary/starboard)
 "vAH" = (
 /obj/machinery/atmospherics/pipe/smart/manifold4w/supply/hidden/layer4,
 /obj/effect/baseturf_helper/asteroid,
@@ -69172,6 +69178,10 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/primary/fore)
+"ybp" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/engine,
+/area/hallway/primary/starboard)
 "ybP" = (
 /turf/closed/mineral/random/low_chance,
 /area/maintenance/external/aft)
@@ -120489,20 +120499,20 @@ aZq
 aZq
 aZq
 aZq
-xXK
-xXK
-xXK
-xXK
-biL
-xXK
-xXK
-xXK
-xXK
-biL
-xXK
-xXK
-xXK
-xXK
+vAc
+vAc
+vAc
+vAc
+fMD
+vAc
+vAc
+vAc
+vAc
+fMD
+vAc
+vAc
+vAc
+vAc
 aZq
 aZq
 aZq
@@ -120746,20 +120756,20 @@ xzO
 aWL
 aWT
 cIr
-cIm
-cIm
-cIm
-cIm
+ybp
+ybp
+ybp
+ybp
 cWp
 cWp
 cWp
 cWp
 cWp
 cWx
-cIm
-cIm
-cIm
-cIm
+ybp
+ybp
+ybp
+ybp
 cIr
 ohX
 ohX
@@ -121003,20 +121013,20 @@ dyZ
 aWM
 dyZ
 atJ
-cXX
-cXX
-cXX
-cXX
-cXX
-cXX
-cYh
-cXX
-cXX
+eJh
+eJh
+eJh
+eJh
+eJh
+eJh
+gTv
+eJh
+eJh
 aoW
-cXX
-cXX
-cXX
-cXX
+eJh
+eJh
+eJh
+eJh
 atJ
 dyZ
 bfm
@@ -121260,20 +121270,20 @@ haY
 haY
 haY
 aZt
-ayw
-ayw
-ayw
-ayw
+mgg
+mgg
+mgg
+mgg
 fGU
-ayw
-ayw
-ayw
-ayw
+mgg
+mgg
+mgg
+mgg
 fGU
-ayw
-ayw
-ayw
-ayw
+mgg
+mgg
+mgg
+mgg
 aZt
 haY
 bas
@@ -121517,20 +121527,20 @@ aZq
 aZq
 aZq
 aZq
-spn
-spn
-spn
-spn
-biL
-spn
-spn
-spn
-spn
-biL
-spn
-spn
-spn
-spn
+jEQ
+jEQ
+jEQ
+jEQ
+fMD
+jEQ
+jEQ
+jEQ
+jEQ
+fMD
+jEQ
+jEQ
+jEQ
+jEQ
 aZq
 aZq
 aZq
