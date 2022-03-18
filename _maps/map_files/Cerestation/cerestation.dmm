@@ -5016,7 +5016,7 @@
 /area/commons/locker)
 "atC" = (
 /obj/structure/table/wood,
-/obj/item/storage/firstaid/brute,
+/obj/item/storage/medkit/brute,
 /obj/machinery/atmospherics/pipe/smart/manifold4w/scrubbers/hidden/layer2,
 /turf/open/floor/iron,
 /area/commons/locker)
@@ -5401,7 +5401,7 @@
 	},
 /obj/structure/closet,
 /obj/item/storage/bag/garment/chief_medical,
-/obj/item/storage/firstaid/emergency,
+/obj/item/storage/medkit/emergency,
 /turf/open/floor/carpet,
 /area/command/bridge)
 "auN" = (
@@ -8746,7 +8746,7 @@
 /area/command/bridge)
 "aEN" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/medkit/regular,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -8760,7 +8760,7 @@
 /area/command/bridge)
 "aEO" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/o2,
+/obj/item/storage/medkit/o2,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -9521,7 +9521,7 @@
 /area/cargo/office)
 "aGA" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/medkit/regular,
 /obj/structure/noticeboard{
 	pixel_y = 32
 	},
@@ -29778,12 +29778,12 @@
 /turf/open/floor/iron,
 /area/medical/storage)
 "bHv" = (
-/obj/item/storage/firstaid/o2{
+/obj/item/storage/medkit/o2{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/firstaid/o2,
-/obj/item/storage/firstaid/regular{
+/obj/item/storage/medkit/o2,
+/obj/item/storage/medkit/regular{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -29798,12 +29798,12 @@
 /turf/open/floor/iron,
 /area/medical/storage)
 "bHw" = (
-/obj/item/storage/firstaid/toxin{
+/obj/item/storage/medkit/toxin{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/firstaid/toxin,
-/obj/item/storage/firstaid/regular{
+/obj/item/storage/medkit/toxin,
+/obj/item/storage/medkit/regular{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -29815,12 +29815,12 @@
 /turf/open/floor/iron,
 /area/medical/storage)
 "bHx" = (
-/obj/item/storage/firstaid/fire{
+/obj/item/storage/medkit/fire{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/firstaid/fire,
-/obj/item/storage/firstaid/regular{
+/obj/item/storage/medkit/fire,
+/obj/item/storage/medkit/regular{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -29833,12 +29833,12 @@
 /turf/open/floor/iron,
 /area/medical/storage)
 "bHy" = (
-/obj/item/storage/firstaid/brute{
+/obj/item/storage/medkit/brute{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/storage/firstaid/brute,
-/obj/item/storage/firstaid/regular{
+/obj/item/storage/medkit/brute,
+/obj/item/storage/medkit/regular{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -33273,7 +33273,7 @@
 /area/commons/fitness)
 "bRd" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/brute,
+/obj/item/storage/medkit/brute,
 /turf/open/floor/iron,
 /area/commons/fitness)
 "bRe" = (
@@ -34615,7 +34615,7 @@
 /obj/structure/table,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
-/obj/item/storage/firstaid,
+/obj/item/storage/medkit,
 /turf/open/floor/iron,
 /area/commons/fitness/recreation)
 "bUK" = (
@@ -34768,7 +34768,7 @@
 /area/commons/fitness/recreation)
 "bVl" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/brute,
+/obj/item/storage/medkit/brute,
 /obj/structure/disposalpipe/segment,
 /obj/item/radio/intercom/directional/east,
 /obj/structure/cable,
@@ -35011,7 +35011,7 @@
 "bVJ" = (
 /obj/structure/table,
 /obj/machinery/light/directional/east,
-/obj/item/storage/firstaid/o2,
+/obj/item/storage/medkit/o2,
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable,
 /turf/open/floor/iron,
@@ -45660,7 +45660,7 @@
 /area/science/server)
 "cyL" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/o2,
+/obj/item/storage/medkit/o2,
 /obj/machinery/camera/directional/south{
 	c_tag = "Research Treatment Center";
 	network = list("SS13")
@@ -47869,7 +47869,7 @@
 	pixel_x = -28
 	},
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/medkit/regular,
 /turf/open/floor/iron/dark/side{
 	dir = 8
 	},
@@ -48114,7 +48114,7 @@
 /area/medical/medbay/central)
 "cGu" = (
 /obj/item/pen,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/medkit/regular,
 /obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -53238,7 +53238,7 @@
 "cYr" = (
 /obj/machinery/light/directional/west,
 /obj/structure/table/glass,
-/obj/item/storage/firstaid/regular{
+/obj/item/storage/medkit/regular{
 	pixel_x = -3;
 	pixel_y = -3
 	},
@@ -57233,7 +57233,7 @@
 /area/security/medical)
 "dto" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/toxin,
+/obj/item/storage/medkit/toxin,
 /obj/machinery/camera{
 	c_tag = "Brig Medbay";
 	dir = 9;
@@ -57390,7 +57390,7 @@
 /area/security/brig)
 "dtN" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/medkit/regular,
 /turf/open/floor/iron/white,
 /area/security/medical)
 "dtO" = (
@@ -57466,7 +57466,7 @@
 /area/security/lockers)
 "duj" = (
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
+/obj/item/storage/medkit/regular,
 /obj/item/storage/toolbox/mechanical,
 /obj/structure/reagent_dispensers/wall/peppertank/directional/west,
 /obj/structure/cable,
@@ -59949,13 +59949,13 @@
 /area/science/robotics/lab)
 "dCh" = (
 /obj/structure/table,
-/obj/item/storage/firstaid{
+/obj/item/storage/medkit{
 	name = "first-aid kit (empty)"
 	},
-/obj/item/storage/firstaid{
+/obj/item/storage/medkit{
 	name = "first-aid kit (empty)"
 	},
-/obj/item/storage/firstaid{
+/obj/item/storage/medkit{
 	name = "first-aid kit (empty)"
 	},
 /obj/item/healthanalyzer,
