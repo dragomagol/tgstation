@@ -5531,8 +5531,8 @@
 "auW" = (
 /obj/machinery/light/small/directional/north,
 /obj/machinery/door/window/right{
+	dir = 4;
 	name = "Bridge Desk";
-	req_access_txt = "0";
 	req_one_access_txt = "19;41"
 	},
 /obj/machinery/airalarm/directional/north{
@@ -13162,6 +13162,9 @@
 	pixel_x = 1;
 	pixel_y = 5
 	},
+/obj/item/stack/sheet/mineral/plasma{
+	amount = 5
+	},
 /turf/open/floor/iron/grimy,
 /area/maintenance/department/security)
 "aPV" = (
@@ -19656,15 +19659,12 @@
 /turf/open/floor/iron,
 /area/hallway/secondary/service)
 "bjl" = (
-/obj/machinery/conveyor/auto{
-	dir = 4
-	},
+/obj/machinery/conveyor/auto,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "bjm" = (
-/obj/machinery/conveyor/auto{
-	dir = 6
-	},
+/obj/structure/table,
+/obj/item/storage/medkit,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "bjn" = (
@@ -32517,6 +32517,7 @@
 /area/engineering/main)
 "bOD" = (
 /obj/machinery/power/smes/engineering,
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/engineering/engine_smes)
 "bOE" = (
@@ -32533,6 +32534,7 @@
 /obj/structure/sign/warning/electricshock{
 	pixel_y = 32
 	},
+/obj/structure/cable,
 /turf/open/floor/iron,
 /area/engineering/engine_smes)
 "bOG" = (
@@ -47320,13 +47322,13 @@
 /turf/open/floor/plating,
 /area/maintenance/aft/lesser)
 "cDF" = (
-/obj/machinery/conveyor/auto{
-	dir = 4
-	},
 /obj/structure/sign/poster/random{
 	name = "random official poster";
 	pixel_y = -32;
 	random_basetype = /obj/structure/sign/poster/official
+	},
+/obj/machinery/conveyor/auto{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/lesser)
@@ -48788,8 +48790,7 @@
 /area/maintenance/department/security)
 "cHY" = (
 /obj/machinery/conveyor/auto{
-	dir = 10;
-	flipped = 1
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
@@ -49950,6 +49951,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/machinery/suit_storage_unit/industrial/loader,
 /turf/open/floor/iron,
 /area/cargo/qm)
 "cLB" = (
@@ -49996,7 +49998,6 @@
 /turf/open/floor/iron,
 /area/cargo/qm)
 "cLH" = (
-/obj/structure/filingcabinet/chestdrawer,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
@@ -62235,6 +62236,12 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/fore/upper)
+"igz" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable,
+/obj/structure/cable,
+/turf/open/floor/plating,
+/area/engineering/engine_smes)
 "igK" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/decal/cleanable/dirt,
@@ -64063,10 +64070,8 @@
 /area/hallway/primary/fore)
 "lZv" = (
 /obj/machinery/light/small/directional/west,
-/obj/machinery/conveyor/auto{
-	dir = 5;
-	flipped = 1
-	},
+/obj/machinery/conveyor/auto,
+/obj/structure/plasticflaps,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "lZB" = (
@@ -64225,6 +64230,21 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/iron/dark,
 /area/medical/morgue)
+"mrI" = (
+/obj/structure/table,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/storage/medkit,
+/turf/open/floor/iron/dark,
+/area/commons/fitness)
 "msh" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer4{
 	dir = 1
@@ -65415,9 +65435,7 @@
 /turf/open/floor/iron/grimy,
 /area/maintenance/department/security)
 "oIc" = (
-/obj/machinery/conveyor/auto,
-/obj/structure/plasticflaps,
-/turf/open/floor/plating,
+/turf/open/floor/plating/rust,
 /area/maintenance/port/fore)
 "oIj" = (
 /obj/structure/table,
@@ -69092,6 +69110,11 @@
 /obj/structure/cable,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
+"wyU" = (
+/obj/structure/table,
+/obj/effect/spawner/random/maintenance/four,
+/turf/open/floor/plating/rust,
+/area/maintenance/port/fore)
 "wzG" = (
 /obj/structure/chair{
 	dir = 8
@@ -69789,8 +69812,12 @@
 /turf/closed/wall/rust,
 /area/maintenance/port/lesser)
 "xZk" = (
-/turf/closed/wall/rust,
-/area/maintenance/disposal)
+/obj/item/toy/plush/space_lizard_plushie{
+	name = "Lost-In-Disposals"
+	},
+/obj/structure/table,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "xZR" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -79763,7 +79790,7 @@ asg
 ylb
 bco
 bjl
-bTt
+bjl
 lZv
 xEp
 bVi
@@ -80018,10 +80045,10 @@ aaa
 aaa
 amI
 amI
-amI
-bjm
+dkg
+bLx
 oIc
-xEp
+bTt
 aiC
 nqz
 bTt
@@ -80274,16 +80301,16 @@ aaa
 aaa
 aaa
 aaa
-aaa
 amI
-amI
-amI
+bLx
+bLx
+oIc
 amI
 amI
 aDX
-xZk
+bTt
 bWB
-aZO
+bWB
 aZO
 aZO
 bWB
@@ -80531,12 +80558,12 @@ alc
 alc
 alc
 alc
-alc
-alc
-alc
-alc
-alc
 amI
+bLx
+bLx
+bLx
+amI
+bWB
 azQ
 cTi
 bWB
@@ -80788,11 +80815,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aZO
+amI
+bjm
+xZk
+wyU
+bWB
 bTt
 aDD
 aDD
@@ -81045,10 +81072,10 @@ cFp
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
+amI
+amI
+amI
+amI
 aZO
 bWB
 bTt
@@ -82631,7 +82658,7 @@ bYJ
 bEM
 bGk
 bJp
-bJp
+mrI
 bXX
 bHL
 cTL
@@ -83659,7 +83686,7 @@ ctX
 bEM
 bGo
 bGk
-bJp
+mrI
 bXX
 bHL
 bMZ
@@ -104993,7 +105020,7 @@ bIx
 bJR
 bIx
 bMg
-bNx
+igz
 bOz
 bPH
 bQH
@@ -105250,7 +105277,7 @@ bIx
 bJS
 bIx
 bMh
-bNx
+igz
 bOF
 bPI
 bQI
@@ -105507,7 +105534,7 @@ bIB
 bJT
 bKN
 bMi
-bNz
+igz
 bOD
 bPJ
 bQJ
