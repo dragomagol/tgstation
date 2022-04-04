@@ -98,3 +98,190 @@
 	new_entry.extended_fields = extended_fields.Copy()
 
 	return new_entry
+
+/// atmos
+/datum/log_entry/atmospherics
+	category = "ATMOS"
+	tags += ["atmospherics"]
+
+/// attack
+/// extended fields: new_hp
+/datum/log_entry/attack
+	category = "ATTACK"
+	tags += ["attack"]
+
+/// botany
+/datum/log_entry/botany
+	category = "BOTANY"
+	tags += ["botany"]
+
+/// cargo
+/datum/log_entry/cargo
+	category = "CARGO"
+	tags += ["cargo"]
+
+/// cloning
+/datum/log_entry/cloning
+	category = "CLONING"
+	tags += ["cloning"]
+
+/// crafting
+/datum/log_entry/crafting
+	category = "CRAFTING"
+	tags += ["crafting"]
+
+/// dd?
+
+/// dynamic
+
+/// econ
+
+/// engine
+/datum/log_entry/engine
+	category = "ENGINE"
+	tags += ["engineering"]
+
+/// filters
+/datum/log_entry/filter
+	category = "FILTER"
+	tags += ["filter"]
+
+/// game
+/datum/log_entry/game
+	category = "GAME"
+	tags += ["game"]
+
+/// gravity
+/datum/log_entry/gravity
+	category = "GRAVITY"
+	tags += ["engineering", "gravity"]
+
+/// hallucinations
+/datum/log_entry/hallucination
+	category = "HALLUCINATION"
+	tags += ["hallucination"]
+
+/// hrefs
+/datum/log_entry/href
+	category = "HREF"
+	tags += ["href"]
+
+/// id card changes
+/datum/log_entry/id_access_change
+	category = "ID_ACCESS"
+	tags += ["access_change"]
+
+/// init profiler
+
+/// initialize
+
+/// job debug
+
+/// manifest
+/datum/log_entry/manifest
+	category = "MANIFEST"
+	tags += ["manifest"]
+
+/// map errors
+
+/// mecha
+/datum/log_entry/mecha
+	category = "MECH"
+	tags += ["mech"]
+
+/// mob tags
+/datum/log_entry/mob_tag
+	category = "MOB"
+	tags += ["mob_tag"]
+
+/// newscaster - this has JSON already, integrate it
+/datum/log_entry/newscaster
+	category = "NEWSCASTER"
+	tags += ["newscaster"]
+
+/// paper
+/datum/log_entry/paper
+	category = "PAPER"
+	tags += ["paper"]
+
+/// pda
+/datum/log_entry/pda
+	category = "PDA"
+	tags += ["pda"]
+
+/// portals
+/datum/log_entry/portal
+	category = "PORTAL"
+	tags += ["portal"]
+
+/// qdel
+/datum/log_entry/qdel
+	category = "QDEL"
+	tags += ["qdel"]
+
+/// radiation
+/datum/log_entry/radiation
+	category = "RADIATION"
+	tags += ["radiation"]
+
+/// records
+/datum/log_entry/records
+	category = "RECORD"
+	tags += ["records", "security"]
+
+/// research
+/datum/log_entry/research
+	category = "RESEARCH"
+	tags += ["research", "rnd"]
+
+/// round end data
+
+/// runtime
+/datum/log_entry/runtime
+	category = "RUNTIME"
+	tags += ["debug", "runtime"]
+
+/// shuttle
+/datum/log_entry/shuttle
+	category = "SHUTTLE"
+	tags += ["shuttle"]
+
+/// silicon
+/datum/log_entry/silicon
+	category = "SILICON"
+	tags += ["silicon"]
+
+/// sql
+/datum/log_entry/sql
+	category = "SQL"
+	tags += ["debug", "sql"]
+
+/// telecomms - Radio channels
+/datum/log_entry/telecommunications
+	category = "TCOMMS"
+	tags += ["telecommunications"]
+
+/// tgui
+/datum/log_entry/tgui
+	category = "TGUI"
+	tags += ["tgui"]
+
+/// tools
+/datum/log_entry/tools
+	category = "TOOL"
+	tags += ["tools"]
+
+/// uplink
+/datum/log_entry/uplink
+	category = "UPLINK"
+	tags += ["antagonists", "uplink"]
+
+/// virus
+/datum/log_entry/virus
+	category = "VIRUS"
+	tags += ["virus"]
+
+/// wires
+/datum/log_entry/wires
+	category = "WIRE"
+	tags += ["engineering", "wires"]
