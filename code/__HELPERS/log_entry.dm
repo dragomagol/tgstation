@@ -73,7 +73,6 @@
 
 /// Sends this log to SSlog to be printed
 /datum/log_entry/proc/write_log()
-	SSlogging.queue_log(src)
 	return
 
 /// Sends a human-friendly version of this log to admin chat, including a JMP link to the loc
