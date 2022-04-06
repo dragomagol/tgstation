@@ -25,17 +25,16 @@ All ShuttleMove procs go here
 		var/atom/movable/thing = i
 		if(ismob(thing))
 			if(isliving(thing))
-				var/mob/living/M = thing
-				if(M.buckled)
-					M.buckled.unbuckle_mob(M, 1)
-				if(M.pulledby)
-					M.pulledby.stop_pulling()
-				M.stop_pulling()
-				M.visible_message(span_warning("[shuttle] slams into [M]!"))
-				SSblackbox.record_feedback("tally", "shuttle_gib", 1, M.type)
-				log_attack("[key_name(M)] was shuttle gibbed by [shuttle].")
-				M.gib()
-
+				var/mob/living/victim = thing
+				if(victim.buckled)
+					victim.buckled.unbuckle_mob(victim, 1)
+				if(victim.pulledby)
+					victim.pulledby.stop_pulling()
+				victim.stop_pulling()
+				victim.visible_message(span_warning("[shuttle] slams into [victim]!"))
+				SSblackbox.record_feedback("tally", "shuttle_gib", 1, victim.type)
+				log_attack(shuttle, victim, "shuttle gibbed")
+				victim.gib()
 
 		else //non-living mobs shouldn't be affected by shuttles, which is why this is an else
 			if(istype(thing, /obj/singularity) || istype(thing, /obj/energy_ball))

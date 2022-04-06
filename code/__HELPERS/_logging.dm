@@ -145,9 +145,14 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if(access_log_mirror)
 		log_access(text)
 
-/proc/log_attack(text)
+/proc/log_attack(atom/source, atom/target, action, atom/weapon = null, details = null)
 	if (CONFIG_GET(flag/log_attack))
-		WRITE_LOG(GLOB.world_attack_log, "ATTACK: [text]")
+		var/datum/log_entry/attack/combat/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
+		attack_log.combat_action(action)
+		attack_log.combat_weapon(weapon)
+		attack_log.combat_details(details)
+
+		WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
 
 /proc/log_econ(text)
 	if (CONFIG_GET(flag/log_econ))
