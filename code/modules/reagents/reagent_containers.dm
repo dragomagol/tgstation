@@ -119,11 +119,11 @@
 
 	var/mob/thrown_by = thrownby?.resolve()
 	if(isturf(target) && reagents.reagent_list.len && thrown_by)
-		log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]")
-		message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] at [ADMIN_VERBOSEJMP(target)].")
+		log_attack(thrown_by, target, "splashed (thrown)", "([reagent_text])", list("reagents"))
+		message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [reagent_text] on [target] at [ADMIN_VERBOSEJMP(target)].")
 
 	reagents.expose(target, TOUCH)
-	log_combat(user, target, "splashed", reagent_text)
+	log_attack(user, target, "splashed", reagent_text, tags = list("reagents"))
 	reagents.clear_reagents()
 
 	return TRUE
@@ -184,7 +184,7 @@
 			R += "[A.type]  ([num2text(A.volume)]),"
 
 		if(thrown_by)
-			log_combat(thrown_by, M, "splashed", R)
+			log_attack(thrown_by, M, "splashed", R, tags = list("reagents"))
 		reagents.expose(target, TOUCH)
 
 	else if(bartender_check(target) && thrown)
@@ -193,7 +193,7 @@
 
 	else
 		if(isturf(target) && reagents.reagent_list.len && thrown_by)
-			log_combat(thrown_by, target, "splashed (thrown) [english_list(reagents.reagent_list)]", "in [AREACOORD(target)]")
+			log_attack(thrown_by, target, "splashed (thrown)", english_list(reagents.reagent_list))
 			log_game("[key_name(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [AREACOORD(target)].")
 			message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [english_list(reagents.reagent_list)] on [target] in [ADMIN_VERBOSEJMP(target)].")
 		visible_message(span_notice("[src] spills its contents all over [target]."))

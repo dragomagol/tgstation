@@ -192,11 +192,11 @@ GLOBAL_LIST_INIT(blacklisted_borg_hats, typecacheof(list( //Hats that don't real
 				uneq_active()
 				visible_message(span_danger("[user] disarmed [src]!"), \
 					span_userdanger("[user] has disabled [src]'s active module!"), null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, src, "disarmed", "[I ? " removing \the [I]" : ""]")
+				log_attack(user, src, "disarmed", details = "[I ? " removing \the [I]" : ""]", tags = list("silicon"))
 			else
 				Stun(40)
 				step(src,get_dir(user,src))
-				log_combat(user, src, "pushed")
+				log_attack(user, src, "pushed", tags = list("silicon"))
 				visible_message(span_danger("[user] forces back [src]!"), \
 					span_userdanger("[user] forces back [src]!"), null, COMBAT_MESSAGE_RANGE)
 			playsound(loc, 'sound/weapons/pierce.ogg', 50, TRUE, -1)

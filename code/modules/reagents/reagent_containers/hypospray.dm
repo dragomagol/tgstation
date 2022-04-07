@@ -36,7 +36,7 @@
 	for(var/datum/reagent/injected_reagent in reagents.reagent_list)
 		injected += injected_reagent.name
 	var/contained = english_list(injected)
-	log_combat(user, affected_mob, "attempted to inject", src, "([contained])")
+	log_attack(user, affected_mob, "attempted to inject", src, "([contained])", list("reagents"))
 
 	if(reagents.total_volume && (ignore_flags || affected_mob.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))) // Ignore flag should be checked first or there will be an error message.
 		to_chat(affected_mob, span_warning("You feel a tiny prick!"))
@@ -52,7 +52,7 @@
 				reagents.expose(affected_mob, INJECT, fraction)
 				trans = reagents.copy_to(affected_mob, amount_per_transfer_from_this)
 			to_chat(user, span_notice("[trans] unit\s injected. [reagents.total_volume] unit\s remaining in [src]."))
-			log_combat(user, affected_mob, "injected", src, "([contained])")
+			log_attack(user, affected_mob, "injected", src, "([contained])", list("reagents"))
 		return TRUE
 	return FALSE
 

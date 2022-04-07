@@ -546,7 +546,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		L.visible_message(span_danger("[user] induces sleep in [L] with [src]!"), \
 		span_userdanger("You suddenly feel very drowsy!"))
 		L.Sleeping(sleep_time)
-		log_combat(user, L, "put to sleep")
+		log_attack(user, L, "incudes sleep in", src)
 	else
 		if(L.can_block_magic(MAGIC_RESISTANCE_MIND, charge_cost = 0))
 			to_chat(user, span_warning("The specimen has some kind of mental protection that is completely blocking our sleep inducement methods! It seems you've been foiled."))
@@ -572,7 +572,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 					C.set_handcuffed(new /obj/item/restraints/handcuffs/energy/used(C))
 					C.update_handcuffed()
 					to_chat(user, span_notice("You restrain [C]."))
-					log_combat(user, C, "handcuffed")
+					log_attack(user, C, "handcuffed", src)
 			else
 				to_chat(user, span_warning("You fail to restrain [C]."))
 		else

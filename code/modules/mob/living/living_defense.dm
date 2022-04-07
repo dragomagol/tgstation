@@ -109,7 +109,7 @@
 
 		var/mob/thrown_by = thrown_item.thrownby?.resolve()
 		if(thrown_by)
-			log_combat(thrown_by, src, "threw and hit", thrown_item)
+			log_attack(thrown_by, src, "thrown and hit", thrown_item)
 		if(nosell_hit)
 			return ..()
 		visible_message(span_danger("[src] is hit by [thrown_item]!"), \
@@ -166,9 +166,9 @@
 			to_chat(user, span_danger("You start to tighten your grip on [src]!"))
 			switch(user.grab_state)
 				if(GRAB_AGGRESSIVE)
-					log_combat(user, src, "attempted to neck grab", addition="neck grab")
+					log_attack(user, src, "attempted to neck grab")
 				if(GRAB_NECK)
-					log_combat(user, src, "attempted to strangle", addition="kill grab")
+					log_attack(user, src, "attempted to strangle", "a kill grab")
 			if(!do_mob(user, src, grab_upgrade_time))
 				return FALSE
 			if(!user.pulling || user.pulling != src || user.grab_state != old_grab_state)
@@ -176,28 +176,28 @@
 		user.setGrabState(user.grab_state + 1)
 		switch(user.grab_state)
 			if(GRAB_AGGRESSIVE)
-				var/add_log = ""
+				var/is_pacifist = ""
 				if(HAS_TRAIT(user, TRAIT_PACIFISM))
 					visible_message(span_danger("[user] firmly grips [src]!"),
 									span_danger("[user] firmly grips you!"), span_hear("You hear aggressive shuffling!"), null, user)
 					to_chat(user, span_danger("You firmly grip [src]!"))
-					add_log = " (pacifist)"
+					is_pacifist = " (pacifist)"
 				else
 					visible_message(span_danger("[user] grabs [src] aggressively!"), \
 									span_userdanger("[user] grabs you aggressively!"), span_hear("You hear aggressive shuffling!"), null, user)
 					to_chat(user, span_danger("You grab [src] aggressively!"))
 				drop_all_held_items()
 				stop_pulling()
-				log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
+				log_attack(user, src, "grabbed", "an aggressive grab[is_pacifist]")
 			if(GRAB_NECK)
-				log_combat(user, src, "grabbed", addition="neck grab")
+				log_attack(user, src, "grabbed", "a neck grab")
 				visible_message(span_danger("[user] grabs [src] by the neck!"),\
 								span_userdanger("[user] grabs you by the neck!"), span_hear("You hear aggressive shuffling!"), null, user)
 				to_chat(user, span_danger("You grab [src] by the neck!"))
 				if(!buckled && !density)
 					Move(user.loc)
 			if(GRAB_KILL)
-				log_combat(user, src, "strangled", addition="kill grab")
+				log_attack(user, src, "strangled", "kill grab")
 				visible_message(span_danger("[user] is strangling [src]!"), \
 								span_userdanger("[user] is strangling you!"), span_hear("You hear aggressive shuffling!"), null, user)
 				to_chat(user, span_danger("You're strangling [src]!"))
@@ -222,7 +222,7 @@
 		return FALSE
 
 	if (stat != DEAD)
-		log_combat(M, src, "attacked")
+		log_attack(M, src, "attacked")
 		M.do_attack_animation(src)
 		visible_message(span_danger("\The [M.name] glomps [src]!"), \
 						span_userdanger("\The [M.name] glomps you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, M)
@@ -246,7 +246,7 @@
 	visible_message(span_danger("\The [user] [user.attack_verb_continuous] [src]!"), \
 					span_userdanger("\The [user] [user.attack_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You [user.attack_verb_simple] [src]!"))
-	log_combat(user, src, "attacked")
+	log_attack(user, src, "attacked")
 	return TRUE
 
 /mob/living/attack_animal(mob/living/simple_animal/user, list/modifiers)
@@ -268,7 +268,7 @@
 	visible_message(span_danger("\The [user] [user.attack_verb_continuous] [src]!"), \
 					span_userdanger("\The [user] [user.attack_verb_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
 	to_chat(user, span_danger("You [user.attack_verb_simple] [src]!"))
-	log_combat(user, src, "attacked")
+	log_attack(user, src, "attacked")
 	return TRUE
 
 /mob/living/attack_hand(mob/living/carbon/human/user, list/modifiers)
@@ -301,7 +301,7 @@
 		return FALSE
 	user.do_attack_animation(src, ATTACK_EFFECT_BITE)
 	if (prob(75))
-		log_combat(user, src, "attacked")
+		log_attack(user, src, "attacked")
 		playsound(loc, 'sound/weapons/bite.ogg', 50, TRUE, -1)
 		visible_message(span_danger("[user.name] bites [src]!"), \
 						span_userdanger("[user.name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, user)
@@ -322,7 +322,7 @@
 
 		L.do_attack_animation(src)
 		if(prob(90))
-			log_combat(L, src, "attacked")
+			log_attack(L, src, "attacked")
 			visible_message(span_danger("[L.name] bites [src]!"), \
 							span_userdanger("[L.name] bites you!"), span_hear("You hear a chomp!"), COMBAT_MESSAGE_RANGE, L)
 			to_chat(L, span_danger("You bite [src]!"))

@@ -51,7 +51,7 @@
 		return ..()
 	var/obj/item/food/grown/banana/bunch/unripe_bunch = attacked_target
 	unripe_bunch.start_ripening()
-	log_combat(src, attacked_target, "honksposivley ripened")
+	log_attack(src, attacked_target, "honksposivley ripened")
 
 /mob/living/simple_animal/hostile/retaliate/clown/lube
 	name = "Living Lube"

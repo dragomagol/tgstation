@@ -64,7 +64,7 @@
 			if(C.is_blind())
 				to_chat(C, span_userdanger("You feel someone grab your wrists, the cold metal of [name] starting to dig into your skin!"))
 			playsound(loc, cuffsound, 30, TRUE, -2)
-			log_combat(user, C, "attempted to handcuff")
+			log_attack(user, C, "attempted to handcuff", src)
 			if(do_mob(user, C, 30, timed_action_flags = IGNORE_SLOWDOWNS) && C.canBeHandcuffed())
 				if(iscyborg(user))
 					apply_cuffs(C, user, TRUE)
@@ -74,10 +74,10 @@
 									span_userdanger("[user] handcuffs you."))
 				SSblackbox.record_feedback("tally", "handcuffs", 1, type)
 
-				log_combat(user, C, "handcuffed")
+				log_attack(user, C, "handcuffed", src)
 			else
 				to_chat(user, span_warning("You fail to handcuff [C]!"))
-				log_combat(user, C, "failed to handcuff")
+				log_attack(user, C, "failed to handcuff", src)
 		else
 			to_chat(user, span_warning("[C] doesn't have two hands..."))
 

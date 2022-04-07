@@ -34,7 +34,7 @@
 					span_userdanger("[A] [atk_verb]s you!"), null, null, A)
 	to_chat(A, span_danger("You [atk_verb] [D]!"))
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-	log_combat(A, D, "strong punched (Sleeping Carp)")
+	log_attack(A, D, "strong punched", "sleeping carp", tags = list("martial arts"))
 	D.apply_damage(20, A.get_attack_type(), affecting)
 	return
 
@@ -47,7 +47,7 @@
 	var/atom/throw_target = get_edge_target_turf(D, A.dir)
 	D.throw_at(throw_target, 7, 4, A)
 	D.apply_damage(15, A.get_attack_type(), BODY_ZONE_CHEST, wound_bonus = CANT_WOUND)
-	log_combat(A, D, "launchkicked (Sleeping Carp)")
+	log_attack(A, D, "launchkicked", "sleeping carp", tags = list("martial arts"))
 	return
 
 ///Keelhaul: Harm Grab combo, knocks people down, deals stamina damage while they're on the floor
@@ -66,14 +66,14 @@
 		D.drop_all_held_items()
 		D.visible_message(span_warning("[A] kicks [D] in the head!"), \
 					span_userdanger("You are kicked in the head by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-	log_combat(A, D, "dropkicked (Sleeping Carp)")
+	log_attack(A, D, "dropkicked", "sleeping carp", tags = list("martial arts"))
 	return
 
 /datum/martial_art/the_sleeping_carp/grab_act(mob/living/A, mob/living/D)
 	add_to_streak("G",D)
 	if(check_streak(A,D))
 		return TRUE
-	log_combat(A, D, "grabbed (Sleeping Carp)")
+	log_attack(A, D, "grabbed", "sleeping carp", tags = list("martial arts"))
 	return ..()
 
 /datum/martial_art/the_sleeping_carp/harm_act(mob/living/A, mob/living/D)
@@ -88,14 +88,14 @@
 	to_chat(A, span_danger("You [atk_verb] [D]!"))
 	D.apply_damage(rand(10,15), BRUTE, affecting, wound_bonus = CANT_WOUND)
 	playsound(get_turf(D), 'sound/weapons/punch1.ogg', 25, TRUE, -1)
-	log_combat(A, D, "punched (Sleeping Carp)")
+	log_attack(A, D, "punched", "sleeping carp", tags = list("martial arts"))
 	return TRUE
 
 /datum/martial_art/the_sleeping_carp/disarm_act(mob/living/A, mob/living/D)
 	add_to_streak("D",D)
 	if(check_streak(A,D))
 		return TRUE
-	log_combat(A, D, "disarmed (Sleeping Carp)")
+	log_attack(A, D, "disarmed", "sleeping carp", tags = list("martial arts"))
 	return ..()
 
 /datum/martial_art/the_sleeping_carp/on_projectile_hit(mob/living/A, obj/projectile/P, def_zone)

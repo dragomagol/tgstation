@@ -96,7 +96,7 @@
 	return TRUE
 
 /datum/action/changeling/sting/transformation/sting_action(mob/user, mob/target)
-	log_combat(user, target, "stung", "transformation sting", " new identity is '[selected_dna.dna.real_name]'")
+	log_attack(user, target, "stung", "transformation sting", "new identity is '[selected_dna.dna.real_name]'", list("changeling"))
 	var/datum/dna/NewDNA = selected_dna.dna
 
 	var/mob/living/carbon/C = target
@@ -131,7 +131,7 @@
 	return TRUE
 
 /datum/action/changeling/sting/false_armblade/sting_action(mob/user, mob/target)
-	log_combat(user, target, "stung", object="false armblade sting")
+	log_attack(user, target, "stung", "false armblade sting", tags = list("changeling"))
 
 	var/obj/item/held = target.get_active_held_item()
 	if(held && !target.dropItemToGround(held))
@@ -173,7 +173,7 @@
 		return changeling.can_absorb_dna(target)
 
 /datum/action/changeling/sting/extract_dna/sting_action(mob/user, mob/living/carbon/human/target)
-	log_combat(user, target, "stung", "extraction sting")
+	log_attack(user, target, "stung", "extraction sting", tags = list("changeling"))
 	var/datum/antagonist/changeling/changeling = user.mind.has_antag_datum(/datum/antagonist/changeling)
 	if(!changeling.has_profile_with_dna(target.dna))
 		changeling.add_new_profile(target)
@@ -188,7 +188,7 @@
 	dna_cost = 2
 
 /datum/action/changeling/sting/mute/sting_action(mob/user, mob/living/carbon/target)
-	log_combat(user, target, "stung", "mute sting")
+	log_attack(user, target, "stung", "mute sting", tags = list("changeling"))
 	target.silent += 30
 	return TRUE
 
@@ -201,7 +201,7 @@
 	dna_cost = 1
 
 /datum/action/changeling/sting/blind/sting_action(mob/user, mob/living/carbon/target)
-	log_combat(user, target, "stung", "blind sting")
+	log_attack(user, target, "stung", "blind sting", tags = list("changeling"))
 	to_chat(target, span_danger("Your eyes burn horrifically!"))
 	target.become_nearsighted(EYE_DAMAGE)
 	target.blind_eyes(20)
@@ -217,7 +217,7 @@
 	dna_cost = 1
 
 /datum/action/changeling/sting/lsd/sting_action(mob/user, mob/living/carbon/target)
-	log_combat(user, target, "stung", "LSD sting")
+	log_attack(user, target, "stung", "LSD sting", tags = list("changeling"))
 	addtimer(CALLBACK(src, .proc/hallucination_time, target), rand(300,600))
 	return TRUE
 
@@ -234,7 +234,7 @@
 	dna_cost = 2
 
 /datum/action/changeling/sting/cryo/sting_action(mob/user, mob/target)
-	log_combat(user, target, "stung", "cryo sting")
+	log_attack(user, target, "stung", "cryo sting", tags = list("changeling"))
 	if(target.reagents)
 		target.reagents.add_reagent(/datum/reagent/consumable/frostoil, 30)
 	return TRUE

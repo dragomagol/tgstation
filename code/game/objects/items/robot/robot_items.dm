@@ -30,7 +30,7 @@
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
-	log_combat(user, M, "stunned", src, "(Combat mode: [user.combat_mode ? "On" : "Off"])")
+	log_attack(user, M, "stunned", src, tags = list("silicon"))
 
 /obj/item/borg/cyborghug
 	name = "hugging module"

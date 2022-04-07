@@ -10,12 +10,12 @@
 		playsound(src, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
 		var/shove_dir = get_dir(user, src)
 		if(!Move(get_step(src, shove_dir), shove_dir))
-			log_combat(user, src, "shoved", "failing to move it")
+			log_attack(user, src, "shoved and failed to move")
 			user.visible_message(span_danger("[user.name] shoves [src]!"),
 				span_danger("You shove [src]!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, list(src))
 			to_chat(src, span_userdanger("You're shoved by [user.name]!"))
 			return TRUE
-		log_combat(user, src, "shoved", "pushing it")
+		log_attack(user, src, "shoved and pushed")
 		user.visible_message(span_danger("[user.name] shoves [src], pushing [p_them()]!"),
 			span_danger("You shove [src], pushing [p_them()]!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, list(src))
 		to_chat(src, span_userdanger("You're pushed by [user.name]!"))
@@ -38,7 +38,7 @@
 		to_chat(user, span_danger("You [response_harm_simple] [src]!"))
 		playsound(loc, attacked_sound, 25, TRUE, -1)
 		attack_threshold_check(harm_intent_damage)
-		log_combat(user, src, "attacked")
+		log_attack(user, src, "attacked")
 		updatehealth()
 		return TRUE
 
@@ -73,7 +73,7 @@
 			visible_message(span_danger("[user] [response_disarm_continuous] [name]!"), \
 							span_userdanger("[user] [response_disarm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, span_danger("You [response_disarm_simple] [name]!"))
-			log_combat(user, src, "disarmed")
+			log_attack(user, src, "disarmed")
 		else
 			var/damage = rand(15, 30)
 			visible_message(span_danger("[user] slashes at [src]!"), \
@@ -81,7 +81,7 @@
 			to_chat(user, span_danger("You slash at [src]!"))
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
 			attack_threshold_check(damage)
-			log_combat(user, src, "attacked")
+			log_attack(user, src, "attacked")
 		return 1
 
 /mob/living/simple_animal/attack_larva(mob/living/carbon/alien/larva/L)

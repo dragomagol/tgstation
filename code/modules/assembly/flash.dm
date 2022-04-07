@@ -146,7 +146,7 @@
 	if(!istype(M))
 		return
 	if(user)
-		log_combat(user, M, "[targeted? "flashed(targeted)" : "flashed(AOE)"]", src)
+		log_attack(user, M, "flashed", src, "[targeted? "(targeted)" : "(AOE)"]")
 	else //caused by emp/remote signal
 		M.log_message("was [targeted? "flashed(targeted)" : "flashed(AOE)"]",LOG_ATTACK)
 
@@ -246,7 +246,7 @@
 		return
 	if(issilicon(M))
 		var/mob/living/silicon/robot/flashed_borgo = M
-		log_combat(user, flashed_borgo, "flashed", src)
+		log_attack(user, flashed_borgo, "flashed", src, tags = list("silicon"))
 		update_icon(ALL, TRUE)
 		if(!flashed_borgo.flash_act(affect_silicon = TRUE))
 			user.visible_message(span_warning("[user] fails to blind [flashed_borgo] with the flash!"), span_warning("You fail to blind [flashed_borgo] with the flash!"))
@@ -376,7 +376,7 @@
 	if(!istype(M))
 		return
 	if(user)
-		log_combat(user, M, "[targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]", src)
+		log_attack(user, M, "hypno-flashed", src, "[targeted? "(targeted)" : "(AOE)"]", tags = list("traitor"))
 	else //caused by emp/remote signal
 		M.log_message("was [targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]",LOG_ATTACK)
 	if(generic_message && M != user)

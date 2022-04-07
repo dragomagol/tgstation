@@ -681,13 +681,13 @@
 		if(iscyborg(L))
 			visible_message(span_danger("[src] bumps into [L]!"))
 		else if(L.Knockdown(8 SECONDS))
-			log_combat(src, L, "knocked down")
+			log_attack(src, L, "knocked down", tags = list("silicon"))
 			visible_message(span_danger("[src] knocks over [L]!"))
 	return ..()
 
 // when mulebot is in the same loc
 /mob/living/simple_animal/bot/mulebot/proc/run_over(mob/living/carbon/human/H)
-	log_combat(src, H, "run over", null, "(DAMTYPE: [uppertext(BRUTE)])")
+	log_attack(src, H, "run over", details = "(DAMTYPE: [uppertext(BRUTE)])", tags = list("silicon"))
 	H.visible_message(span_danger("[src] drives over [H]!"), \
 					span_userdanger("[src] drives over you!"))
 	playsound(src, 'sound/effects/splat.ogg', 50, TRUE)

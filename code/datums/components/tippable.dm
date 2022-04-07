@@ -144,6 +144,7 @@
 		span_userdanger("You are tipped over by [tipper]!"),
 		ignored_mobs = tipper
 		)
+	log_attack(tipper, tipped_mob, "tipped over")
 
 	set_tipped_status(tipped_mob, TRUE)
 	post_tipped_callback?.Invoke(tipper)

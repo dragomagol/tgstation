@@ -80,7 +80,7 @@
 		if(. && !play_soundeffect)
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 		if(user.client)
-			log_combat(user, src, "attacked")
+			log_attack(user, src, "attacked")
 
 /obj/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return TRUE

@@ -228,7 +228,7 @@
 		return
 	teleporting.visible_message(span_hierophant_warning("[teleporting] fades in!"))
 	if(user != teleporting && success)
-		log_combat(user, teleporting, "teleported", null, "from [AREACOORD(source)]")
+		log_attack(user, teleporting, "teleported", details = "from [AREACOORD(source)]")
 
 /obj/item/hierophant_club/pickup(mob/living/user)
 	. = ..()

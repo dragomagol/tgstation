@@ -61,7 +61,7 @@
 				for(var/datum/reagent/A in src.reagents.reagent_list)
 					R += "[A] ([num2text(A.volume)]),"
 
-			log_combat(user, M, "squirted", R)
+			log_attack(user, M, "squirted", src, R, tags = list("reagents"))
 
 		trans = src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, span_notice("You transfer [trans] unit\s of the solution."))

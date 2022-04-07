@@ -122,7 +122,7 @@
 			playsound(src, get_dismember_sound(), 80, TRUE)
 			target.visible_message(span_danger("[chassis] rips [target]'s arms off!"), \
 						span_userdanger("[chassis] rips your arms off!"))
-			log_combat(source, M, "removed both arms with a real clamp,", "[name]", "(COMBAT MODE: [uppertext(source.combat_mode)] (DAMTYPE: [uppertext(damtype)])")
+			log_attack(source, M, "removed both arms with a real clamp,", src, "(DAMTYPE: [uppertext(damtype)])", tags = list("mech"))
 			return ..()
 
 		M.take_overall_damage(clamp_damage)
@@ -133,7 +133,7 @@
 		target.visible_message(span_danger("[chassis] squeezes [target]!"), \
 							span_userdanger("[chassis] squeezes you!"),\
 							span_hear("You hear something crack."))
-		log_combat(source, M, "attacked", "[name]", "(Combat mode: [source.combat_mode ? "On" : "Off"]) (DAMTYPE: [uppertext(damtype)])")
+		log_attack(source, M, "attacked", src, "(DAMTYPE: [uppertext(damtype)])", tags = list("mech"))
 	return ..()
 
 
@@ -182,7 +182,6 @@
 		water.move_at(get_step(chassis, get_dir(targetturf, chassis)), 2, 4) //Target is the tile opposite of the mech as the starting turf.
 
 	playsound(chassis, 'sound/effects/extinguish.ogg', 75, TRUE, -3)
-
 
 /**
  * Handles attemted refills of the extinguisher.

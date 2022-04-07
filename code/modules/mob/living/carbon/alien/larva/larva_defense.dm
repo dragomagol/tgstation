@@ -5,7 +5,7 @@
 		var/damage = rand(1, 9)
 		if (prob(90))
 			playsound(loc, SFX_PUNCH, 25, TRUE, -1)
-			log_combat(user, src, "attacked")
+			log_attack(user, src, "attacked", tags = list("alien"))
 			visible_message(span_danger("[user] kicks [src]!"), \
 							span_userdanger("[user] kicks you!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, user)
 			to_chat(user, span_danger("You kick [src]!"))

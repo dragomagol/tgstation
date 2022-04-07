@@ -234,7 +234,7 @@
 		return
 	usr.visible_message(span_warning("[usr] attaches [src] to [target]."), span_notice("You attach [src] to [target]."))
 	var/datum/reagents/container = get_reagent_holder()
-	log_combat(usr, target, "attached", src, "containing: ([container.get_reagent_log_string()])")
+	log_attack(usr, target, "attached", src, "containing: ([container.get_reagent_log_string()])", list("reagents"))
 	add_fingerprint(usr)
 	attached = target
 	START_PROCESSING(SSmachines, src)

@@ -194,7 +194,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 		M.visible_message(span_danger("[user] beats [M] over the head with [src]!"), \
 				span_userdanger("[user] beats [M] over the head with [src]!"))
 		playsound(src.loc, SFX_PUNCH, 25, TRUE, -1)
-		log_combat(user, M, "attacked", src)
+		log_attack(user, M, "attacked", src)
 
 /obj/item/storage/book/bible/afterattack(atom/bible_smacked, mob/user, proximity)
 	. = ..()

@@ -1574,7 +1574,7 @@
 	var/log_text = "[key_name(src)] [message] [loc_name(src)]"
 	switch(message_type)
 		if(LOG_ATTACK)
-			log_attack(log_text)
+			// log_attack(log_text)
 		if(LOG_SAY)
 			log_say(log_text)
 		if(LOG_WHISPER)

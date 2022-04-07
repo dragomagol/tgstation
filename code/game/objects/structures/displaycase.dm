@@ -195,7 +195,7 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	if (showpiece && (broken || open))
 		to_chat(user, span_notice("You deactivate the hover field built into the case."))
-		log_combat(user, src, "deactivates the hover field of")
+		log_attack(user, src, "deactivated the hover field of")
 		dump()
 		add_fingerprint(user)
 		return
@@ -208,7 +208,7 @@
 				user.examinate(src)
 			return
 		user.visible_message(span_danger("[user] kicks the display case."), null, null, COMBAT_MESSAGE_RANGE)
-		log_combat(user, src, "kicks")
+		log_attack(user, src, "kicked")
 		user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 		take_damage(2)
 

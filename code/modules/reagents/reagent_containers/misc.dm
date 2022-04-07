@@ -139,17 +139,15 @@
 		return
 	if(iscarbon(A) && reagents?.total_volume)
 		var/mob/living/carbon/C = A
-		var/reagentlist = pretty_string_from_reagent_list(reagents)
-		var/log_object = "containing [reagentlist]"
 		if(user.combat_mode && !C.is_mouth_covered())
 			reagents.trans_to(C, reagents.total_volume, transfered_by = user, methods = INGEST)
 			C.visible_message(span_danger("[user] smothers \the [C] with \the [src]!"), span_userdanger("[user] smothers you with \the [src]!"), span_hear("You hear some struggling and muffled cries of surprise."))
-			log_combat(user, C, "smothered", src, log_object)
+			log_attack(user, C, "smothered", src, "([reagents.get_reagent_log_string()])", list("reagents"))
 		else
 			reagents.expose(C, TOUCH)
 			reagents.clear_reagents()
 			C.visible_message(span_notice("[user] touches \the [C] with \the [src]."))
-			log_combat(user, C, "touched", src, log_object)
+			log_attack(user, C, "touched", src, "([reagents.get_reagent_log_string()])", list("reagents"))
 
 	else if(istype(A) && (src in user))
 		user.visible_message(span_notice("[user] starts to wipe down [A] with [src]!"), span_notice("You start to wipe down [A] with [src]..."))

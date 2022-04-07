@@ -1364,16 +1364,16 @@
 		INVOKE_ASYNC(src, .proc/electrified_loop)
 
 	if(user)
-		var/message
+		var/action
 		switch(secondsElectrified)
 			if(MACHINE_ELECTRIFIED_PERMANENT)
-				message = "permanently shocked"
+				action = "permanently shocked"
 			if(MACHINE_NOT_ELECTRIFIED)
-				message = "unshocked"
+				action = "unshocked"
 			else
-				message = "temp shocked for [secondsElectrified] seconds"
-		LAZYADD(shockedby, text("\[[time_stamp()]\] [key_name(user)] - ([uppertext(message)])"))
-		log_combat(user, src, message)
+				action = "temp shocked for [secondsElectrified] seconds"
+		LAZYADD(shockedby, text("\[[time_stamp()]\] [key_name(user)] - ([uppertext(action)])"))
+		log_attack(user, src, action)
 		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -1598,10 +1598,10 @@
 			to_chat(user, span_warning("The door has no power - you can't raise the door bolts."))
 		else
 			unbolt()
-			log_combat(user, src, "unbolted")
+			log_attack(user, src, "unbolted", tags = list("doors"))
 	else
 		bolt()
-		log_combat(user, src, "bolted")
+		log_attack(user, src, "bolted", tags = list("doors"))
 
 /obj/machinery/door/airlock/proc/toggle_emergency(mob/user)
 	if(!user_allowed(user))

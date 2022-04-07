@@ -120,7 +120,7 @@ Borg Hypospray
 	var/list/injected = list()
 	for(var/datum/reagent/RG in R.reagent_list)
 		injected += RG.name
-	log_combat(user, M, "injected", src, "(CHEMICALS: [english_list(injected)])")
+	log_attack(user, M, "injected", src, "([english_list(injected)])", list("reagents"))
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)
 	var/choice = tgui_input_list(user, "Reagent to dispense", "Medical Hypospray", sort_list(reagent_names))

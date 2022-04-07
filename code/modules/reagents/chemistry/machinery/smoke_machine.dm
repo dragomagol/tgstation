@@ -157,9 +157,9 @@
 			on = !on
 			update_appearance()
 			if(on)
-				message_admins("[ADMIN_LOOKUPFLW(usr)] activated a smoke machine that contains [english_list(reagents.reagent_list)] at [ADMIN_VERBOSEJMP(src)].")
-				log_game("[key_name(usr)] activated a smoke machine that contains [english_list(reagents.reagent_list)] at [AREACOORD(src)].")
-				log_combat(usr, src, "has activated [src] which contains [english_list(reagents.reagent_list)] at [AREACOORD(src)].")
+				message_admins("[ADMIN_LOOKUPFLW(usr)] activated a smoke machine that contains [reagents.get_reagent_log_string()] at [ADMIN_VERBOSEJMP(src)].")
+				log_game("[key_name(usr)] activated a smoke machine that contains [reagents.get_reagent_log_string()] at [AREACOORD(src)].")
+				log_attack(usr, src, "activated", details = "which contains [reagents.get_reagent_log_string()]", tags = list("reagents"))
 		if("goScreen")
 			screen = params["screen"]
 			. = TRUE

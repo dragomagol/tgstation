@@ -197,7 +197,7 @@
 	if(typeofskin)
 		skin = new typeofskin
 
-	log_combat(user, occupant, "gibbed")
+	log_attack(user, occupant, "gibbed")
 	mob_occupant.death(1)
 	mob_occupant.ghostize()
 	set_occupant(null)

@@ -227,7 +227,7 @@
 	sac_target.update_handcuffed()
 	sac_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 85, 150)
 	sac_target.do_jitter_animation(100)
-	log_combat(heretic_mind.current, sac_target, "sacrificed")
+	log_attack(heretic_mind.current, sac_target, "sacrificed", tags = list("heretic"))
 
 	addtimer(CALLBACK(sac_target, /mob/living/carbon.proc/do_jitter_animation, 100), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, /mob/living/carbon.proc/do_jitter_animation, 100), SACRIFICE_SLEEP_DURATION * (2/3))
@@ -467,7 +467,7 @@
  */
 /datum/heretic_knowledge/hunt_and_sacrifice/proc/disembowel_target(mob/living/carbon/human/sac_target)
 	if(heretic_mind)
-		log_combat(heretic_mind.current, sac_target, "disemboweled via sacrifice")
+		log_attack(heretic_mind.current, sac_target, "disemboweled", details = "via heretic sacrifice")
 	sac_target.spill_organs()
 	sac_target.apply_damage(250, BRUTE)
 	if(sac_target.stat != DEAD)

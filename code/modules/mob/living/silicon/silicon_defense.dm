@@ -9,14 +9,13 @@
 	if(..()) //if harm or disarm intent
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		if (prob(90))
-			log_combat(user, src, "attacked")
+			log_attack(user, src, "attacked", tags = list("silicon"))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] slashes at [src]!"), \
 							span_userdanger("[user] slashes at you!"), null, null, user)
 			to_chat(user, span_danger("You slash at [src]!"))
 			if(prob(8))
 				flash_act(affect_silicon = 1)
-			log_combat(user, src, "attacked")
 			adjustBruteLoss(damage)
 			updatehealth()
 		else

@@ -39,7 +39,7 @@ effective or pretty fucking useless.
 		to_chat(user, span_danger("The mind batterer has been burnt out!"))
 		return
 
-	log_combat(user, null, "knocked down people in the area", src)
+	log_attack(user, null, "knocked down people in the area", src)
 
 	for(var/mob/living/carbon/human/M in urange(10, user, 1))
 		if(prob(50))
@@ -85,7 +85,7 @@ effective or pretty fucking useless.
 		to_chat(user, span_warning("[M]'s clothing is fully protecting [M.p_them()] from irradiation!"))
 		return
 	if(!used)
-		log_combat(user, M, "irradiated", src)
+		log_attack(user, M, "irradiated", src, tags = list("traitor"))
 		var/cooldown = get_cooldown()
 		used = TRUE
 		icon_state = "health1"

@@ -76,7 +76,7 @@
 	if(!inject(target, user)) //Now we actually do the heavy lifting.
 		to_chat(user, span_notice("It appears that [target] does not have compatible DNA."))
 
-	used = 1
+	used = TRUE
 	icon_state = "dnainjector0"
 	desc += " This one is used up."
 

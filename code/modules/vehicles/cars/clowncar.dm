@@ -105,7 +105,7 @@
 		hittarget_living.visible_message(span_warning("[src] rams into [hittarget_living] and sucks [hittarget_living.p_them()] up!")) //fuck off shezza this isn't ERP.
 		mob_forced_enter(hittarget_living)
 		playsound(src, pick('sound/vehicles/clowncar_ram1.ogg', 'sound/vehicles/clowncar_ram2.ogg', 'sound/vehicles/clowncar_ram3.ogg'), 75)
-		log_combat(src, hittarget_living, "sucked up")
+		log_attack(src, hittarget_living, "sucked up", tags = list("traitor"))
 		return
 	if(!istype(bumped, /turf/closed))
 		return
@@ -113,7 +113,7 @@
 	playsound(src, pick('sound/vehicles/clowncar_crash1.ogg', 'sound/vehicles/clowncar_crash2.ogg'), 75)
 	playsound(src, 'sound/vehicles/clowncar_crashpins.ogg', 75)
 	dump_mobs(TRUE)
-	log_combat(src, bumped, "crashed into", null, "dumping all passengers")
+	log_attack(src, bumped, "crashed into", details = "dumping all passengers", tags = list("traitor"))
 
 /obj/vehicle/sealed/car/clowncar/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
@@ -245,7 +245,7 @@
 	flick("clowncar_recoil", src)
 	playsound(src, pick('sound/vehicles/carcannon1.ogg', 'sound/vehicles/carcannon2.ogg', 'sound/vehicles/carcannon3.ogg'), 75)
 	unlucky_sod.throw_at(target, 10, 2)
-	log_combat(user, unlucky_sod, "fired", src, "towards [target]") //this doesn't catch if the mob hits something between the car and the target
+	log_attack(user, unlucky_sod, "fired", src, "towards [target]", list("traitor")) //this doesn't catch if the mob hits something between the car and the target
 	return COMSIG_MOB_CANCEL_CLICKON
 
 ///Increments the thanks counter every time someone thats been kidnapped thanks the driver
