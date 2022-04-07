@@ -145,14 +145,26 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if(access_log_mirror)
 		log_access(text)
 
-/proc/log_attack(atom/source, atom/target, action, atom/weapon = null, details = null)
+/proc/log_attack(atom/source, atom/target, action, weapon = null, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
-		var/datum/log_entry/attack/combat/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
+		var/datum/log_entry/attack/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
+		attack_log.add_tags(tags)
 		attack_log.combat_action(action)
 		attack_log.combat_weapon(weapon)
 		attack_log.combat_details(details)
 
 		WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
+
+		// If the source and/or target are mobs, add the attack logs to their player logs
+		var/mob/living/attacker = source
+		if(attacker)
+			var/message = attack_log.player_log_text(is_attacker = TRUE)
+			attacker.log_message(message, LOG_ATTACK, color = "red", log_globally = FALSE)
+
+		var/mob/living/defender = target
+		if(defender && attacker != defender)
+			var/reverse_message = attack_log.player_log_text(is_attacker = FALSE)
+			defender.log_message(reverse_message, LOG_VICTIM, color = "orange", log_globally = FALSE)
 
 /proc/log_econ(text)
 	if (CONFIG_GET(flag/log_econ))

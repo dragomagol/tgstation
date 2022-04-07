@@ -42,10 +42,12 @@
 	tags = list()
 	extended_fields = list()
 
+/datum/log_entry/proc/add_tags(var/list/new_tags)
+	tags += new_tags
+
 /// Returns a human-friendly representation of this log
 /datum/log_entry/proc/to_text()
-	var/text_log = "\[[timestamp]\] "
-	text_log += "[private ? "ADMIN: " : ""]"
+	var/text_log = "[private ? "ADMIN: " : ""]"
 	text_log += "[category]: "
 	return text_log
 
@@ -84,7 +86,6 @@
 /// Create a deep copy of this log entry
 /datum/log_entry/proc/clone()
 	var/datum/log_entry/new_entry = new
-
 	new_entry.timestamp = timestamp
 	new_entry.category = category
 	new_entry.private = private
@@ -95,10 +96,9 @@
 	new_entry.target = target
 	new_entry.target_ckey = target_ckey
 	new_entry.extended_fields = extended_fields.Copy()
-
 	return new_entry
 
-/// Specific logs
+//////////////////////////////////////// Specific logs
 
 /// atmos
 /datum/log_entry/atmospherics
@@ -106,43 +106,40 @@
 	tags = list("atmospherics")
 
 /// attack
-/// extended fields: weapon, action, details
-/datum/log_entry/attack
-	category = "ATTACK"
-	tags = list("attack")
-
 /**
- * Combat Log
+ * Attack Log
  *
  * Extended fields:
  * * action - a verb describing the action (e.g. punched, thrown, kicked, etc.)
  * * weapon - a tool with which the action was made (usually an item)
  * * details - any additional text, which will be appended to the rest of the log line
  */
-/datum/log_entry/attack/combat/New(var/_source, var/_target, var/list/_location)
+/datum/log_entry/attack/New(var/_source, var/_target, var/list/_location)
 	. = ..(_source, _target, _location)
+	category = "ATTACK"
+	tags = list("attack")
 	extended_fields = list(
 		"action" = null,
 		"weapon" = null,
 		"details" = null,
 	)
 
-/datum/log_entry/attack/combat/proc/combat_action(var/action)
+/datum/log_entry/attack/proc/combat_action(var/action)
 	extended_fields["action"] = action
 
-/datum/log_entry/attack/combat/proc/combat_weapon(var/weapon)
+/datum/log_entry/attack/proc/combat_weapon(var/weapon)
 	extended_fields["weapon"] = weapon
 
-/datum/log_entry/attack/combat/proc/combat_details(var/details)
+/datum/log_entry/attack/proc/combat_details(var/details)
 	extended_fields["details"] = details
 
-/datum/log_entry/attack/combat/to_text()
+/datum/log_entry/attack/to_text()
 	var/action = extended_fields["action"]
 	var/weapon = extended_fields["weapon"]
 	var/details = extended_fields["details"]
 
 	var/mob/living/living_target = target
-	var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
+	var/hp = istype(living_target) ? "(NEWHP: [living_target.health])" : ""
 
 	var/postfix = ""
 	if(weapon)
@@ -151,14 +148,23 @@
 		postfix += "[details]"
 	postfix += "[hp]"
 
-	var/message = "[key_name(source)] has [action] [key_name(target)] [postfix]"
-	// source.log_message(message, LOG_ATTACK, color = "red")
+	return ..() + "[key_name(source)] has [action] [key_name(target)] [postfix] [loc_name(source)]"
 
-	// if(source != target)
-	// 	var/reverse_message = "has been [action] by [key_name(source)][postfix]"
-	// 	target.log_message(reverse_message, LOG_VICTIM, color = "orange", log_globally = FALSE)
+/datum/log_entry/attack/proc/player_log_text(is_attacker)
+	var/action = extended_fields["action"]
+	var/weapon = extended_fields["weapon"]
+	var/details = extended_fields["details"]
 
-	return ..() + message + " [loc_name(source)]"
+	var/postfix = ""
+	if(weapon)
+		postfix += "with [weapon]"
+	if(details)
+		postfix += "[details]"
+
+	if (is_attacker)
+		return "has [action] [key_name(target)] [postfix]"
+	else
+		return "has been [action] by [key_name(source)] [postfix]"
 
 /**
  * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
