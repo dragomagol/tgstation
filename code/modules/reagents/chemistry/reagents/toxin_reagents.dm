@@ -839,7 +839,7 @@
 	. = ..()
 
 /datum/reagent/toxin/amanitin/on_mob_delete(mob/living/M)
-	M.log_message("has taken [delayed_toxin_damage] toxin damage from amanitin toxin", LOG_ATTACK)
+	log_attack(src, M, "inflicted [delayed_toxin_damage] toxin damage to",)
 	M.adjustToxLoss(delayed_toxin_damage)
 	. = ..()
 

@@ -75,11 +75,7 @@
 				return
 			living_target.visible_message(span_danger("[user] injects [living_target] with the syringe!"), \
 							span_userdanger("[user] injects you with the syringe!"))
-
-		if (living_target == user)
-			living_target.log_message("injected themselves ([contained]) with [name]", LOG_ATTACK, color="orange")
-		else
-			log_attack(user, living_target, "injected", src, "([contained])", list("reagents"))
+		log_attack(user, living_target, "injected", src, "([contained])", list("reagents"))
 	reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user, methods = INJECT)
 	to_chat(user, span_notice("You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units."))
 

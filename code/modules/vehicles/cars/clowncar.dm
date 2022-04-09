@@ -42,7 +42,7 @@
 		if(is_clown_job(H.mind?.assigned_role)) //Ensures only clowns can drive the car. (Including more at once)
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE)
 			RegisterSignal(H, COMSIG_MOB_CLICKON, .proc/fire_cannon_at)
-			M.log_message("has entered [src] as a possible driver", LOG_ATTACK)
+			log_attack(M, src, "entered into", details = "as a possible driver", tags = list("traitor"))
 			return
 	add_control_flags(M, VEHICLE_CONTROL_KIDNAPPED)
 

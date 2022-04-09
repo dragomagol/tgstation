@@ -48,7 +48,7 @@
 	. = ..()
 	create_objectives()
 	equip_rev()
-	owner.current.log_message("has been converted to the revolution!", LOG_ATTACK, color="red")
+	log_attack(owner, "", "been converted to the revolution!", tags = list("revolutionaries"))
 
 /datum/antagonist/rev/on_removal()
 	remove_objectives()
@@ -287,7 +287,7 @@
 
 //blunt trauma deconversions call this through species.dm spec_attacked_by()
 /datum/antagonist/rev/proc/remove_revolutionary(borged, deconverter)
-	owner.current.log_message("has been deconverted from the revolution by [ismob(deconverter) ? key_name(deconverter) : deconverter]!", LOG_ATTACK, color="#960000")
+	log_attack(owner, deconverter, "deconverted from the revolution!", tags = list("revolutionaries"))
 	if(borged)
 		message_admins("[ADMIN_LOOKUPFLW(owner.current)] has been borged while being a [name]")
 	owner.special_role = null

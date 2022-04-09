@@ -70,6 +70,126 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 #define log_reftracker(msg)
 #endif
 
+/**
+ * Generic logging helper
+ *
+ * reads the type of the log
+ * and writes it to the respective log file
+ * unless log_globally is FALSE
+ * Arguments:
+ * * message - The message being logged
+ * * message_type - the type of log the message is(ATTACK, SAY, etc)
+ * * color - color of the log text
+ * * log_globally - boolean checking whether or not we write this log to the log file
+ */
+/atom/proc/log_message(message, message_type, color = null, log_globally = TRUE)
+	if(!log_globally)
+		return
+
+	var/log_text = "[key_name(src)] [message] [loc_name(src)]"
+	switch(message_type)
+		if(LOG_ATTACK)
+			// log_attack(log_text)
+		if(LOG_SAY)
+			log_say(log_text)
+		if(LOG_WHISPER)
+			log_whisper(log_text)
+		if(LOG_EMOTE)
+			log_emote(log_text)
+		if(LOG_RADIO_EMOTE)
+			log_radio_emote(log_text)
+		if(LOG_DSAY)
+			log_dsay(log_text)
+		if(LOG_PDA)
+			log_pda(log_text)
+		if(LOG_CHAT)
+			log_chat(log_text)
+		if(LOG_COMMENT)
+			log_comment(log_text)
+		if(LOG_TELECOMMS)
+			log_telecomms(log_text)
+		if(LOG_ECON)
+			log_econ(log_text)
+		if(LOG_OOC)
+			log_ooc(log_text)
+		if(LOG_ADMIN)
+			log_admin(log_text)
+		if(LOG_ADMIN_PRIVATE)
+			log_admin_private(log_text)
+		if(LOG_ASAY)
+			log_adminsay(log_text)
+		if(LOG_OWNERSHIP)
+			log_game(log_text)
+		if(LOG_GAME)
+			log_game(log_text)
+		if(LOG_MECHA)
+			log_mecha(log_text)
+		if(LOG_SHUTTLE)
+			log_shuttle(log_text)
+		else
+			stack_trace("Invalid individual logging type: [message_type]. Defaulting to [LOG_GAME] (LOG_GAME).")
+			log_game(log_text)
+
+/**
+ * Helper for logging chat messages or other logs with arbitrary inputs(e.g. announcements)
+ *
+ * This proc compiles a log string by prefixing the tag to the message
+ * and suffixing what it was forced_by if anything
+ * if the message lacks a tag and suffix then it is logged on its own
+ * Arguments:
+ * * message - The message being logged
+ * * message_type - the type of log the message is(ATTACK, SAY, etc)
+ * * tag - tag that indicates the type of text(announcement, telepathy, etc)
+ * * log_globally - boolean checking whether or not we write this log to the log file
+ * * forced_by - source that forced the dialogue if any
+ */
+/atom/proc/log_talk(message, message_type, tag = null, log_globally = TRUE, forced_by = null, custom_say_emote = null)
+	var/prefix = tag ? "([tag]) " : ""
+	var/suffix = forced_by ? " FORCED by [forced_by]" : ""
+	log_message("[prefix][custom_say_emote ? "*[custom_say_emote]*, " : ""]\"[message]\"[suffix]", message_type, log_globally=log_globally)
+
+/// Helper for logging of messages with only one sender and receiver
+/proc/log_directed_talk(atom/source, atom/target, message, message_type, tag)
+	if(!tag)
+		stack_trace("Unspecified tag for private message")
+		tag = "UNKNOWN"
+
+	source.log_talk(message, message_type, tag="[tag] to [key_name(target)]")
+	if(source != target)
+		target.log_talk(message, LOG_VICTIM, tag="[tag] from [key_name(source)]", log_globally=FALSE)
+
+/**
+ * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
+ *
+ * Note that this has no info on the attack that dealt the wound: information about where damage came from isn't passed to the bodypart's damaged proc. When in doubt, check the attack log for attacks at that same time
+ *
+ * Arguments:
+ * * victim - The guy who got wounded
+ * * suffered_wound - The wound, already applied, that we're logging. It has to already be attached so we can get the limb from it
+ * * dealt_damage - How much damage is associated with the attack that dealt with this wound.
+ * * dealt_wound_bonus - The wound_bonus, if one was specified, of the wounding attack
+ * * dealt_bare_wound_bonus - The bare_wound_bonus, if one was specified *and applied*, of the wounding attack. Not shown if armor was present
+ * * base_roll - Base wounding ability of an attack is a random number from 1 to (dealt_damage ** WOUND_DAMAGE_EXPONENT). This is the number that was rolled in there, before mods
+ */
+/proc/log_wound(atom/victim, datum/wound/suffered_wound, dealt_damage, dealt_wound_bonus, dealt_bare_wound_bonus, base_roll)
+	if(QDELETED(victim) || !suffered_wound)
+		return
+	var/message = "has suffered: [suffered_wound][suffered_wound.limb ? " to [suffered_wound.limb.name]" : null]"// maybe indicate if it's a promote/demote?
+
+	if(dealt_damage)
+		message += " | Damage: [dealt_damage]"
+		// The base roll is useful since it can show how lucky someone got with the given attack. For example, dealing a cut
+		if(base_roll)
+			message += " (rolled [base_roll]/[dealt_damage ** WOUND_DAMAGE_EXPONENT])"
+
+	if(dealt_wound_bonus)
+		message += " | WB: [dealt_wound_bonus]"
+
+	if(dealt_bare_wound_bonus)
+		message += " | BWB: [dealt_bare_wound_bonus]"
+
+	victim.log_message(message, LOG_ATTACK, color = "blue")
+
 /* Items with ADMINPRIVATE prefixed are stripped from public logs. */
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
@@ -145,6 +265,12 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if(access_log_mirror)
 		log_access(text)
 
+/**
+ * Configures a log_entry with given information and writes the textual representation of the
+ * datum to the global attack log.
+ *
+ * Mirrors this log entry to the individual logs for the attacker and victim, if they're mobs.
+ */
 /proc/log_attack(atom/source, atom/target, action, weapon = null, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
 		var/datum/log_entry/attack/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
@@ -182,7 +308,7 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	var/bomb_message = "[details][bomb ? " [bomb.name] at [AREACOORD(bomb)]": ""][additional_details ? " [additional_details]" : ""]."
 
 	if(user)
-		user.log_message(bomb_message, LOG_ATTACK) //let it go to individual logs as well as the game log
+		log_attack(user, "", bomb_message, tags = list("explosion"))
 		bomb_message = "[key_name(user)] at [AREACOORD(user)] [bomb_message]"
 	else
 		log_game(bomb_message)
@@ -357,7 +483,6 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 /* Close open log handles. This should be called as late as possible, and no logging should happen after. */
 /proc/shutdown_logging()
 	rustg_log_close_all()
-
 
 /* Helper procs for building detailed log lines */
 /proc/key_name(whom, include_link = null, include_name = TRUE)

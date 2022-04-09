@@ -257,7 +257,7 @@
 	to_chat(user, span_notice("You shatter the bottle!"))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
 	message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(user)] has activated a bottle of mayhem!"))
-	user.log_message("activated a bottle of mayhem", LOG_ATTACK)
+	log_attack(user, "a bottle of mayhem", "activated")
 	qdel(src)
 
 /obj/item/clothing/suit/hooded/hostile_environment

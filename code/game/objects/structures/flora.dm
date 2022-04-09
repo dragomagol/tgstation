@@ -44,7 +44,7 @@
 		return
 	user.visible_message(span_notice("[user] fells [src] with [attacking_item]."),span_notice("You fell [src] with [attacking_item]."), span_hear("You hear the sound of a tree falling."))
 	playsound(my_turf, 'sound/effects/meteorimpact.ogg', 100 , FALSE, FALSE)
-	user.log_message("cut down [src] at [AREACOORD(src)]", LOG_ATTACK)
+	log_attack(user, src, "cut down", attacking_item)
 	for(var/i=1 to log_amount)
 		new /obj/item/grown/log/tree(drop_location())
 	var/obj/structure/flora/stump/new_stump = new(my_turf)

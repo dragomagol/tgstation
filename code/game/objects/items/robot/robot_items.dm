@@ -307,13 +307,15 @@
 		user.visible_message("<font color='red' size='2'>[user] blares out a near-deafening siren from its speakers!</font>", \
 			span_userdanger("The siren pierces your hearing and confuses you!"), \
 			span_danger("The siren pierces your hearing!"))
+		var/list/affected_mobs = list()
 		for(var/mob/living/carbon/M in get_hearers_in_view(9, user))
 			if(M.get_ear_protection() == FALSE)
 				M.add_confusion(6)
+			affected_mobs += key_name(M)
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
 		playsound(get_turf(src), 'sound/ai/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200
-		user.log_message("used a Cyborg Harm Alarm in [AREACOORD(user)]", LOG_ATTACK)
+		log_attack(user, affected_mobs.Join(","), "stunned and confused", "the Cyborg Harm Alarm", tags = list("silicon"))
 		if(iscyborg(user))
 			var/mob/living/silicon/robot/R = user
 			to_chat(R.connected_ai, "<br>[span_notice("NOTICE - Peacekeeping 'HARM ALARM' used by: [user]")]<br>")
@@ -322,7 +324,9 @@
 
 	if(safety == FALSE)
 		user.audible_message("<font color='red' size='7'>BZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZT</font>")
+		var/list/affected_mobs = list()
 		for(var/mob/living/carbon/C in get_hearers_in_view(9, user))
+			affected_mobs += key_name(C)
 			var/bang_effect = C.soundbang_act(2, 0, 0, 5)
 			switch(bang_effect)
 				if(1)
@@ -336,7 +340,7 @@
 					C.Jitter(25)
 		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
 		cooldown = world.time + 600
-		user.log_message("used an emagged Cyborg Harm Alarm in [AREACOORD(user)]", LOG_ATTACK)
+		log_attack(user, affected_mobs.Join(","), "stunned and confused", "the emagged Cyborg Harm Alarm", tags = list("silicon"))
 
 #define DISPENSE_LOLLIPOP_MODE 1
 #define THROW_LOLLIPOP_MODE 2

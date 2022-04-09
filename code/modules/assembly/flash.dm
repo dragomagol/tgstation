@@ -145,10 +145,7 @@
 /obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
-	if(user)
-		log_attack(user, M, "flashed", src, "[targeted? "(targeted)" : "(AOE)"]")
-	else //caused by emp/remote signal
-		M.log_message("was [targeted? "flashed(targeted)" : "flashed(AOE)"]",LOG_ATTACK)
+	log_attack(user, M, "flashed", src, "[targeted? "(targeted)" : "(AOE)"]")
 
 	if(generic_message && M != user)
 		to_chat(M, span_danger("[src] emits a blinding light!"))
@@ -375,10 +372,7 @@
 /obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
-	if(user)
-		log_attack(user, M, "hypno-flashed", src, "[targeted? "(targeted)" : "(AOE)"]", tags = list("traitor"))
-	else //caused by emp/remote signal
-		M.log_message("was [targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]",LOG_ATTACK)
+	log_attack(user, M, "hypno-flashed", src, "[targeted? "(targeted)" : "(AOE)"]", tags = list("traitor"))
 	if(generic_message && M != user)
 		to_chat(M, span_notice("[src] emits a soothing light..."))
 	if(targeted)

@@ -156,7 +156,7 @@
 			return
 		reagent_container = W
 		to_chat(user, span_notice("You attach [W] to [src]."))
-		user.log_message("attached a [W] to [src] at [AREACOORD(src)] containing ([reagent_container.reagents.get_reagent_log_string()])", LOG_ATTACK)
+		log_attack(user, src, "attached a [W] to", details = "containing ([reagent_container.reagents.get_reagent_log_string()])", tags = list("reagents"))
 		add_fingerprint(user)
 		update_appearance()
 		return

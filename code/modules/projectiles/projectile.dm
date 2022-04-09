@@ -303,10 +303,7 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += "[R.name] ([num2text(R.volume)])"
 
-	if(ismob(firer))
-		log_attack(firer, L, "shot", src, reagent_note, list("reagents"))
-	else
-		L.log_message("has been shot by [firer] with [src]", LOG_ATTACK, color="orange")
+	log_attack(firer, L, "shot", src, reagent_note, list("reagents"))
 
 	return BULLET_ACT_HIT
 
