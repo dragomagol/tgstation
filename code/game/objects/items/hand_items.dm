@@ -61,7 +61,7 @@
 	playsound(get_turf(owner), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	owner.visible_message(span_danger("[owner] shamefully bops [owner.p_them()]self with [owner.p_their()] [src.name]."), span_userdanger("You shamefully bop yourself with your [src.name]."), \
 		span_hear("You hear a dull thud!"))
-	log_attack(owner, "[owner.p_them()]self", "bopped", src.name)
+	log_attack(owner, owner, "bopped", src.name)
 	owner.do_attack_animation(owner)
 	owner.apply_damage(100, STAMINA)
 	owner.Knockdown(10)

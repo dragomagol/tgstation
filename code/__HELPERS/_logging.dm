@@ -308,7 +308,7 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	var/bomb_message = "[details][bomb ? " [bomb.name] at [AREACOORD(bomb)]": ""][additional_details ? " [additional_details]" : ""]."
 
 	if(user)
-		log_attack(user, "", bomb_message, tags = list("explosion"))
+		log_attack(user, bomb, "detonated", details = "[details][additional_details ? " [additional_details]" : ""]]", tags = list("explosion"))
 		bomb_message = "[key_name(user)] at [AREACOORD(user)] [bomb_message]"
 	else
 		log_game(bomb_message)

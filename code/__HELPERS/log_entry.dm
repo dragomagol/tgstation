@@ -73,10 +73,6 @@
 /datum/log_entry/proc/extended_fields_json()
 	return json_encode(list())
 
-/// Sends this log to SSlog to be printed
-/datum/log_entry/proc/write_log()
-	return
-
 /// Sends a human-friendly version of this log to admin chat, including a JMP link to the loc
 /// Must process immediately, not wait on the SSlog queue
 /datum/log_entry/proc/notify_admins()
@@ -143,12 +139,12 @@
 
 	var/postfix = ""
 	if(weapon)
-		postfix += "with [weapon]"
+		postfix += " with [weapon]"
 	if(details)
-		postfix += "[details]"
-	postfix += "[hp]"
+		postfix += " [details]"
+	postfix += " [hp]"
 
-	return ..() + "[key_name(source)] has [action] [key_name(target)] [postfix] [loc_name(source)]"
+	return ..() + "[key_name(source)] has [action] [key_name(target)][postfix] [loc_name(source)]"
 
 /datum/log_entry/attack/proc/player_log_text(is_attacker)
 	var/action = extended_fields["action"]
@@ -157,14 +153,14 @@
 
 	var/postfix = ""
 	if(weapon)
-		postfix += "with [weapon]"
+		postfix += " with [weapon]"
 	if(details)
-		postfix += "[details]"
+		postfix += " [details]"
 
 	if (is_attacker)
-		return "has [action] [key_name(target)] [postfix]"
+		return "has [action] [key_name(target)][postfix]"
 	else
-		return "has been [action] by [key_name(source)] [postfix]"
+		return "has been [action] by [key_name(source)][postfix]"
 
 /**
  * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over

@@ -839,7 +839,7 @@
 		if(4)
 			owner.set_combat_mode(TRUE)
 			to_chat(owner, span_warning("Your arm spasms!"))
-			log_attack(owner, "[owner.p_them()]self", "attacked", details = "due to a Muscle Spasm")
+			log_attack(owner, owner, "attacked", details = "due to a Muscle Spasm")
 			owner.ClickOn(owner)
 			owner.set_combat_mode(FALSE)
 		if(5)
@@ -851,7 +851,7 @@
 				targets += nearby_turfs
 			if(LAZYLEN(targets) && held_item)
 				to_chat(owner, span_warning("Your arm spasms!"))
-				log_attack(owner, held_item, "threw", details = "due to a Muscle Spasm")
+				log_attack(owner, held_item, "thrown", details = "due to a Muscle Spasm")
 				owner.throw_item(pick(targets))
 
 /datum/status_effect/convulsing
