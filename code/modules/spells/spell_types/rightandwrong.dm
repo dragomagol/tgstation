@@ -113,7 +113,7 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 
 	if(!length(to_equip.mind.antag_datums) && prob(GLOB.summon_guns.survivor_probability))
 		to_equip.mind.add_antag_datum(/datum/antagonist/survivalist/guns)
-		log_attack(to_equip, "", "been made into a survivalist by summon guns!")
+		log_conversion(to_equip, "been made into", "a survivalist", "by summon guns", list("magic"))
 
 	var/gun_type = pick(GLOB.summoned_guns)
 	var/obj/item/gun/spawned_gun = new gun_type(get_turf(to_equip))
@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(summoned_magic_objectives, list(
 
 	if(!length(to_equip.mind.antag_datums) && prob(GLOB.summon_magic.survivor_probability))
 		to_equip.mind.add_antag_datum(/datum/antagonist/survivalist/magic)
-		log_attack(to_equip, "", "been made into a survivalist by summon magic!")
+		log_conversion(to_equip, "been made into", "a survivalist", "by summon magic", list("magic"))
 
 	var/magic_type = prob(SPECIALIST_MAGIC_PROB) ? pick(GLOB.summoned_special_magic) : pick(GLOB.summoned_magic)
 

@@ -158,38 +158,6 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if(source != target)
 		target.log_talk(message, LOG_VICTIM, tag="[tag] from [key_name(source)]", log_globally=FALSE)
 
-/**
- * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
- *
- * Note that this has no info on the attack that dealt the wound: information about where damage came from isn't passed to the bodypart's damaged proc. When in doubt, check the attack log for attacks at that same time
- *
- * Arguments:
- * * victim - The guy who got wounded
- * * suffered_wound - The wound, already applied, that we're logging. It has to already be attached so we can get the limb from it
- * * dealt_damage - How much damage is associated with the attack that dealt with this wound.
- * * dealt_wound_bonus - The wound_bonus, if one was specified, of the wounding attack
- * * dealt_bare_wound_bonus - The bare_wound_bonus, if one was specified *and applied*, of the wounding attack. Not shown if armor was present
- * * base_roll - Base wounding ability of an attack is a random number from 1 to (dealt_damage ** WOUND_DAMAGE_EXPONENT). This is the number that was rolled in there, before mods
- */
-/proc/log_wound(atom/victim, datum/wound/suffered_wound, dealt_damage, dealt_wound_bonus, dealt_bare_wound_bonus, base_roll)
-	if(QDELETED(victim) || !suffered_wound)
-		return
-	var/message = "has suffered: [suffered_wound][suffered_wound.limb ? " to [suffered_wound.limb.name]" : null]"// maybe indicate if it's a promote/demote?
-
-	if(dealt_damage)
-		message += " | Damage: [dealt_damage]"
-		// The base roll is useful since it can show how lucky someone got with the given attack. For example, dealing a cut
-		if(base_roll)
-			message += " (rolled [base_roll]/[dealt_damage ** WOUND_DAMAGE_EXPONENT])"
-
-	if(dealt_wound_bonus)
-		message += " | WB: [dealt_wound_bonus]"
-
-	if(dealt_bare_wound_bonus)
-		message += " | BWB: [dealt_bare_wound_bonus]"
-
-	victim.log_message(message, LOG_ATTACK, color = "blue")
-
 /* Items with ADMINPRIVATE prefixed are stripped from public logs. */
 /proc/log_admin(text)
 	GLOB.admin_log.Add(text)
@@ -273,7 +241,7 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
  */
 /proc/log_attack(atom/source, atom/target, action, weapon = null, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
-		var/datum/log_entry/attack/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
+		var/datum/log_entry/attack/combat/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
 		attack_log.add_tags(tags)
 		attack_log.combat_action(action)
 		attack_log.combat_weapon(weapon)
@@ -291,6 +259,61 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 		if(defender && attacker != defender)
 			var/reverse_message = attack_log.player_log_text(is_attacker = FALSE)
 			defender.log_message(reverse_message, LOG_VICTIM, color = "orange", log_globally = FALSE)
+
+/**
+ * log_conversion() is for joining a new team, such as a hypnotized victim, cultist, or thrall
+ * This also falls under the log_attack() umbrella
+ *
+ * inductee - The person who was converted
+ * faction - What the inductee is converted to
+ */
+/proc/log_conversion(atom/inductee, action, faction, details = null, list/tags = list())
+	if (CONFIG_GET(flag/log_attack))
+		var/datum/log_entry/attack/conversion/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
+		attack_log.add_tags(tags)
+		attack_log.conversion_action(action)
+		attack_log.conversion_faction(faction)
+		attack_log.conversion_details(details)
+
+		WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
+
+		// Add the attack logs to their player logs
+		var/mob/living/converted = inductee
+		if(converted)
+			var/message = attack_log.player_log_text()
+			converted.log_message(message, LOG_ATTACK, color = "green", log_globally = FALSE)
+
+/**
+ * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
+ *
+ * Note that this has no info on the attack that dealt the wound: information about where damage came from isn't passed to the bodypart's damaged proc. When in doubt, check the attack log for attacks at that same time
+ *
+ * Arguments:
+ * * victim - The guy who got wounded
+ * * suffered_wound - The wound, already applied, that we're logging. It has to already be attached so we can get the limb from it
+ * * dealt_damage - How much damage is associated with the attack that dealt with this wound.
+ * * dealt_wound_bonus - The wound_bonus, if one was specified, of the wounding attack
+ * * dealt_bare_wound_bonus - The bare_wound_bonus, if one was specified *and applied*, of the wounding attack. Not shown if armor was present
+ * * base_roll - Base wounding ability of an attack is a random number from 1 to (dealt_damage ** WOUND_DAMAGE_EXPONENT). This is the number that was rolled in there, before mods
+ */
+/proc/log_wound(atom/victim, datum/wound/suffered_wound, dealt_damage, dealt_wound_bonus, dealt_bare_wound_bonus, base_roll)
+	if(QDELETED(victim) || !suffered_wound)
+		return
+	var/message = "has suffered: [suffered_wound][suffered_wound.limb ? " to [suffered_wound.limb.name]" : null]"// maybe indicate if it's a promote/demote?
+
+	if(dealt_damage)
+		message += " | Damage: [dealt_damage]"
+		// The base roll is useful since it can show how lucky someone got with the given attack. For example, dealing a cut
+		if(base_roll)
+			message += " (rolled [base_roll]/[dealt_damage ** WOUND_DAMAGE_EXPONENT])"
+
+	if(dealt_wound_bonus)
+		message += " | WB: [dealt_wound_bonus]"
+
+	if(dealt_bare_wound_bonus)
+		message += " | BWB: [dealt_bare_wound_bonus]"
+
+	victim.log_message(message, LOG_ATTACK, color = "#485ac5")
 
 /proc/log_econ(text)
 	if (CONFIG_GET(flag/log_econ))

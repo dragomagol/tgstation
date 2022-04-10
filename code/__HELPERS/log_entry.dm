@@ -36,7 +36,13 @@
 	server_name = CONFIG_GET(string/serversqlname)
 
 	source = _source
+	var/mob/source_mob = _source
+	source_ckey = source_mob ? source_mob.ckey : null
+
 	target = _target
+	var/mob/target_mob = _target
+	target_ckey = target_mob ? target_mob.ckey : null
+
 	location = _location.Copy()
 
 	tags = list()
@@ -102,6 +108,12 @@
 	tags = list("atmospherics")
 
 /// attack
+
+/datum/log_entry/attack/New(var/_source, var/_target, var/list/_location)
+	. = ..(_source, _target, _location)
+	category = "ATTACK"
+	tags += list("attack")
+
 /**
  * Attack Log
  *
@@ -110,26 +122,24 @@
  * * weapon - a tool with which the action was made (usually an item)
  * * details - any additional text, which will be appended to the rest of the log line
  */
-/datum/log_entry/attack/New(var/_source, var/_target, var/list/_location)
+/datum/log_entry/attack/combat/New(var/_source, var/_target, var/list/_location)
 	. = ..(_source, _target, _location)
-	category = "ATTACK"
-	tags = list("attack")
 	extended_fields = list(
 		"action" = null,
 		"weapon" = null,
 		"details" = null,
 	)
 
-/datum/log_entry/attack/proc/combat_action(var/action)
+/datum/log_entry/attack/combat/proc/combat_action(var/action)
 	extended_fields["action"] = action
 
-/datum/log_entry/attack/proc/combat_weapon(var/weapon)
+/datum/log_entry/attack/combat/proc/combat_weapon(var/weapon)
 	extended_fields["weapon"] = weapon
 
-/datum/log_entry/attack/proc/combat_details(var/details)
+/datum/log_entry/attack/combat/proc/combat_details(var/details)
 	extended_fields["details"] = details
 
-/datum/log_entry/attack/to_text()
+/datum/log_entry/attack/combat/to_text()
 	var/action = extended_fields["action"]
 	var/weapon = extended_fields["weapon"]
 	var/details = extended_fields["details"]
@@ -146,7 +156,7 @@
 
 	return ..() + "[key_name(source)] has [action] [key_name(target)][postfix] [loc_name(source)]"
 
-/datum/log_entry/attack/proc/player_log_text(is_attacker)
+/datum/log_entry/attack/combat/proc/player_log_text(is_attacker)
 	var/action = extended_fields["action"]
 	var/weapon = extended_fields["weapon"]
 	var/details = extended_fields["details"]
@@ -161,6 +171,46 @@
 		return "has [action] [key_name(target)][postfix]"
 	else
 		return "has been [action] by [key_name(source)][postfix]"
+
+/**
+ * Conversion Log
+ *
+ * Extended fields:
+ * * action - the action that was taken (transformed, converted, deconverted)
+ * * faction - the new faction (team) this player belongs to
+ * * details - optional details
+ */
+/datum/log_entry/attack/conversion/New(var/_source, var/_target, var/list/_location)
+	. = ..(_source, _target, _location)
+	tags += list("conversion")
+	extended_fields = list(
+		"action" = null,
+		"faction" = null,
+		"details" = null,
+	)
+
+/datum/log_entry/attack/conversion/proc/conversion_action(var/action)
+	extended_fields["action"] = action
+
+/datum/log_entry/attack/conversion/proc/conversion_faction(var/faction)
+	extended_fields["faction"] = faction
+
+/datum/log_entry/attack/combat/proc/conversion_details(var/details)
+	extended_fields["details"] = details
+
+/datum/log_entry/attack/conversion/to_text()
+	var/action = extended_fields["action"]
+	var/faction = extended_fields["faction"]
+	var/details = extended_fields["details"]
+
+	return ..() + "[key_name(source)] has [action] [faction][details? " [details]" : ""] [loc_name(source)]"
+
+/datum/log_entry/attack/conversion/proc/player_log_text()
+	var/action = extended_fields["action"]
+	var/faction = extended_fields["faction"]
+	var/details = extended_fields["details"]
+
+	return ..() + "has [action] [faction][details? " [details]" : ""] [loc_name(source)]"
 
 /**
  * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over

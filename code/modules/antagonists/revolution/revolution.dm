@@ -48,7 +48,7 @@
 	. = ..()
 	create_objectives()
 	equip_rev()
-	log_attack(owner, "", "been converted to the revolution!", tags = list("revolutionaries"))
+	log_conversion(owner, "been converted to", "the revolution", tags = list("revolutionaries"))
 
 /datum/antagonist/rev/on_removal()
 	remove_objectives()
@@ -434,7 +434,7 @@
 	if (. == STATION_VICTORY)
 		// If the revolution was quelled, make rev heads unable to be revived through pods
 		for (var/datum/mind/rev_head as anything in ex_headrevs)
-			if(!isnull(rev_head.current))	
+			if(!isnull(rev_head.current))
 				ADD_TRAIT(rev_head.current, TRAIT_DEFIB_BLACKLISTED, REF(src))
 				rev_head.current.med_hud_set_status()
 
