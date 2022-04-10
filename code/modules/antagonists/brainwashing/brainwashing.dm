@@ -45,7 +45,7 @@
 /datum/antagonist/brainwashed/farewell()
 	to_chat(owner, span_warning("Your mind suddenly clears..."))
 	to_chat(owner, "<big>[span_warning("<b>You feel the weight of the Directives disappear! You no longer have to obey them.</b>")]</big>")
-	log_conversion(owner, "lost [owner.p_their()]", "brainwashing", "- Objectives: ([english_list(objectives)])")
+	log_conversion(owner.current, "lost [owner.p_their()]", "brainwashing", "- Objectives: ([english_list(objectives)])")
 	owner.announce_objectives()
 	return ..()
 
@@ -77,7 +77,7 @@
 	brainwash(C, objectives)
 	var/obj_list = english_list(objectives)
 	message_admins("[key_name_admin(admin)] has brainwashed [key_name_admin(C)] with the following objectives: [obj_list].")
-	log_conversion(owner, "been affected by", "force-brainwashing", "([key_name_admin(admin)] has added the following objectives: [obj_list])", list("admin"))
+	log_conversion(owner.current, "been affected by", "force-brainwashing", "([key_name_admin(admin)] has added the following objectives: [obj_list])", list("admin"))
 	log_admin("[key_name(admin)] has brainwashed [key_name(C)] with the following objectives: [obj_list].")
 
 /datum/objective/brainwashing

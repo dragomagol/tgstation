@@ -219,10 +219,10 @@
 		ghostize(FALSE) // Disallows reentering body and disassociates mind
 
 /mob/living/proc/suicide_log()
-	log_attack(src, "", "committed suicide", details = "as [src.type]")
+	log_death(src, "committed suicide as [src.type]")
 
 /mob/living/carbon/human/suicide_log()
-	log_attack("(job: [src.job ? "[src.job]" : "None"]", "", "committed suicide")
+	log_death(src, "(job: [src.job ? "[src.job]" : "None"]) committed suicide")
 
 /mob/living/proc/canSuicide()
 	var/area/A = get_area(src)

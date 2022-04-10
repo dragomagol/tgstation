@@ -119,7 +119,7 @@
 
 	var/mob/thrown_by = thrownby?.resolve()
 	if(isturf(target) && reagents.reagent_list.len && thrown_by)
-		log_attack(thrown_by, target, "splashed (thrown)", "([reagent_text])", list("reagents"))
+		log_attack(thrown_by, target, "splashed (thrown)", reagent_text, list("reagents"))
 		message_admins("[ADMIN_LOOKUPFLW(thrown_by)] splashed (thrown) [reagent_text] on [target] at [ADMIN_VERBOSEJMP(target)].")
 
 	reagents.expose(target, TOUCH)

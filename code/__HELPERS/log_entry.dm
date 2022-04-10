@@ -1,5 +1,8 @@
 // A new datum for the logging overhaul as outlined here: https://hackmd.io/AbKq0aPVS9OAaU2Wbz6UkA
 
+/**
+ *
+ */
 /datum/log_entry
 	/// Unix timestamp of the real server time this log was created
 	var/timestamp
@@ -22,26 +25,31 @@
 	/// The source of this message
 	/// The object's textual name as it would be recognised by administrators in game
 	var/source
+	/// The ckey associated with the source (if any)
 	var/source_ckey
 	/// The target of this log message
 	var/target
+	/// The ckey associated with the target (if any)
 	var/target_ckey
 	/// Non-optional fields specific to this log type (i.e. "channel" for a telecomms log)
 	var/list/extended_fields
 
-/datum/log_entry/New(var/_source, var/_target, var/list/_location)
+/datum/log_entry/New(_source, _target, list/_location)
 	/// TODO: make this UNIX timestamp
 	timestamp = time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")
 	round_id = GLOB.round_id ? GLOB.round_id : "NULL"
 	server_name = CONFIG_GET(string/serversqlname)
 
+	// We know source is a mob
 	source = _source
-	var/mob/source_mob = _source
-	source_ckey = source_mob ? source_mob.ckey : null
+	if(istype(source, /mob))
+		var/mob/source_mob = source
+		source_ckey = source_mob.ckey
 
 	target = _target
-	var/mob/target_mob = _target
-	target_ckey = target_mob ? target_mob.ckey : null
+	if(istype(target, /mob))
+		var/mob/target_mob = target
+		target_ckey = target_mob.ckey
 
 	location = _location.Copy()
 
@@ -109,7 +117,7 @@
 
 /// attack
 
-/datum/log_entry/attack/New(var/_source, var/_target, var/list/_location)
+/datum/log_entry/attack/New(_source, _target, list/_location)
 	. = ..(_source, _target, _location)
 	category = "ATTACK"
 	tags += list("attack")
@@ -156,6 +164,7 @@
 
 	return ..() + "[key_name(source)] has [action] [key_name(target)][postfix] [loc_name(source)]"
 
+/// The version of the log that will show up in a player's personal logs
 /datum/log_entry/attack/combat/proc/player_log_text(is_attacker)
 	var/action = extended_fields["action"]
 	var/weapon = extended_fields["weapon"]
@@ -167,7 +176,7 @@
 	if(details)
 		postfix += " [details]"
 
-	if (is_attacker)
+	if(is_attacker)
 		return "has [action] [key_name(target)][postfix]"
 	else
 		return "has been [action] by [key_name(source)][postfix]"
@@ -195,22 +204,46 @@
 /datum/log_entry/attack/conversion/proc/conversion_faction(var/faction)
 	extended_fields["faction"] = faction
 
-/datum/log_entry/attack/combat/proc/conversion_details(var/details)
+/datum/log_entry/attack/conversion/proc/conversion_details(var/details)
 	extended_fields["details"] = details
 
 /datum/log_entry/attack/conversion/to_text()
 	var/action = extended_fields["action"]
 	var/faction = extended_fields["faction"]
 	var/details = extended_fields["details"]
-
 	return ..() + "[key_name(source)] has [action] [faction][details? " [details]" : ""] [loc_name(source)]"
 
 /datum/log_entry/attack/conversion/proc/player_log_text()
 	var/action = extended_fields["action"]
 	var/faction = extended_fields["faction"]
 	var/details = extended_fields["details"]
+	return "has [action] [faction][details? " [details]" : ""] [loc_name(source)]"
 
-	return ..() + "has [action] [faction][details? " [details]" : ""] [loc_name(source)]"
+/**
+ * Death Log
+ *
+ * Extended fields:
+ * * cause - cause of death (natural death, suicide, succumb)
+ */
+/datum/log_entry/attack/death/New(var/_source, var/list/_location)
+	. = ..(_source, null, _location)
+	tags += list("death")
+	extended_fields = list(
+		"cause" = null,
+	)
+
+/datum/log_entry/attack/death/proc/death_cause(var/cause)
+	extended_fields["cause"] = cause
+
+/datum/log_entry/attack/death/to_text()
+	var/cause = extended_fields["cause"]
+	return ..() + "[key_name(source)] has [cause] (BRUTE: [source.getBruteLoss()], BURN: [source.getFireLoss()], TOX: [source.getToxLoss()], OXY: [source.getOxyLoss()], CLONE: [source.getCloneLoss()]) [loc_name(source)]"
+
+// /datum/log_entry/attack/death/proc/player_log_text()
+// 	var/cause = extended_fields["cause"]
+// 	var/hp = extended_fields["hp"]
+// 	var/whispered = extended_fields["whispered"]
+// 	return "has [cause] [faction][whispered? " [whispered]" : ""] [loc_name(source)]"
 
 /**
  * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over

@@ -118,7 +118,7 @@
 		var/mob/living/carbon/carbon_defender = defender
 		if(carbon_defender.silent <= 10)
 			carbon_defender.silent = clamp(carbon_defender.silent + 10, 0, 10)
-	log_attack(attacker, defender, "neck chopped", "krav maga")
+	log_attack(attacker, defender, "neck chopped", "krav maga", tags = list("martial arts"))
 	return TRUE
 
 /datum/martial_art/krav_maga/grab_act(mob/living/attacker, mob/living/defender)

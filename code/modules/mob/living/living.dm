@@ -432,7 +432,7 @@
 	if (!CAN_SUCCUMB(src))
 		to_chat(src, text="You are unable to succumb to death! This life continues.", type=MESSAGE_TYPE_INFO)
 		return
-	log_attack(src, "", "[whispered ? "whispered [src.p_their()] final words" : "succumbed to death"] with [round(health, 0.1)] points of health!")
+	log_death(src, "[whispered ? "whispered [src.p_their()] final words" : "succumbed to death"] at [round(health, 0.1)] points of health")
 	adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
 	updatehealth()
 	if(!whispered)
@@ -1350,7 +1350,7 @@
 	for(var/obj/item/item as anything in item_contents)
 		new_mob.equip_to_appropriate_slot(item)
 
-	log_attack(src, "", "been transformed", details = "into [new_mob.name]([new_mob.type])", tags = list("magic"))
+	log_conversion(src, "been transformed into", "[new_mob.type]([new_mob.name])", tags = list("magic"))
 	new_mob.set_combat_mode(TRUE)
 	wabbajack_act(new_mob)
 	to_chat(new_mob, span_warning("Your form morphs into that of a [randomize]."))

@@ -48,7 +48,7 @@
 	. = ..()
 	create_objectives()
 	equip_rev()
-	log_conversion(owner, "been converted to", "the revolution", tags = list("revolutionaries"))
+	log_conversion(owner.current, "been converted to", "the revolution", tags = list("revolutionaries"))
 
 /datum/antagonist/rev/on_removal()
 	remove_objectives()

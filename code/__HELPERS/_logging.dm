@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
  *
  * Mirrors this log entry to the individual logs for the attacker and victim, if they're mobs.
  */
-/proc/log_attack(atom/source, atom/target, action, weapon = null, details = null, list/tags = list())
+/proc/log_attack(mob/source, atom/target, action, weapon = null, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
 		var/datum/log_entry/attack/combat/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
 		attack_log.add_tags(tags)
@@ -267,9 +267,9 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
  * inductee - The person who was converted
  * faction - What the inductee is converted to
  */
-/proc/log_conversion(atom/inductee, action, faction, details = null, list/tags = list())
+/proc/log_conversion(mob/inductee, action, faction, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
-		var/datum/log_entry/attack/conversion/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
+		var/datum/log_entry/attack/conversion/attack_log = new(inductee, action, list(inductee.loc.x, inductee.loc.y, inductee.loc.z))
 		attack_log.add_tags(tags)
 		attack_log.conversion_action(action)
 		attack_log.conversion_faction(faction)
@@ -278,10 +278,23 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 		WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
 
 		// Add the attack logs to their player logs
-		var/mob/living/converted = inductee
+		var/mob/converted = inductee
 		if(converted)
 			var/message = attack_log.player_log_text()
 			converted.log_message(message, LOG_ATTACK, color = "green", log_globally = FALSE)
+
+/proc/log_death(mob/corpse, cause)
+	if (CONFIG_GET(flag/log_attack))
+		var/datum/log_entry/attack/death/attack_log = new(corpse, cause, list(corpse.loc.x, corpse.loc.y, corpse.loc.z))
+		attack_log.death_cause(cause)
+
+	WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
+
+	// Add the attack logs to their player logs
+	var/mob/torso = corpse
+	if(torso)
+		var/message = attack_log.player_log_text()
+		torso.log_message(message, LOG_ATTACK, color = "red", log_globally = FALSE)
 
 /**
  * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
@@ -327,6 +340,7 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if (CONFIG_GET(flag/log_manifest))
 		WRITE_LOG(GLOB.world_manifest_log, "[ckey] \\ [body.real_name] \\ [mind.assigned_role.title] \\ [mind.special_role ? mind.special_role : "NONE"] \\ [latejoin ? "LATEJOIN":"ROUNDSTART"]")
 
+///
 /proc/log_bomber(atom/user, details, atom/bomb, additional_details, message_admins = TRUE)
 	var/bomb_message = "[details][bomb ? " [bomb.name] at [AREACOORD(bomb)]": ""][additional_details ? " [additional_details]" : ""]."
 
