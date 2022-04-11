@@ -239,7 +239,7 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
  *
  * Mirrors this log entry to the individual logs for the attacker and victim, if they're mobs.
  */
-/proc/log_attack(mob/source, atom/target, action, weapon = null, details = null, list/tags = list())
+/proc/log_attack(atom/source, atom/target, action, weapon = null, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
 		var/datum/log_entry/attack/combat/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
 		attack_log.add_tags(tags)
@@ -269,32 +269,39 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
  */
 /proc/log_conversion(mob/inductee, action, faction, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
-		var/datum/log_entry/attack/conversion/attack_log = new(inductee, action, list(inductee.loc.x, inductee.loc.y, inductee.loc.z))
-		attack_log.add_tags(tags)
-		attack_log.conversion_action(action)
-		attack_log.conversion_faction(faction)
-		attack_log.conversion_details(details)
+		var/datum/log_entry/attack/conversion/convert_log = new(inductee, action, list(inductee.loc.x, inductee.loc.y, inductee.loc.z))
+		convert_log.add_tags(tags)
+		convert_log.conversion_action(action)
+		convert_log.conversion_faction(faction)
+		convert_log.conversion_details(details)
 
-		WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
+		WRITE_LOG(GLOB.world_attack_log, convert_log.to_text())
 
 		// Add the attack logs to their player logs
 		var/mob/converted = inductee
 		if(converted)
-			var/message = attack_log.player_log_text()
+			var/message = convert_log.player_log_text()
 			converted.log_message(message, LOG_ATTACK, color = "green", log_globally = FALSE)
 
-/proc/log_death(mob/corpse, cause)
+/**
+ * log_death() is for logging a death
+ * This also falls under the log_attack() umbrella
+ *
+ * corpse - The person who has died
+ * cause - cause of death (suicide, succumbing)
+ */
+/proc/log_death(mob/living/corpse, cause)
 	if (CONFIG_GET(flag/log_attack))
-		var/datum/log_entry/attack/death/attack_log = new(corpse, cause, list(corpse.loc.x, corpse.loc.y, corpse.loc.z))
-		attack_log.death_cause(cause)
+		var/datum/log_entry/attack/death/death_log = new(corpse, list(corpse.loc.x, corpse.loc.y, corpse.loc.z))
+		death_log.death_cause(cause)
 
-	WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
+		WRITE_LOG(GLOB.world_attack_log, death_log.to_text())
 
-	// Add the attack logs to their player logs
-	var/mob/torso = corpse
-	if(torso)
-		var/message = attack_log.player_log_text()
-		torso.log_message(message, LOG_ATTACK, color = "red", log_globally = FALSE)
+		// Add the attack logs to their player logs
+		var/mob/torso = corpse
+		if(torso)
+			var/message = death_log.player_log_text()
+			torso.log_message(message, LOG_ATTACK, color = "red", log_globally = FALSE)
 
 /**
  * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over

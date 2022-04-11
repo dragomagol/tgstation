@@ -393,7 +393,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		user.adjustOxyLoss(200)
 		user.death(0)
 		user.set_suicide(TRUE)
-		user.suicide_log()
 	else
 		user.visible_message(span_suicide("\the [src] lands on [coinflip]! [user] keeps on living!"))
 

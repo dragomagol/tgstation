@@ -40,7 +40,6 @@
 	round_id = GLOB.round_id ? GLOB.round_id : "NULL"
 	server_name = CONFIG_GET(string/serversqlname)
 
-	// We know source is a mob
 	source = _source
 	if(istype(source, /mob))
 		var/mob/source_mob = source
@@ -56,7 +55,7 @@
 	tags = list()
 	extended_fields = list()
 
-/datum/log_entry/proc/add_tags(var/list/new_tags)
+/datum/log_entry/proc/add_tags(list/new_tags)
 	tags += new_tags
 
 /// Returns a human-friendly representation of this log
@@ -130,7 +129,7 @@
  * * weapon - a tool with which the action was made (usually an item)
  * * details - any additional text, which will be appended to the rest of the log line
  */
-/datum/log_entry/attack/combat/New(var/_source, var/_target, var/list/_location)
+/datum/log_entry/attack/combat/New(_source, _target, list/_location)
 	. = ..(_source, _target, _location)
 	extended_fields = list(
 		"action" = null,
@@ -138,13 +137,13 @@
 		"details" = null,
 	)
 
-/datum/log_entry/attack/combat/proc/combat_action(var/action)
+/datum/log_entry/attack/combat/proc/combat_action(action)
 	extended_fields["action"] = action
 
-/datum/log_entry/attack/combat/proc/combat_weapon(var/weapon)
+/datum/log_entry/attack/combat/proc/combat_weapon(weapon)
 	extended_fields["weapon"] = weapon
 
-/datum/log_entry/attack/combat/proc/combat_details(var/details)
+/datum/log_entry/attack/combat/proc/combat_details(details)
 	extended_fields["details"] = details
 
 /datum/log_entry/attack/combat/to_text()
@@ -189,7 +188,7 @@
  * * faction - the new faction (team) this player belongs to
  * * details - optional details
  */
-/datum/log_entry/attack/conversion/New(var/_source, var/_target, var/list/_location)
+/datum/log_entry/attack/conversion/New(_source, _target, list/_location)
 	. = ..(_source, _target, _location)
 	tags += list("conversion")
 	extended_fields = list(
@@ -198,13 +197,13 @@
 		"details" = null,
 	)
 
-/datum/log_entry/attack/conversion/proc/conversion_action(var/action)
+/datum/log_entry/attack/conversion/proc/conversion_action(action)
 	extended_fields["action"] = action
 
-/datum/log_entry/attack/conversion/proc/conversion_faction(var/faction)
+/datum/log_entry/attack/conversion/proc/conversion_faction(faction)
 	extended_fields["faction"] = faction
 
-/datum/log_entry/attack/conversion/proc/conversion_details(var/details)
+/datum/log_entry/attack/conversion/proc/conversion_details(details)
 	extended_fields["details"] = details
 
 /datum/log_entry/attack/conversion/to_text()
@@ -217,7 +216,7 @@
 	var/action = extended_fields["action"]
 	var/faction = extended_fields["faction"]
 	var/details = extended_fields["details"]
-	return "has [action] [faction][details? " [details]" : ""] [loc_name(source)]"
+	return "has [action] [faction][details? " [details]" : ""]"
 
 /**
  * Death Log
@@ -225,25 +224,23 @@
  * Extended fields:
  * * cause - cause of death (natural death, suicide, succumb)
  */
-/datum/log_entry/attack/death/New(var/_source, var/list/_location)
+/datum/log_entry/attack/death/New(_source, list/_location)
 	. = ..(_source, null, _location)
 	tags += list("death")
 	extended_fields = list(
 		"cause" = null,
 	)
 
-/datum/log_entry/attack/death/proc/death_cause(var/cause)
+/datum/log_entry/attack/death/proc/death_cause(cause)
 	extended_fields["cause"] = cause
 
 /datum/log_entry/attack/death/to_text()
 	var/cause = extended_fields["cause"]
-	return ..() + "[key_name(source)] has [cause] (BRUTE: [source.getBruteLoss()], BURN: [source.getFireLoss()], TOX: [source.getToxLoss()], OXY: [source.getOxyLoss()], CLONE: [source.getCloneLoss()]) [loc_name(source)]"
+	return ..() + "[key_name(source)] has [cause]"
 
-// /datum/log_entry/attack/death/proc/player_log_text()
-// 	var/cause = extended_fields["cause"]
-// 	var/hp = extended_fields["hp"]
-// 	var/whispered = extended_fields["whispered"]
-// 	return "has [cause] [faction][whispered? " [whispered]" : ""] [loc_name(source)]"
+/datum/log_entry/attack/death/proc/player_log_text()
+	var/cause = extended_fields["cause"]
+	return "has [cause]"
 
 /**
  * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
