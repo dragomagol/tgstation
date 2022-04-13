@@ -110,7 +110,7 @@
 	if(from.has_money(amount))
 		adjust_money(amount)
 		SSblackbox.record_feedback("amount", "credits_transferred", amount)
-		log_econ("[amount] credits were transferred from [from.account_holder]'s account to [src.account_holder]")
+		log_econ("[from.account_holder]'s account", src, amount, src.account_holder)
 		from.adjust_money(-amount)
 		return TRUE
 	return FALSE
@@ -127,7 +127,7 @@
 		adjust_money(money_to_transfer)
 		SSblackbox.record_feedback("amount", "free_income", money_to_transfer)
 		SSeconomy.station_target += money_to_transfer
-		log_econ("[money_to_transfer] credits were given to [src.account_holder]'s account from income.")
+		log_econ("[account_job.paycheck_department] (department budget)", src, money_to_transfer, src.account_holder)
 	else
 		var/datum/bank_account/D = SSeconomy.get_dep_account(account_job.paycheck_department)
 		if(D)

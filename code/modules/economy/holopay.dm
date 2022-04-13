@@ -287,6 +287,6 @@
 	say("Thank you for your patronage, [payee]!")
 	playsound(src, 'sound/effects/cashregister.ogg', 20, TRUE)
 	/// Log the event
-	log_econ("[amount] credits were transferred from [payee]'s transaction to [linked_card.registered_account.account_holder]")
+	log_econ(payee, "pay stand", amount, linked_card.registered_account.account_holder)
 	SSblackbox.record_feedback("amount", "credits_transferred", amount)
 	return TRUE

@@ -34,7 +34,7 @@
 	/// Non-optional fields specific to this log type (i.e. "channel" for a telecomms log)
 	var/list/extended_fields
 
-/datum/log_entry/New(_source, _target, list/_location)
+/datum/log_entry/New(_source, _target)
 	/// TODO: make this UNIX timestamp
 	timestamp = time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")
 	round_id = GLOB.round_id ? GLOB.round_id : "NULL"
@@ -50,7 +50,9 @@
 		var/mob/target_mob = target
 		target_ckey = target_mob.ckey
 
-	location = _location.Copy()
+	if(istype(source, /atom))
+		var/atom/source_atom = source
+		location = list(source_atom.loc.x, source_atom.loc.y, source_atom.loc.z)
 
 	tags = list()
 	extended_fields = list()
@@ -109,28 +111,28 @@
 
 //////////////////////////////////////// Specific logs
 
-/// atmos
-/datum/log_entry/atmospherics
+/// atmos - investigate
+/datum/log_entry/atmospherics/New(_source, _target)
+	. = ..(_source, _target)
 	category = "ATMOS"
 	tags = list("atmospherics")
 
 /// attack
-
-/datum/log_entry/attack/New(_source, _target, list/_location)
-	. = ..(_source, _target, _location)
+/datum/log_entry/attack/New(_source, _target)
+	. = ..(_source, _target)
 	category = "ATTACK"
 	tags += list("attack")
 
 /**
- * Attack Log
+ * Attack (Combat) Log
  *
  * Extended fields:
  * * action - a verb describing the action (e.g. punched, thrown, kicked, etc.)
  * * weapon - a tool with which the action was made (usually an item)
  * * details - any additional text, which will be appended to the rest of the log line
  */
-/datum/log_entry/attack/combat/New(_source, _target, list/_location)
-	. = ..(_source, _target, _location)
+/datum/log_entry/attack/combat/New(_source, _target)
+	. = ..(_source, _target)
 	extended_fields = list(
 		"action" = null,
 		"weapon" = null,
@@ -188,8 +190,8 @@
  * * faction - the new faction (team) this player belongs to
  * * details - optional details
  */
-/datum/log_entry/attack/conversion/New(_source, _target, list/_location)
-	. = ..(_source, _target, _location)
+/datum/log_entry/attack/conversion/New(_source, _target)
+	. = ..(_source, _target)
 	tags += list("conversion")
 	extended_fields = list(
 		"action" = null,
@@ -219,13 +221,91 @@
 	return "has [action] [faction][details? " [details]" : ""]"
 
 /**
+ * Wound Log
+ *
+ * Extended fields:
+ * * type - The wound, already applied, that we're logging. It has to already be attached so we can get the limb from it
+ * * damage - How much damage is associated with the attack that dealt with this wound.
+ * * wound_bonus - The wound_bonus, if one was specified, of the wounding attack
+ * * bare_wound_bonus - The bare_wound_bonus, if one was specified *and applied*, of the wounding attack. Not shown if armor was present
+ * * base_roll - Base wounding ability of an attack is a random number from 1 to (damage ** WOUND_DAMAGE_EXPONENT). This is the number that was rolled in there, before mods
+ */
+/datum/log_entry/attack/wound/New(_source)
+	. = ..(_source, null)
+	tags += list("wound")
+	extended_fields = list(
+		"type" = null,
+		"damage" = null,
+		"bonus" = null,
+		"bare_bonus" = null,
+		"base_roll" = null,
+	)
+
+/datum/log_entry/attack/wound/proc/wound_type(datum/wound/type)
+	extended_fields["type"] = type
+
+/datum/log_entry/attack/wound/proc/wound_damage(damage)
+	extended_fields["damage"] = damage
+
+/datum/log_entry/attack/wound/proc/wound_bonus(bonus)
+	extended_fields["bonus"] = bonus
+
+/datum/log_entry/attack/wound/proc/wound_bare_bonus(bare_bonus)
+	extended_fields["bare_bonus"] = bare_bonus
+
+/datum/log_entry/attack/wound/proc/wound_base_roll(base_roll)
+	extended_fields["base_roll"] = base_roll
+
+/datum/log_entry/attack/wound/to_text()
+	var/datum/wound/type = extended_fields["type"]
+	var/damage = extended_fields["damage"]
+	var/bonus = extended_fields["bonus"]
+	var/bare_bonus = extended_fields["bare_bonus"]
+	var/base_roll = extended_fields["base_roll"]
+
+	var/stats = ""
+	if(damage)
+		stats += " | Damage: [damage]"
+		if(base_roll)
+			stats += " (rolled [base_roll]/[damage ** WOUND_DAMAGE_EXPONENT])"
+
+	if(bonus)
+		stats += " | WB: [bonus]"
+
+	if(bare_bonus)
+		stats += " | BWB: [bare_bonus]"
+
+	return ..() + "[key_name(source)] has suffered: [type][type.limb ? " to [type.limb.name]" : null]" + stats
+
+/datum/log_entry/attack/wound/proc/player_log_text()
+	var/datum/wound/type = extended_fields["type"]
+	var/damage = extended_fields["damage"]
+	var/bonus = extended_fields["bonus"]
+	var/bare_bonus = extended_fields["bare_bonus"]
+	var/base_roll = extended_fields["base_roll"]
+
+	var/stats = ""
+	if(damage)
+		stats += " | Damage: [damage]"
+		if(base_roll)
+			stats += " (rolled [base_roll]/[damage ** WOUND_DAMAGE_EXPONENT])"
+
+	if(bonus)
+		stats += " | WB: [bonus]"
+
+	if(bare_bonus)
+		stats += " | BWB: [bare_bonus]"
+
+	return "has suffered: [type][type.limb ? " to [type.limb.name]" : null]" + stats
+
+/**
  * Death Log
  *
  * Extended fields:
  * * cause - cause of death (natural death, suicide, succumb)
  */
-/datum/log_entry/attack/death/New(_source, list/_location)
-	. = ..(_source, null, _location)
+/datum/log_entry/attack/death/New(_source)
+	. = ..(_source, null)
 	tags += list("death")
 	extended_fields = list(
 		"cause" = null,
@@ -241,43 +321,6 @@
 /datum/log_entry/attack/death/proc/player_log_text()
 	var/cause = extended_fields["cause"]
 	return "has [cause]"
-
-/**
- * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
- *
- * Note that this has no info on the attack that dealt the wound: information about where damage came from isn't passed to the bodypart's damaged proc. When in doubt, check the attack log for attacks at that same time
- * TODO later: Add logging for healed wounds, though that will require some rewriting of healing code to prevent admin heals from spamming the logs. Not high priority
- *
- * Arguments:
- * * target - The player who got wounded
- * * suffered_wound - The wound, already applied, that we're logging. It has to already be attached so we can get the limb from it
- * * dealt_damage - How much damage is associated with the attack that dealt with this wound.
- * * dealt_wound_bonus - The wound_bonus, if one was specified, of the wounding attack
- * * dealt_bare_wound_bonus - The bare_wound_bonus, if one was specified *and applied*, of the wounding attack. Not shown if armor was present
- * * base_roll - Base wounding ability of an attack is a random number from 1 to (dealt_damage ** WOUND_DAMAGE_EXPONENT). This is the number that was rolled in there, before mods
- */
-/datum/log_entry/attack/wound/to_text()
-	// var/ssource = key_name(user)
-	// var/starget = key_name(target)
-
-	// var/mob/living/living_target = target
-	// var/hp = istype(living_target) ? " (NEWHP: [living_target.health]) " : ""
-
-	// var/sobject = ""
-	// if(object)
-	// 	sobject = " with [object]"
-	// var/saddition = ""
-	// if(addition)
-	// 	saddition = " [addition]"
-
-	// var/postfix = "[sobject][saddition][hp]"
-
-	// var/message = "has [what_done] [starget][postfix]"
-	// user.log_message(message, LOG_ATTACK, color="red")
-
-	// if(user != target)
-	// 	var/reverse_message = "has been [what_done] by [ssource][postfix]"
-	// 	target.log_message(reverse_message, LOG_VICTIM, color="orange", log_globally=FALSE)
 
 /// botany
 /datum/log_entry/botany
@@ -304,6 +347,64 @@
 /// dynamic
 
 /// econ
+/**
+ * Economy Log
+ *
+ * Extended fields:
+ * * credits - the number of credits involved
+ * * purchased_item - what was bought (optional)
+ * * account_owner - who owns the account (optional)
+ */
+/datum/log_entry/economy/New(_source, _target)
+	. = ..(_source, _target)
+	category = "ECONOMY"
+	tags = list("economy")
+
+/datum/log_entry/economy/transaction/New(_source, _target)
+	. = ..(_source, _target)
+	tags += list("transaction")
+	extended_fields = list(
+		"credits" = null,
+		"purchased_item" = null,
+		"account_owner" = null,
+	)
+
+/datum/log_entry/economy/transaction/proc/transaction_credits(credits)
+	extended_fields["credits"] = credits
+
+/datum/log_entry/economy/transaction/proc/transaction_purchased_item(purchased_item)
+	extended_fields["purchased_item"] = purchased_item
+
+/datum/log_entry/economy/transaction/proc/transaction_account_owner(account_owner)
+	extended_fields["account_owner"] = account_owner
+
+/datum/log_entry/economy/transaction/to_text()
+	var/credits = extended_fields["credits"]
+	var/purchased_item = extended_fields["purchased_item"]
+	var/account_owner = extended_fields["account_owner"]
+
+	return ..() + "[source] has transferred [credits] credits to [target]\
+		[account_owner ? " via [account_owner]'s account" : ""]\
+		[purchased_item ? " to purchase [purchased_item]" : ""]"
+
+/datum/log_entry/economy/round_end/New()
+	. = ..(null, null)
+	tags += list("round_end")
+	extended_fields = list(
+		"report" = null,
+		"credits" = null,
+	)
+
+/datum/log_entry/economy/round_end/proc/round_end_report(report)
+	extended_fields["report"] = report
+
+/datum/log_entry/economy/round_end/proc/round_end_credits(credits)
+	extended_fields["credits"] = credits
+
+/datum/log_entry/economy/round_end/to_text()
+	var/report = extended_fields["report"]
+	var/credits = extended_fields["credits"]
+	return ..() + "Round end [report]: [credits] credits."
 
 /// engine
 /datum/log_entry/engine

@@ -197,11 +197,11 @@
 	playsound(src, sell_sound, 50, TRUE)
 	if(isstack(sellitem))
 		var/obj/item/stack/stackoverflow = sellitem
-		log_econ("[stackoverflow] has been sold to [src] by [user] for [cost * stackoverflow.amount] cash.")
+		log_econ(user, src, "[cost * stackoverflow.amount]", purchased_item = stackoverflow)
 		generate_cash(cost * stackoverflow.amount, user)
 		stackoverflow.use(stackoverflow.amount)
 		return TRUE
-	log_econ("[sellitem] has been sold to [src] by [user] for [cost] cash.")
+	log_econ(user, src, cost, purchased_item = sellitem)
 	generate_cash(cost, user)
 	qdel(sellitem)
 	return TRUE

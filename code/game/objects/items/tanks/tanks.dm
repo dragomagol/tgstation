@@ -89,7 +89,7 @@
 
 	AddComponent(/datum/component/atmos_reaction_recorder, reset_criteria = list(COMSIG_GASMIX_MERGING = air_contents, COMSIG_GASMIX_REMOVING = air_contents), target_list = reaction_info)
 
-	// This is separate from the reaction recorder. 
+	// This is separate from the reaction recorder.
 	// In this case we are only listening to determine if the tank is overpressurized but not destroyed.
 	RegisterSignal(air_contents, COMSIG_GASMIX_MERGED, .proc/merging_information)
 
@@ -334,7 +334,12 @@
 
 		// As of writing this this is calibrated to maxcap at 140L and 160atm.
 		var/power = (air_contents.volume * (pressure - TANK_FRAGMENT_PRESSURE)) / TANK_FRAGMENT_SCALE
-		log_atmos("[type] exploded with a power of [power] and a mix of ", air_contents)
+
+		var/message = "TEMP = [air_contents.temperature], MOL = [air_contents.total_moles()], VOL = [air_contents.volume]"
+		for(var/key in air_contents.gases)
+			var/list/gaslist = air_contents.gases[key]
+			message += "[gaslist[GAS_META][META_GAS_ID]] = [gaslist[MOLES]];"
+		log_atmos(type, "overpressurization", "exploded due to", "with a power of [power] and a mix of [message]", list("explosion"))
 		dyn_explosion(src, power, flash_range = 1.5, ignorecap = FALSE)
 	return ..()
 

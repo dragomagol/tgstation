@@ -88,8 +88,6 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 
 	var/log_text = "[key_name(src)] [message] [loc_name(src)]"
 	switch(message_type)
-		if(LOG_ATTACK)
-			// log_attack(log_text)
 		if(LOG_SAY)
 			log_say(log_text)
 		if(LOG_WHISPER)
@@ -185,6 +183,114 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 
 
 /* All other items are public. */
+/// Logs the contents of a gasmix to the game log, prefixed by text
+/proc/log_atmos(atom/source, atom/target, action, details = null, list/tags = list())
+	// var/datum/log_entry/atmos/atmos_log = new(source, target)
+	// log_game(message)
+
+/**
+ * Configures a log_entry with given information and writes the textual representation of the
+ * datum to the global attack log.
+ *
+ * Mirrors this log entry to the individual logs for the attacker and victim, if they're mobs.
+ */
+/proc/log_attack(atom/source, atom/target, action, weapon = null, details = null, list/tags = list())
+	if (CONFIG_GET(flag/log_attack))
+		var/datum/log_entry/attack/combat/attack_log = new(source, target)
+		attack_log.add_tags(tags)
+		attack_log.combat_action(action)
+		attack_log.combat_weapon(weapon)
+		attack_log.combat_details(details)
+
+		WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
+
+		// If the source and/or target are mobs, add the attack logs to their player logs
+		var/mob/living/attacker = source
+		if(attacker)
+			var/message = attack_log.player_log_text(is_attacker = TRUE)
+			attacker.log_message(message, LOG_ATTACK, color = "red", log_globally = FALSE)
+
+		var/mob/living/defender = target
+		if(defender && attacker != defender)
+			var/reverse_message = attack_log.player_log_text(is_attacker = FALSE)
+			defender.log_message(reverse_message, LOG_VICTIM, color = "orange", log_globally = FALSE)
+
+/**
+ * log_conversion() is for joining a new team, such as a hypnotized victim, cultist, or thrall
+ * This also falls under the log_attack() umbrella
+ *
+ * inductee - The person who was converted
+ * faction - What the inductee is converted to
+ */
+/proc/log_conversion(mob/inductee, action, faction, details = null, list/tags = list())
+	if (CONFIG_GET(flag/log_attack))
+		var/datum/log_entry/attack/conversion/convert_log = new(inductee, action)
+		convert_log.add_tags(tags)
+		convert_log.conversion_action(action)
+		convert_log.conversion_faction(faction)
+		convert_log.conversion_details(details)
+
+		WRITE_LOG(GLOB.world_attack_log, convert_log.to_text())
+
+		// Add the attack logs to their player logs
+		var/mob/converted = inductee
+		if(converted)
+			var/message = convert_log.player_log_text()
+			converted.log_message(message, LOG_ATTACK, color = "green", log_globally = FALSE)
+
+/**
+ * log_death() is for logging a death
+ * This also falls under the log_attack() umbrella
+ *
+ * corpse - The person who has died
+ * cause - cause of death (suicide, succumbing)
+ */
+/proc/log_death(mob/living/corpse, cause)
+	if (CONFIG_GET(flag/log_attack))
+		var/datum/log_entry/attack/death/death_log = new(corpse)
+		death_log.death_cause(cause)
+
+		WRITE_LOG(GLOB.world_attack_log, death_log.to_text())
+
+		// Add the attack logs to their player logs
+		var/mob/torso = corpse
+		if(torso)
+			var/message = death_log.player_log_text()
+			torso.log_message(message, LOG_ATTACK, color = "red", log_globally = FALSE)
+
+/**
+ * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
+ *
+ * Note that this has no info on the attack that dealt the wound: information about where damage came from isn't passed to the bodypart's damaged proc. When in doubt, check the attack log for attacks at that same time
+ *
+ * Arguments:
+ * * victim - The guy who got wounded
+ * * suffered_wound - The wound, already applied, that we're logging. It has to already be attached so we can get the limb from it
+ * * dealt_damage - How much damage is associated with the attack that dealt with this wound.
+ * * dealt_wound_bonus - The wound_bonus, if one was specified, of the wounding attack
+ * * dealt_bare_wound_bonus - The bare_wound_bonus, if one was specified *and applied*, of the wounding attack. Not shown if armor was present
+ * * base_roll - Base wounding ability of an attack is a random number from 1 to (dealt_damage ** WOUND_DAMAGE_EXPONENT). This is the number that was rolled in there, before mods
+ */
+/proc/log_wound(atom/victim, datum/wound/suffered_wound, dealt_damage, dealt_wound_bonus, dealt_bare_wound_bonus, base_roll)
+	if (CONFIG_GET(flag/log_attack))
+		if(QDELETED(victim) || !suffered_wound)
+			return
+
+		var/datum/log_entry/attack/wound/wound_log = new(victim)
+
+		wound_log.wound_type(suffered_wound)
+		wound_log.wound_damage(dealt_damage)
+		wound_log.wound_bonus(dealt_wound_bonus)
+		wound_log.wound_bare_bonus(dealt_bare_wound_bonus)
+		wound_log.wound_base_roll(base_roll)
+
+		WRITE_LOG(GLOB.world_attack_log, wound_log.to_text())
+
+		// Add the attack logs to their player logs
+		var/mob/torso = victim
+		if(torso)
+			victim.log_message(wound_log.player_log_text(), LOG_ATTACK, color = "#6c80f0")
+
 /proc/log_game(text)
 	if (CONFIG_GET(flag/log_game))
 		WRITE_LOG(GLOB.world_game_log, "GAME: [text]")
@@ -233,111 +339,24 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 	if(access_log_mirror)
 		log_access(text)
 
-/**
- * Configures a log_entry with given information and writes the textual representation of the
- * datum to the global attack log.
- *
- * Mirrors this log entry to the individual logs for the attacker and victim, if they're mobs.
- */
-/proc/log_attack(atom/source, atom/target, action, weapon = null, details = null, list/tags = list())
-	if (CONFIG_GET(flag/log_attack))
-		var/datum/log_entry/attack/combat/attack_log = new(source, target, list(source.loc.x, source.loc.y, source.loc.z))
-		attack_log.add_tags(tags)
-		attack_log.combat_action(action)
-		attack_log.combat_weapon(weapon)
-		attack_log.combat_details(details)
-
-		WRITE_LOG(GLOB.world_attack_log, attack_log.to_text())
-
-		// If the source and/or target are mobs, add the attack logs to their player logs
-		var/mob/living/attacker = source
-		if(attacker)
-			var/message = attack_log.player_log_text(is_attacker = TRUE)
-			attacker.log_message(message, LOG_ATTACK, color = "red", log_globally = FALSE)
-
-		var/mob/living/defender = target
-		if(defender && attacker != defender)
-			var/reverse_message = attack_log.player_log_text(is_attacker = FALSE)
-			defender.log_message(reverse_message, LOG_VICTIM, color = "orange", log_globally = FALSE)
-
-/**
- * log_conversion() is for joining a new team, such as a hypnotized victim, cultist, or thrall
- * This also falls under the log_attack() umbrella
- *
- * inductee - The person who was converted
- * faction - What the inductee is converted to
- */
-/proc/log_conversion(mob/inductee, action, faction, details = null, list/tags = list())
-	if (CONFIG_GET(flag/log_attack))
-		var/datum/log_entry/attack/conversion/convert_log = new(inductee, action, list(inductee.loc.x, inductee.loc.y, inductee.loc.z))
-		convert_log.add_tags(tags)
-		convert_log.conversion_action(action)
-		convert_log.conversion_faction(faction)
-		convert_log.conversion_details(details)
-
-		WRITE_LOG(GLOB.world_attack_log, convert_log.to_text())
-
-		// Add the attack logs to their player logs
-		var/mob/converted = inductee
-		if(converted)
-			var/message = convert_log.player_log_text()
-			converted.log_message(message, LOG_ATTACK, color = "green", log_globally = FALSE)
-
-/**
- * log_death() is for logging a death
- * This also falls under the log_attack() umbrella
- *
- * corpse - The person who has died
- * cause - cause of death (suicide, succumbing)
- */
-/proc/log_death(mob/living/corpse, cause)
-	if (CONFIG_GET(flag/log_attack))
-		var/datum/log_entry/attack/death/death_log = new(corpse, list(corpse.loc.x, corpse.loc.y, corpse.loc.z))
-		death_log.death_cause(cause)
-
-		WRITE_LOG(GLOB.world_attack_log, death_log.to_text())
-
-		// Add the attack logs to their player logs
-		var/mob/torso = corpse
-		if(torso)
-			var/message = death_log.player_log_text()
-			torso.log_message(message, LOG_ATTACK, color = "red", log_globally = FALSE)
-
-/**
- * log_wound() is for when someone is *attacked* and suffers a wound. Note that this only captures wounds from damage, so smites/forced wounds aren't logged, as well as demotions like cuts scabbing over
- *
- * Note that this has no info on the attack that dealt the wound: information about where damage came from isn't passed to the bodypart's damaged proc. When in doubt, check the attack log for attacks at that same time
- *
- * Arguments:
- * * victim - The guy who got wounded
- * * suffered_wound - The wound, already applied, that we're logging. It has to already be attached so we can get the limb from it
- * * dealt_damage - How much damage is associated with the attack that dealt with this wound.
- * * dealt_wound_bonus - The wound_bonus, if one was specified, of the wounding attack
- * * dealt_bare_wound_bonus - The bare_wound_bonus, if one was specified *and applied*, of the wounding attack. Not shown if armor was present
- * * base_roll - Base wounding ability of an attack is a random number from 1 to (dealt_damage ** WOUND_DAMAGE_EXPONENT). This is the number that was rolled in there, before mods
- */
-/proc/log_wound(atom/victim, datum/wound/suffered_wound, dealt_damage, dealt_wound_bonus, dealt_bare_wound_bonus, base_roll)
-	if(QDELETED(victim) || !suffered_wound)
-		return
-	var/message = "has suffered: [suffered_wound][suffered_wound.limb ? " to [suffered_wound.limb.name]" : null]"// maybe indicate if it's a promote/demote?
-
-	if(dealt_damage)
-		message += " | Damage: [dealt_damage]"
-		// The base roll is useful since it can show how lucky someone got with the given attack. For example, dealing a cut
-		if(base_roll)
-			message += " (rolled [base_roll]/[dealt_damage ** WOUND_DAMAGE_EXPONENT])"
-
-	if(dealt_wound_bonus)
-		message += " | WB: [dealt_wound_bonus]"
-
-	if(dealt_bare_wound_bonus)
-		message += " | BWB: [dealt_bare_wound_bonus]"
-
-	victim.log_message(message, LOG_ATTACK, color = "#485ac5")
-
-/proc/log_econ(text)
+/proc/log_econ(atom/buyer, atom/seller, credits, account_owner = null, purchased_item = null)
 	if (CONFIG_GET(flag/log_econ))
-		WRITE_LOG(GLOB.world_econ_log, "MONEY: [text]")
+		var/datum/log_entry/economy/transaction/purchase_log = new(buyer, seller)
+
+		purchase_log.transaction_credits(credits)
+		purchase_log.transaction_account_owner(account_owner)
+		purchase_log.transaction_purchased_item(purchased_item)
+
+		WRITE_LOG(GLOB.world_econ_log, purchase_log.to_text())
+
+/proc/log_econ_summary(report, credits)
+	if (CONFIG_GET(flag/log_econ))
+		var/datum/log_entry/economy/round_end/round_end_log = new()
+
+		round_end_log.round_end_report(report)
+		round_end_log.round_end_credits(credits)
+
+		WRITE_LOG(GLOB.world_econ_log, round_end_log.to_text())
 
 /proc/log_traitor(text)
 	if (CONFIG_GET(flag/log_traitor))
@@ -361,15 +380,6 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
 
 	if(message_admins)
 		message_admins("[user ? "[ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(user)] " : ""][details][bomb ? " [bomb.name] at [ADMIN_VERBOSEJMP(bomb)]": ""][additional_details ? " [additional_details]" : ""].")
-
-/// Logs the contents of the gasmix to the game log, prefixed by text
-/proc/log_atmos(text, datum/gas_mixture/mix)
-	var/message = text
-	message += "TEMP=[mix.temperature],MOL=[mix.total_moles()],VOL=[mix.volume]"
-	for(var/key in mix.gases)
-		var/list/gaslist = mix.gases[key]
-		message += "[gaslist[GAS_META][META_GAS_ID]]=[gaslist[MOLES]];"
-	log_game(message)
 
 /proc/log_say(text)
 	if (CONFIG_GET(flag/log_say))
