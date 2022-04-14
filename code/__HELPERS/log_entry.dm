@@ -508,9 +508,25 @@
 	tags = list("antagonists", "uplink")
 
 /// virus
-/datum/log_entry/virus
+/datum/log_entry/virus/New(_source)
+	..(_source, null)
 	category = "VIRUS"
 	tags = list("virus")
+	extended_fields = list(
+		"disease" = null,
+		"message" = null,
+	)
+
+/datum/log_entry/virus/proc/virus_disease(disease)
+	extended_fields["disease"] = disease
+
+/datum/log_entry/virus/proc/virus_message(message)
+	extended_fields["message"] = message
+
+/datum/log_entry/virus/to_text()
+	var/disease = extended_fields["disease"]
+	var/message = extended_fields["message"]
+	return ..() + "[key_name(source)] has [message] [disease]"
 
 /// wires
 /datum/log_entry/wires
