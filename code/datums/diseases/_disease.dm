@@ -54,11 +54,8 @@
 	LAZYADD(infectee.diseases, D)
 	D.affected_mob = infectee
 	SSdisease.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.
-
 	D.after_add()
 	infectee.med_hud_set_status()
-
-	var/turf/source_turf = get_turf(infectee)
 	log_virus(infectee, D, "been infected by")
 
 ///Proc to process the disease and decide on whether to advance, cure or make the sympthoms appear. Returns a boolean on whether to continue acting on the symptoms or not.

@@ -228,7 +228,6 @@
 			B.reagents.add_reagent(/datum/reagent/blood, 20, data)
 			wait = TRUE
 			update_appearance()
-			var/turf/source_turf = get_turf(src)
 			log_virus(usr, A, "printed a culture bottle for")
 			addtimer(CALLBACK(src, .proc/reset_replicator_cooldown), 50)
 			. = TRUE
