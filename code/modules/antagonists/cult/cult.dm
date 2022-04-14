@@ -63,7 +63,7 @@
 	add_objectives()
 	if(give_equipment)
 		equip_cultist(TRUE)
-	log_conversion(current, "been converted to", "the cult of Nar'Sie", tags = list("cult"))
+	log_conversion(current, "been converted to the cult of Nar'Sie", tags = list("cult"))
 
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)
 		current.client.images += cult_team.blood_target_image
@@ -75,7 +75,7 @@
 	if(!silent)
 		owner.current.visible_message(span_deconversion_message("[owner.current] looks like [owner.current.p_theyve()] just reverted to [owner.current.p_their()] old faith!"), ignored_mobs = owner.current)
 		to_chat(owner.current, span_userdanger("An unfamiliar white light flashes through your mind, cleansing the taint of the Geometer and all your memories as her servant."))
-		log_conversion(owner.current, "renounced", "the cult of Nar'Sie", tags = list("cult"))
+		log_conversion(owner.current, "renounced the cult of Nar'Sie", tags = list("cult"))
 
 	if(cult_team.blood_target && cult_team.blood_target_image && owner.current.client)
 		owner.current.client.images -= cult_team.blood_target_image

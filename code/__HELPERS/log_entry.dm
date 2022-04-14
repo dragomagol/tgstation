@@ -149,21 +149,8 @@
 	extended_fields["details"] = details
 
 /datum/log_entry/attack/combat/to_text()
-	var/action = extended_fields["action"]
-	var/weapon = extended_fields["weapon"]
-	var/details = extended_fields["details"]
-
-	var/mob/living/living_target = target
-	var/hp = istype(living_target) ? "(NEWHP: [living_target.health])" : ""
-
-	var/postfix = ""
-	if(weapon)
-		postfix += " with [weapon]"
-	if(details)
-		postfix += " [details]"
-	postfix += " [hp]"
-
-	return ..() + "[key_name(source)] has [action] [key_name(target)][postfix] [loc_name(source)]"
+	// The attack_log syntax is nearly identical to the player log syntax, but with a subject
+	return ..() + "[key_name(source)] [src.player_log_text(is_attacker = TRUE)]"
 
 /// The version of the log that will show up in a player's personal logs
 /datum/log_entry/attack/combat/proc/player_log_text(is_attacker)
@@ -186,8 +173,8 @@
  * Conversion Log
  *
  * Extended fields:
- * * action - the action that was taken (transformed, converted, deconverted)
- * * faction - the new faction (team) this player belongs to
+ * * action - the action that was taken (transformed, converted) and
+ * *          the new faction (team) this player belongs to
  * * details - optional details
  */
 /datum/log_entry/attack/conversion/New(_source, _target)
@@ -195,30 +182,22 @@
 	tags += list("conversion")
 	extended_fields = list(
 		"action" = null,
-		"faction" = null,
 		"details" = null,
 	)
 
 /datum/log_entry/attack/conversion/proc/conversion_action(action)
 	extended_fields["action"] = action
 
-/datum/log_entry/attack/conversion/proc/conversion_faction(faction)
-	extended_fields["faction"] = faction
-
 /datum/log_entry/attack/conversion/proc/conversion_details(details)
 	extended_fields["details"] = details
 
 /datum/log_entry/attack/conversion/to_text()
-	var/action = extended_fields["action"]
-	var/faction = extended_fields["faction"]
-	var/details = extended_fields["details"]
-	return ..() + "[key_name(source)] has [action] [faction][details? " [details]" : ""] [loc_name(source)]"
+	return ..() + "[key_name(source)] [src.player_log_text()]"
 
 /datum/log_entry/attack/conversion/proc/player_log_text()
 	var/action = extended_fields["action"]
-	var/faction = extended_fields["faction"]
 	var/details = extended_fields["details"]
-	return "has [action] [faction][details? " [details]" : ""]"
+	return "has [action][details? " [details]" : ""]"
 
 /**
  * Wound Log
@@ -257,25 +236,7 @@
 	extended_fields["base_roll"] = base_roll
 
 /datum/log_entry/attack/wound/to_text()
-	var/datum/wound/type = extended_fields["type"]
-	var/damage = extended_fields["damage"]
-	var/bonus = extended_fields["bonus"]
-	var/bare_bonus = extended_fields["bare_bonus"]
-	var/base_roll = extended_fields["base_roll"]
-
-	var/stats = ""
-	if(damage)
-		stats += " | Damage: [damage]"
-		if(base_roll)
-			stats += " (rolled [base_roll]/[damage ** WOUND_DAMAGE_EXPONENT])"
-
-	if(bonus)
-		stats += " | WB: [bonus]"
-
-	if(bare_bonus)
-		stats += " | BWB: [bare_bonus]"
-
-	return ..() + "[key_name(source)] has suffered: [type][type.limb ? " to [type.limb.name]" : null]" + stats
+	return ..() + "[key_name(source)] [src.player_log_text()]"
 
 /datum/log_entry/attack/wound/proc/player_log_text()
 	var/datum/wound/type = extended_fields["type"]
@@ -384,7 +345,7 @@
 	var/account_owner = extended_fields["account_owner"]
 
 	return ..() + "[source] has transferred [credits] credits to [target]\
-		[account_owner ? " via [account_owner]'s account" : ""]\
+		[account_owner ? " (belonging to [account_owner])" : ""]\
 		[purchased_item ? " to purchase [purchased_item]" : ""]"
 
 /datum/log_entry/economy/round_end/New()

@@ -222,12 +222,11 @@ GLOBAL_LIST_INIT(testing_global_profiler, list("_PROFILE_NAME" = "Global"))
  * inductee - The person who was converted
  * faction - What the inductee is converted to
  */
-/proc/log_conversion(mob/inductee, action, faction, details = null, list/tags = list())
+/proc/log_conversion(mob/inductee, action, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
 		var/datum/log_entry/attack/conversion/convert_log = new(inductee, action)
 		convert_log.add_tags(tags)
 		convert_log.conversion_action(action)
-		convert_log.conversion_faction(faction)
 		convert_log.conversion_details(details)
 
 		WRITE_LOG(GLOB.world_attack_log, convert_log.to_text())

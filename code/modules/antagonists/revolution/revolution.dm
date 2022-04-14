@@ -48,7 +48,7 @@
 	. = ..()
 	create_objectives()
 	equip_rev()
-	log_conversion(owner.current, "been converted to", "the revolution", tags = list("revolutionaries"))
+	log_conversion(owner.current, "been converted to the revolution", tags = list("revolutionaries"))
 
 /datum/antagonist/rev/on_removal()
 	remove_objectives()
@@ -264,7 +264,6 @@
 /datum/antagonist/rev/farewell()
 	if (announce_victorious())
 		return
-
 	if(ishuman(owner.current))
 		owner.current.visible_message(span_deconversion_message("[owner.current] looks like [owner.current.p_theyve()] just remembered [owner.current.p_their()] real allegiance!"), null, null, null, owner.current)
 		to_chat(owner, "<span class='deconversion_message bold'>You are no longer a brainwashed revolutionary! Your memory is hazy from the time you were a rebel...the only thing you remember is the name of the one who brainwashed you....</span>")
@@ -287,7 +286,7 @@
 
 //blunt trauma deconversions call this through species.dm spec_attacked_by()
 /datum/antagonist/rev/proc/remove_revolutionary(borged, deconverter)
-	log_attack(owner, deconverter, "deconverted from the revolution!", tags = list("revolutionaries"))
+	log_attack(owner, deconverter, "left the revolution", tags = list("revolutionaries"))
 	if(borged)
 		message_admins("[ADMIN_LOOKUPFLW(owner.current)] has been borged while being a [name]")
 	owner.special_role = null
@@ -306,6 +305,7 @@
 		. = ..()
 		if(re_antag)
 			old_owner.add_antag_datum(/datum/antagonist/enemy_of_the_state) //needs to be post ..() so old antag status is cleaned up
+
 /datum/antagonist/rev/head/equip_rev()
 	var/mob/living/carbon/C = owner.current
 	if(!ishuman(C))

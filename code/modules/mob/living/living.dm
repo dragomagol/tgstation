@@ -1350,7 +1350,7 @@
 	for(var/obj/item/item as anything in item_contents)
 		new_mob.equip_to_appropriate_slot(item)
 
-	log_conversion(src, "been transformed into", "[new_mob.type]([new_mob.name])", tags = list("magic"))
+	log_conversion(src, "been transformed into a [new_mob.type]([new_mob.name])", tags = list("magic"))
 	new_mob.set_combat_mode(TRUE)
 	wabbajack_act(new_mob)
 	to_chat(new_mob, span_warning("Your form morphs into that of a [randomize]."))

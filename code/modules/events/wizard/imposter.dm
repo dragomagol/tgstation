@@ -33,5 +33,5 @@
 		master.wiz_team.add_member(imposter)
 		I.mind.add_antag_datum(imposter)
 		I.mind.special_role = "imposter"
-		log_conversion(I, "been made into", "a wizard imposter")
+		log_conversion(I, "been made into a wizard imposter")
 		SEND_SOUND(I, sound('sound/effects/magic.ogg'))
