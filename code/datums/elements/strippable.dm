@@ -110,7 +110,7 @@
 					LAZYADD(victim_human.afk_thefts, new_entry)
 
 	to_chat(user, span_notice("You try to put [equipping] on [source]..."))
-	log_attack(user, source, "put [equipping] on")
+	log_attack(user, "put [equipping] on", source)
 
 	return TRUE
 
@@ -155,7 +155,7 @@
 	)
 
 	to_chat(user, span_danger("You try to remove [source]'s [item]..."))
-	log_attack(user, source, "begun stripping [item] off of")
+	log_attack(user, "begun stripping [item] off of", source)
 
 	item.add_fingerprint(src)
 
@@ -300,7 +300,7 @@
 /proc/finish_unequip_mob(obj/item/item, mob/source, mob/user)
 	if (!item.doStrip(user, source))
 		return FALSE
-	log_attack(user, source, "stripped", details = "of [source.p_their()] [item]")
+	log_attack(user, "stripped", source, details = "of [source.p_their()] [item]")
 
 	// Updates speed in case stripped speed affecting item
 	source.update_equipment_speed_mods()

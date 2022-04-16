@@ -491,7 +491,7 @@
 				return
 
 		message_admins("[key_name_admin(user)] has triggered a custom virus outbreak of [D.admin_details()] in [ADMIN_LOOKUPFLW(H)]")
-		log_virus(H, D, "been infected by a custom virus outbreak (triggered by [key_name_admin(user)]):")
+		log_virus(H, "was infected by a custom virus outbreak (triggered by [key_name_admin(user)]):", D)
 
 
 /datum/disease/advance/proc/totalStageSpeed()

@@ -228,7 +228,7 @@
 			B.reagents.add_reagent(/datum/reagent/blood, 20, data)
 			wait = TRUE
 			update_appearance()
-			log_virus(usr, A, "printed a culture bottle for")
+			log_virus(usr, "printed a culture bottle for", A)
 			addtimer(CALLBACK(src, .proc/reset_replicator_cooldown), 50)
 			. = TRUE
 		if("create_vaccine_bottle")

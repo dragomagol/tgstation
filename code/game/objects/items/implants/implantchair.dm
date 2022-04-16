@@ -200,6 +200,6 @@
 		return FALSE
 	brainwash(C, objective)
 	message_admins("[ADMIN_LOOKUPFLW(user)] brainwashed [key_name_admin(C)] with objective '[objective]'.")
-	log_attack(user, C, "brainwashed", src, "with the objective '[objective]'")
+	log_attack(user, "brainwashed", C, src, "with the objective '[objective]'")
 	log_game("[key_name(user)] brainwashed [key_name(C)] with objective '[objective]'.")
 	return TRUE

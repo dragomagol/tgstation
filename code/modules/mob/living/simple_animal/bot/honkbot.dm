@@ -85,7 +85,7 @@
 		threatlevel -= 6
 	addtimer(CALLBACK(src, .proc/limiting_spam_false), cooldowntime)
 
-	log_attack(src, current_target, "honked", tags = list("silicon"))
+	log_attack(src, "honked", current_target, tags = list("silicon"))
 
 	current_target.visible_message(
 		span_danger("[src] honks [current_target]!"), \

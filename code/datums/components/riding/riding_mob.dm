@@ -42,7 +42,7 @@
 /datum/component/riding/creature/proc/log_riding(mob/living/living_parent, mob/living/rider)
 	if(!istype(living_parent) || !istype(rider))
 		return
-	log_attack(rider, living_parent, "mounted", details = "(riding)", tags = list("riding"))
+	log_attack(rider, "mounted", living_parent, details = "(riding)", tags = list("riding"))
 
 // this applies to humans and most creatures, but is replaced again for cyborgs
 /datum/component/riding/creature/ride_check(mob/living/rider, consequences = TRUE)
@@ -75,7 +75,7 @@
 
 /datum/component/riding/creature/vehicle_mob_unbuckle(mob/living/living_parent, mob/living/former_rider, force = FALSE)
 	if(istype(living_parent) && istype(former_rider))
-		log_attack(former_rider, living_parent, "dismounted", details = "(riding)", tags = list("riding"))
+		log_attack(former_rider, "dismounted", living_parent, details = "(riding)", tags = list("riding"))
 	remove_abilities(former_rider)
 	// We gotta reset those layers at some point, don't we?
 	former_rider.layer = MOB_LAYER
@@ -195,9 +195,9 @@
 	if(!istype(living_parent) || !istype(rider))
 		return
 	if(ride_check_flags & RIDER_NEEDS_ARMS) // piggyback
-		log_attack(rider, living_parent, "piggybacked", details = "(riding)", tags = list("riding"))
+		log_attack(rider, "piggybacked", living_parent, details = "(riding)", tags = list("riding"))
 	else if(ride_check_flags & CARRIER_NEEDS_ARM) // fireman
-		log_attack(rider, living_parent, "fireman carried", details = "(riding)", tags = list("riding"))
+		log_attack(rider, "fireman carried", living_parent, details = "(riding)", tags = list("riding"))
 
 /datum/component/riding/creature/human/vehicle_mob_unbuckle(datum/source, mob/living/former_rider, force = FALSE)
 	unequip_buckle_inhands(parent)

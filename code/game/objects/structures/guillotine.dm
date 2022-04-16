@@ -135,7 +135,7 @@
 		playsound(src, 'sound/weapons/guillotine.ogg', 100, TRUE)
 		if (blade_sharpness >= GUILLOTINE_DECAP_MIN_SHARP || head.brute_dam >= 100)
 			head.dismember()
-			log_attack(user, H, "beheaded", src)
+			log_attack(user, "beheaded", H, src)
 			H.regenerate_icons()
 			unbuckle_all_mobs()
 			kill_count += 1
@@ -161,7 +161,7 @@
 					delay_offset++
 		else
 			H.apply_damage(15 * blade_sharpness, BRUTE, head)
-			log_attack(user, H, "dropped the blade on", src, "non-fatally")
+			log_attack(user, "dropped the blade on", H, src, "non-fatally")
 			H.emote("scream")
 
 		if (blade_sharpness > 1)

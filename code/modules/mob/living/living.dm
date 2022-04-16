@@ -297,7 +297,7 @@
 			AM.visible_message(span_danger("[src] pulls [AM] from [AM.pulledby]'s grip."), \
 							span_danger("[src] pulls you from [AM.pulledby]'s grip."), null, null, src)
 			to_chat(src, span_notice("You pull [AM] from [AM.pulledby]'s grip!"))
-		log_attack(AM, AM.pulledby, "been pulled from", src)
+		log_attack(AM, "was pulled from", AM.pulledby, src)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 
 	pulling = AM
@@ -319,7 +319,7 @@
 	if(ismob(AM))
 		var/mob/M = AM
 
-		log_attack(src, M, "grabbed", "a passive grab")
+		log_attack(src, "grabbed", M, "a passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER)))
 			if(ishuman(M))
 				var/mob/living/carbon/human/grabbed_human = M
@@ -754,7 +754,7 @@
 				spell.updateButtons()
 		if(excess_healing)
 			INVOKE_ASYNC(src, .proc/emote, "gasp")
-			log_attack(src, src, "revived")
+			log_attack(src, "[admin_revive ? "admin " : ""]revived", src)
 	else if(admin_revive)
 		updatehealth()
 		get_up(TRUE)
@@ -1006,7 +1006,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 	//resisting grabs (as if it helps anyone...)
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && pulledby)
-		log_attack(src, pulledby, "resisted being grabbed by")
+		log_attack(src, "resisted being grabbed by", pulledby)
 		resist_grab()
 		return
 
@@ -1040,7 +1040,7 @@
 			visible_message(span_danger("[src] breaks free of [pulledby]'s grip!"), \
 							span_danger("You break free of [pulledby]'s grip!"), null, null, pulledby)
 			to_chat(pulledby, span_warning("[src] breaks free of your grip!"))
-			log_attack(pulledby, src, "broken the grab of")
+			log_attack(pulledby, "broke the grab of", src)
 			pulledby.stop_pulling()
 			return FALSE
 		else
@@ -1350,7 +1350,7 @@
 	for(var/obj/item/item as anything in item_contents)
 		new_mob.equip_to_appropriate_slot(item)
 
-	log_conversion(src, "been transformed into a [new_mob.type]([new_mob.name])", tags = list("magic"))
+	log_conversion(src, "was transformed into a [new_mob.type]([new_mob.name])", tags = list("magic"))
 	new_mob.set_combat_mode(TRUE)
 	wabbajack_act(new_mob)
 	to_chat(new_mob, span_warning("Your form morphs into that of a [randomize]."))

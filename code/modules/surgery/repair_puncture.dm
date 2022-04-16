@@ -63,7 +63,7 @@
 	display_results(user, target, span_notice("You successfully realign some of the blood vessels in [target]'s [parse_zone(target_zone)]."),
 		span_notice("[user] successfully realigns some of the blood vessels in [target]'s [parse_zone(target_zone)] with [tool]!"),
 		span_notice("[user] successfully realigns some of the blood vessels in  [target]'s [parse_zone(target_zone)]!"))
-	log_attack(user, target, "excised infected flesh from", tool, tags = list("surgery"))
+	log_attack(user, "excised infected flesh from", target, tool, tags = list("surgery"))
 	surgery.operated_bodypart.receive_damage(brute=3, wound_bonus=CANT_WOUND)
 	pierce_wound.blood_flow -= 0.25
 	return ..()
@@ -110,7 +110,7 @@
 	display_results(user, target, span_notice("You successfully meld some of the split blood vessels in [target]'s [parse_zone(target_zone)] with [tool]."),
 		span_notice("[user] successfully melds some of the split blood vessels in [target]'s [parse_zone(target_zone)] with [tool]!"),
 		span_notice("[user] successfully melds some of the split blood vessels in [target]'s [parse_zone(target_zone)]!"))
-	log_attack(user, target, "melds split blood vessels in", tool, tag = list("surgery"))
+	log_attack(user, "mended split blood vessels in", target, tool, tags = list("surgery"))
 	pierce_wound.blood_flow -= 0.5
 	if(pierce_wound.blood_flow > 0)
 		surgery.status = REALIGN_INNARDS

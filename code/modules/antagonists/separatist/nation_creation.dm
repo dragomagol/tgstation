@@ -57,7 +57,7 @@
 		citizens += possible_separatist
 		separatist_mind.add_antag_datum(/datum/antagonist/separatist, nation, department)
 		nation.add_member(separatist_mind)
-		log_conversion(possible_separatist, "been made into a separatist", details = "long live [nation.name]!", tags = list("revolutionaries"))
+		log_conversion(possible_separatist, "was made into a separatist", details = "long live [nation.name]!", tags = list("revolutionaries"))
 
 	//if we didn't convert anyone we just kill the team datum, otherwise cleanup and make official
 	if(!citizens.len)

@@ -60,7 +60,7 @@
 	to_chat(target, span_userdanger("A new compulsion fills your mind... you feel forced to obey it!"))
 	brainwash(target, objective)
 	message_admins("[ADMIN_LOOKUPFLW(user)] surgically brainwashed [ADMIN_LOOKUPFLW(target)] with the objective '[objective]'.")
-	log_attack(user, target, "brainwashed", "brainwashing surgery", "giving the objective '[objective]'")
+	log_attack(user, "brainwashed", target, "brainwashing surgery", "giving the objective '[objective]'")
 	log_game("[key_name(user)] surgically brainwashed [key_name(target)] with the objective '[objective]'.")
 	return ..()
 

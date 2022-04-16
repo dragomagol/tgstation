@@ -420,10 +420,10 @@
 		var/turf/location = get_turf(src)
 		//add_blood doesn't work for borgs/xenos, but add_blood_floor does.
 		L.add_splatter_floor(location)
-		log_attack(src, L, "crushed", tags = list("doors"))
+		log_attack(src, "crushed", L, tags = list("doors"))
 	for(var/obj/vehicle/sealed/mecha/M in get_turf(src))
 		M.take_damage(DOOR_CRUSH_DAMAGE)
-		log_attack(src, M, "crushed", tags = list("doors"))
+		log_attack(src, "crushed", M, tags = list("doors"))
 
 /obj/machinery/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && !locked && !welded && autoclose)

@@ -197,8 +197,8 @@
 	if(typeofskin)
 		skin = new typeofskin
 
-	log_attack(user, occupant, "gibbed")
-	mob_occupant.death(1)
+	log_attack(user, "gibbed", occupant)
+	mob_occupant.death(TRUE)
 	mob_occupant.ghostize()
 	set_occupant(null)
 	qdel(mob_occupant)

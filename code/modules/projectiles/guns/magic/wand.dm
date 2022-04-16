@@ -52,7 +52,7 @@
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
 	user.visible_message(span_danger("[user] zaps [user.p_them()]self with [src]."))
 	playsound(user, fire_sound, 50, TRUE)
-	log_attack(user, user, "zapped", src, tags = list("magic"))
+	log_attack(user, "zapped", user, src, tags = list("magic"))
 
 
 /////////////////////////////////////

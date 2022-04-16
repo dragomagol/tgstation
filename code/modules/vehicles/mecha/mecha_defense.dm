@@ -101,7 +101,7 @@
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
-		log_attack(user, src, "attacked", tags = list("mech"))
+		log_attack(user, "attacked", src, tags = list("mech"))
 		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
 		return 1
 
@@ -113,7 +113,7 @@
 	. = ..()
 	if(.)
 		log_message("Attack by hulk. Attacker - [user].", LOG_MECHA, color="red")
-		log_attack(user, src, "punched", "hulk powers", tags = list("mech"))
+		log_attack(user, "punched", src, "hulk powers", tags = list("mech"))
 
 /obj/vehicle/sealed/mecha/blob_act(obj/structure/blob/B)
 	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")

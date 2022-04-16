@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		for(var/mob/living/M in conts)
 			if (M.stat != DEAD)
 				M.emote("scream")
-			log_attack(user, M, "cremated")
+			log_attack(user, "cremated", M)
 
 			M.death(TRUE)
 			if(M) //some animals get automatically deleted on death.

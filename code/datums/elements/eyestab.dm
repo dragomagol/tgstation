@@ -78,7 +78,7 @@
 
 	SEND_SIGNAL(target, COMSIG_ADD_MOOD_EVENT, "eye_stab", /datum/mood_event/eye_stab)
 
-	log_attack(user, target, "stabbed", item.name, "in the eyes")
+	log_attack(user, "stabbed", target, item.name, "in the eyes")
 
 	var/obj/item/organ/eyes/eyes = target.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)

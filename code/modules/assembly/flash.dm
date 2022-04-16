@@ -145,7 +145,7 @@
 /obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
-	log_attack(user, M, "flashed", src, "[targeted? "(targeted)" : "(AOE)"]")
+	log_attack(user, "flashed", M, src, "[targeted? "(targeted)" : "(AOE)"]")
 
 	if(generic_message && M != user)
 		to_chat(M, span_danger("[src] emits a blinding light!"))
@@ -243,7 +243,7 @@
 		return
 	if(issilicon(M))
 		var/mob/living/silicon/robot/flashed_borgo = M
-		log_attack(user, flashed_borgo, "flashed", src, tags = list("silicon"))
+		log_attack(user, "flashed", flashed_borgo, src, tags = list("silicon"))
 		update_icon(ALL, TRUE)
 		if(!flashed_borgo.flash_act(affect_silicon = TRUE))
 			user.visible_message(span_warning("[user] fails to blind [flashed_borgo] with the flash!"), span_warning("You fail to blind [flashed_borgo] with the flash!"))
@@ -372,7 +372,7 @@
 /obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
-	log_attack(user, M, "hypno-flashed", src, "[targeted? "(targeted)" : "(AOE)"]", tags = list("traitor"))
+	log_attack(user, "hypno-flashed", M, src, "[targeted? "(targeted)" : "(AOE)"]", tags = list("traitor"))
 	if(generic_message && M != user)
 		to_chat(M, span_notice("[src] emits a soothing light..."))
 	if(targeted)

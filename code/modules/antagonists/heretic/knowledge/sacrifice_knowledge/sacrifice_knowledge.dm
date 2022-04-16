@@ -227,7 +227,7 @@
 	sac_target.update_handcuffed()
 	sac_target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 85, 150)
 	sac_target.do_jitter_animation(100)
-	log_attack(heretic_mind.current, sac_target, "sacrificed", tags = list("heretic"))
+	log_attack(heretic_mind.current, "sacrificed", sac_target, tags = list("heretic"))
 
 	addtimer(CALLBACK(sac_target, /mob/living/carbon.proc/do_jitter_animation, 100), SACRIFICE_SLEEP_DURATION * (1/3))
 	addtimer(CALLBACK(sac_target, /mob/living/carbon.proc/do_jitter_animation, 100), SACRIFICE_SLEEP_DURATION * (2/3))

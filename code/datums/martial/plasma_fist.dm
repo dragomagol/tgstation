@@ -39,7 +39,7 @@
 	dance_rotate(A, CALLBACK(GLOBAL_PROC, .proc/playsound, A.loc, 'sound/weapons/punch1.ogg', 15, TRUE, -1))
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/R = new(null)
 	R.cast(RANGE_TURFS(1,A))
-	log_attack(A, D, "tornado sweeped", "plasma fist", tags = list("martial arts"))
+	log_attack(A, "tornado sweeped", D, "plasma fist", tags = list("martial arts"))
 	return
 
 /datum/martial_art/plasma_fist/proc/Throwback(mob/living/A, mob/living/D)
@@ -50,7 +50,7 @@
 	var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 	D.throw_at(throw_target, 200, 4,A)
 	A.say("HYAH!", forced="plasma fist")
-	log_attack(A, D, "threw back", "plasma fist", tags = list("martial arts"))
+	log_attack(A, "thrown back", D, "plasma fist", tags = list("martial arts"))
 	return
 
 /datum/martial_art/plasma_fist/proc/Plasma(mob/living/A, mob/living/D)
@@ -62,7 +62,7 @@
 	D.visible_message(span_danger("[A] hits [D] with THE PLASMA FIST TECHNIQUE!"), \
 					span_userdanger("You're suddenly hit with THE PLASMA FIST TECHNIQUE by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
 	to_chat(A, span_danger("You hit [D] with THE PLASMA FIST TECHNIQUE!"))
-	log_attack(A, D, "gibbed", "plasma fist", tags = list("martial arts"))
+	log_attack(A, "gibbed", D, "plasma fist", tags = list("martial arts"))
 	var/turf/Dturf = get_turf(D)
 	D.gib()
 	if(nobomb)
@@ -99,7 +99,7 @@
 
 	var/turf/boomspot = get_turf(user)
 	//before ghosting to prevent issues
-	log_attack(user, target, "triggered final plasma explosion on", "plasma fist", "with size [plasma_power], [plasma_power*2], [plasma_power*4]", list("martial arts"))
+	log_attack(user, "triggered final plasma explosion on", target, "plasma fist", "with size [plasma_power], [plasma_power*2], [plasma_power*4]", list("martial arts"))
 	message_admins("[key_name_admin(user)] triggered final plasma explosion with size [plasma_power], [plasma_power*2], [plasma_power*4].")
 
 	to_chat(user, span_userdanger("The explosion knocks your soul out of your body!"))

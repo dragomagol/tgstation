@@ -52,7 +52,7 @@
 			return
 
 	if(heal(patient, user))
-		log_attack(user, patient, "healed", src)
+		log_attack(user, "healed", patient, src)
 		use(TRUE)
 		if(repeating && amount > 0)
 			try_heal(patient, user, TRUE)

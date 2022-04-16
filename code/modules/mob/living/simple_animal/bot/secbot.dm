@@ -312,7 +312,7 @@
 		current_target.set_timed_status_effect(10 SECONDS, /datum/status_effect/speech/stutter)
 		threat = current_target.assess_threat(judgement_criteria, weaponcheck = CALLBACK(src, .proc/check_for_weapons))
 
-	log_attack(src, target, "stunned", tags = list("silicon"))
+	log_attack(src, "stunned", target, tags = list("silicon"))
 	if(security_mode_flags & SECBOT_DECLARE_ARRESTS)
 		var/area/location = get_area(src)
 		speak("[security_mode_flags & SECBOT_HANDCUFF_TARGET ? "Arresting" : "Detaining"] level [threat] scumbag <b>[current_target]</b> in [location].", radio_channel)

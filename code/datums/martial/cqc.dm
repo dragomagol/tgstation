@@ -48,7 +48,7 @@
 		playsound(get_turf(A), 'sound/weapons/slam.ogg', 50, TRUE, -1)
 		D.apply_damage(10, BRUTE)
 		D.Paralyze(120)
-		log_attack(A, D, "slammed", "CQC", tags = list("martial arts"))
+		log_attack(A, "slammed", D, "CQC", tags = list("martial arts"))
 		return TRUE
 
 /datum/martial_art/cqc/proc/Kick(mob/living/A, mob/living/D)
@@ -62,10 +62,10 @@
 		var/atom/throw_target = get_edge_target_turf(D, A.dir)
 		D.throw_at(throw_target, 1, 14, A)
 		D.apply_damage(10, A.get_attack_type())
-		log_attack(A, D, "kicked", "CQC", tags = list("martial arts"))
+		log_attack(A, "kicked", D, "CQC", tags = list("martial arts"))
 		. = TRUE
 	if(D.IsParalyzed() && !D.stat)
-		log_attack(A, D, "knocked out", "a head kick", "(CQC)", list("martial arts"))
+		log_attack(A, "knocked out", D, "a head kick", "(CQC)", list("martial arts"))
 		D.visible_message(span_danger("[A] kicks [D]'s head, knocking [D.p_them()] out!"), \
 						span_userdanger("You're knocked unconscious by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
 		to_chat(A, span_danger("You kick [D]'s head, knocking [D.p_them()] out!"))
@@ -77,7 +77,7 @@
 /datum/martial_art/cqc/proc/Pressure(mob/living/A, mob/living/D)
 	if(!can_use(A))
 		return FALSE
-	log_attack(A, D, "pressured", "CQC", tags = list("martial arts"))
+	log_attack(A, "pressured", D, "CQC", tags = list("martial arts"))
 	D.visible_message(span_danger("[A] punches [D]'s neck!"), \
 					span_userdanger("Your neck is punched by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 	to_chat(A, span_danger("You punch [D]'s neck!"))
@@ -91,7 +91,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		log_attack(A, D, "restrained", "CQC", tags = list("martial arts"))
+		log_attack(A, "restrained", D, "CQC", tags = list("martial arts"))
 		D.visible_message(span_warning("[A] locks [D] into a restraining position!"), \
 						span_userdanger("You're locked into a restraining position by [A]!"), span_hear("You hear shuffling and a muffled groan!"), null, A)
 		to_chat(A, span_danger("You lock [D] into a restraining position!"))
@@ -105,7 +105,7 @@
 	if(!can_use(A))
 		return FALSE
 	if(!D.stat)
-		log_attack(A, D, "consecutive CQC'd", "CQC", tags = list("martial arts"))
+		log_attack(A, "consecutive CQC'd", D, "CQC", tags = list("martial arts"))
 		D.visible_message(span_danger("[A] strikes [D]'s abdomen, neck and back consecutively"), \
 						span_userdanger("Your abdomen, neck and back are struck consecutively by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 		to_chat(A, span_danger("You strike [D]'s abdomen, neck and back consecutively!"))
@@ -127,7 +127,7 @@
 		if(old_grab_state == GRAB_PASSIVE)
 			D.drop_all_held_items()
 			A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab if on grab intent
-			log_attack(A, D, "grabbed", "CQC", "aggressively", list("martial arts"))
+			log_attack(A, "grabbed", D, "CQC", "aggressively", list("martial arts"))
 			D.visible_message(span_warning("[A] violently grabs [D]!"), \
 							span_userdanger("You're grabbed violently by [A]!"), span_hear("You hear sounds of aggressive fondling!"), COMBAT_MESSAGE_RANGE, A)
 			to_chat(A, span_danger("You violently grab [D]!"))
@@ -141,7 +141,7 @@
 	add_to_streak("H",D)
 	if(check_streak(A,D))
 		return TRUE
-	log_attack(A, D, "attacked", "CQC", tags = list("martial arts"))
+	log_attack(A, "attacked", D, "CQC", tags = list("martial arts"))
 	A.do_attack_animation(D)
 	var/picked_hit_type = pick("CQC", "Big Boss")
 	var/bonus_damage = 13
@@ -156,7 +156,7 @@
 	D.visible_message(span_danger("[A] [picked_hit_type]ed [D]!"), \
 					span_userdanger("You're [picked_hit_type]ed by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 	to_chat(A, span_danger("You [picked_hit_type] [D]!"))
-	log_attack(A, D, "[picked_hit_type]ed", "CQC", tags = list("martial arts"))
+	log_attack(A, "[picked_hit_type]ed", D, "CQC", tags = list("martial arts"))
 	if(A.resting && !D.stat && !D.IsParalyzed())
 		D.visible_message(span_danger("[A] leg sweeps [D]!"), \
 						span_userdanger("Your legs are sweeped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), null, A)
@@ -164,7 +164,7 @@
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 		D.apply_damage(10, BRUTE)
 		D.Paralyze(60)
-		log_attack(A, D, "swept", "CQC", tags = list("martial arts"))
+		log_attack(A, "swept", D, "CQC", tags = list("martial arts"))
 	return TRUE
 
 /datum/martial_art/cqc/disarm_act(mob/living/A, mob/living/D)
@@ -190,9 +190,9 @@
 						span_userdanger("You're nearly disarmed by [A]!"), span_hear("You hear a swoosh!"), COMBAT_MESSAGE_RANGE, A)
 		to_chat(A, span_warning("You fail to disarm [D]!"))
 		playsound(D, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
-	log_attack(A, D, "disarmed", "CQC", "[I ? " grabbing [I]" : ""]", list("martial arts"))
+	log_attack(A, "disarmed", D, "CQC", "[I ? " grabbing [I]" : ""]", list("martial arts"))
 	if(restraining && A.pulling == D)
-		log_attack(A, D, "knocked out", "a chokehold", "(CQC)", list("martial arts"))
+		log_attack(A, "knocked out", D, "a chokehold", "(CQC)", list("martial arts"))
 		D.visible_message(span_danger("[A] puts [D] into a chokehold!"), \
 						span_userdanger("You're put into a chokehold by [A]!"), span_hear("You hear shuffling and a muffled groan!"), null, A)
 		to_chat(A, span_danger("You put [D] into a chokehold!"))

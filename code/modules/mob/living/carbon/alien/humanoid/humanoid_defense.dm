@@ -22,7 +22,7 @@
 			if (prob(5))
 				Unconscious(40)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
-				log_attack(user, src, "pushed", tag = list("alien"))
+				log_attack(user, "pushed", src, tags = list("alien"))
 				visible_message(span_danger("[user] pushes [src] down!"), \
 								span_userdanger("[user] pushes you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, user)
 				to_chat(user, span_danger("You push [src] down!"))
@@ -40,7 +40,7 @@
 			to_chat(user, span_danger("You knock [src] down!"))
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(user.zone_selected))
 		apply_damage(damage, BRUTE, affecting)
-		log_attack(user, src, "attacked", tags = list("alien"))
+		log_attack(user, "attacked", src, tags = list("alien"))
 	else
 		playsound(loc, 'sound/weapons/punchmiss.ogg', 25, TRUE, -1)
 		visible_message(span_danger("[user]'s punch misses [src]!"), \

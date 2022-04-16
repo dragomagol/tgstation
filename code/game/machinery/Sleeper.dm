@@ -244,7 +244,7 @@
 	if((chem in available_chems) && chem_allowed(chem))
 		occupant.reagents.add_reagent(chem_buttons[chem], 10) //emag effect kicks in here so that the "intended" chem is used for all checks, for extra FUUU
 		if(user)
-			log_attack(user, occupant, "injected [chem] into", src, tags = list("reagents"))
+			log_attack(user, "injected [chem] into", occupant, src, tags = list("reagents"))
 		return TRUE
 
 /obj/machinery/sleeper/proc/chem_allowed(chem)
@@ -311,7 +311,7 @@
 		holder.trans_to(occupant, 10, methods = VAPOR)
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, TRUE, -6)
 		if(user)
-			log_attack(user, occupant, "sprayed [chem] into", src, tags = list("reagents"))
+			log_attack(user, "sprayed [chem] into", occupant, src, tags = list("reagents"))
 		return TRUE
 	..()
 

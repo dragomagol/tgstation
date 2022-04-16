@@ -95,7 +95,7 @@
 		target_human.sec_hud_set_implants()
 
 	if(user)
-		log_attack(user, target, "implanted", src)
+		log_attack(user, "implanted", target, src)
 
 	SEND_SIGNAL(src, COMSIG_IMPLANT_IMPLANTED, target, user, silent, force)
 	return TRUE

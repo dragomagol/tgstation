@@ -138,7 +138,7 @@
 	pushed_mob.set_resting(TRUE, TRUE)
 	pushed_mob.visible_message(span_notice("[user] places [pushed_mob] onto [src]."), \
 								span_notice("[user] places [pushed_mob] onto [src]."))
-	log_attack(user, pushed_mob, "placed", details = "onto [src]")
+	log_attack(user, "placed", pushed_mob, details = "onto [src]")
 
 /obj/structure/table/proc/tablepush(mob/living/user, mob/living/pushed_mob)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
@@ -164,7 +164,7 @@
 	playsound(pushed_mob, 'sound/effects/tableslam.ogg', 90, TRUE)
 	pushed_mob.visible_message(span_danger("[user] slams [pushed_mob] onto \the [src]!"), \
 								span_userdanger("[user] slams you onto \the [src]!"))
-	log_attack(user, pushed_mob, "tabled", details = "onto [src]")
+	log_attack(user, "tabled", pushed_mob, details = "onto [src]")
 	SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
 
 /obj/structure/table/proc/tablelimbsmash(mob/living/user, mob/living/pushed_mob)
@@ -181,7 +181,7 @@
 	playsound(pushed_mob, 'sound/effects/bang.ogg', 90, TRUE)
 	pushed_mob.visible_message(span_danger("[user] smashes [pushed_mob]'s [banged_limb.name] against \the [src]!"),
 								span_userdanger("[user] smashes your [banged_limb.name] against \the [src]"))
-	log_attack(user, pushed_mob, "head slammed", details = "against [src]")
+	log_attack(user, "head slammed", pushed_mob, details = "against [src]")
 	SEND_SIGNAL(pushed_mob, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table_limbsmash, banged_limb)
 
 /obj/structure/table/screwdriver_act_secondary(mob/living/user, obj/item/tool)
@@ -293,7 +293,7 @@
 		span_userdanger("You're shoved onto \the [src] by [shover.name]!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), COMBAT_MESSAGE_RANGE, src)
 	to_chat(shover, span_danger("You shove [target.name] onto \the [src]!"))
 	target.throw_at(src, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
-	log_attack(src, target, "shoved", details = "onto [src] (table)")
+	log_attack(src, "shoved", target, details = "onto [src] (table)")
 	return COMSIG_CARBON_SHOVE_HANDLED
 
 /obj/structure/table/greyscale

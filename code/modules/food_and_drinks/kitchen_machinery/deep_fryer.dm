@@ -134,7 +134,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 			to_chat(user, span_warning("You need a better grip to do that!"))
 			return
 		var/mob/living/carbon/dunking_target = user.pulling
-		log_attack(user, dunking_target, "dunked", details = "into [src]")
+		log_attack(user, "dunked", dunking_target, details = "into [src]")
 		user.visible_message(span_danger("[user] dunks [dunking_target]'s face in [src]!"))
 		reagents.expose(dunking_target, TOUCH)
 		var/permeability = 1 - dunking_target.get_permeability_protection(list(HEAD))
@@ -143,7 +143,7 @@ GLOBAL_LIST_INIT(oilfry_blacklisted_items, typecacheof(list(
 		if(target_temp < TCMB + 10) // a tiny bit of leeway
 			dunking_target.visible_message(span_userdanger("[dunking_target] explodes from the entropic difference! Holy fuck!"))
 			dunking_target.gib()
-			log_attack(user, dunking_target, "blown up", details = "by dunking them into [src]")
+			log_attack(user, "exploded", dunking_target, details = "by dunking them into [src]")
 			return
 		else if(target_temp < T0C)
 			cold_multiplier += round(target_temp * 1.5 / T0C, 0.01)

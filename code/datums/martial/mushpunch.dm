@@ -19,7 +19,7 @@
 	D.throw_at(throwtarget, 4, 2, A)//So stuff gets tossed around at the same time.
 	D.Paralyze(20)
 	if(atk_verb)
-		log_attack(A, D, "[atk_verb]ed", "mushroom punch", tags = list("martial arts"))
+		log_attack(A, "[atk_verb]ed", D, "mushroom punch", tags = list("martial arts"))
 	return TRUE
 
 /obj/item/mushpunch

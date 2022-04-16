@@ -2,7 +2,7 @@
 	if(movement_type & FLYING)
 		return FALSE
 	if(!(lube&SLIDE_ICE))
-		log_attack(src, (O ? O : get_turf(src)), "slipped on the", details = ((lube & SLIDE) ? "(LUBE)" : null))
+		log_attack(src, "slipped on the", (O ? O : get_turf(src)), details = ((lube & SLIDE) ? "(LUBE)" : null))
 	..()
 	return loc.handle_slip(src, knockdown_amount, O, lube, paralyze, force_drop)
 

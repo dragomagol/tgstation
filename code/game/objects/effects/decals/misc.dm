@@ -67,7 +67,7 @@
 
 		if(!stream)
 			reagents.expose(turf_atom, VAPOR)
-			log_attack(user, turf_atom, "sprayed", sprayer, "which contained [puff_reagents_string]", tags = list("reagents"))
+			log_attack(user, "sprayed", turf_atom, sprayer, "which contained [puff_reagents_string]", tags = list("reagents"))
 			if(ismob(turf_atom))
 				lifetime -= 1
 			continue
@@ -81,17 +81,17 @@
 				continue
 
 			reagents.expose(turf_mob, VAPOR)
-			log_attack(user, turf_mob, "sprayed", sprayer, "which contained [puff_reagents_string]", tags = list("reagents"))
+			log_attack(user, "sprayed", turf_mob, sprayer, "which contained [puff_reagents_string]", tags = list("reagents"))
 			lifetime -= 1
 
 		else if(travelled_max_distance)
 			reagents.expose(turf_atom, VAPOR)
-			log_attack(user, turf_atom, "sprayed", sprayer, "which contained [puff_reagents_string]", tags = list("reagents"))
+			log_attack(user, "sprayed", turf_atom, sprayer, "which contained [puff_reagents_string]", tags = list("reagents"))
 			lifetime -= 1
 
 	if(lifetime >= 0 && (!stream || travelled_max_distance))
 		reagents.expose(our_turf, VAPOR)
-		log_attack(user, our_turf, "sprayed", sprayer, "which contained [puff_reagents_string]", tags = list("reagents"))
+		log_attack(user, "sprayed", our_turf, sprayer, "which contained [puff_reagents_string]", tags = list("reagents"))
 		lifetime -= 1
 
 	// Did we use up all the puff early?

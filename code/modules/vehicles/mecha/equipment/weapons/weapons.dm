@@ -50,7 +50,7 @@
 
 		if(kickback)
 			chassis.newtonian_move(newtonian_target)
-	log_attack(source, target, "fired at", src, tags = list("guns"))
+	log_attack(source, "fired at", target, src, tags = list("guns"))
 
 //Base energy weapon type
 /obj/item/mecha_parts/mecha_equipment/weapon/energy

@@ -73,7 +73,7 @@
 	var/puff_reagent_string = reagent_puff.reagents.get_reagent_log_string()
 	var/turf/src_turf = get_turf(src)
 
-	log_attack(user, src_turf, "fired a puff of reagents from", src, details = "with a range of \[[range]\], containing [puff_reagent_string]", list("reagents"))
+	log_attack(user, "fired a puff of reagents from", src_turf, src, "with a range of \[[range]\], containing [puff_reagent_string]", list("reagents"))
 	log_game("[key_name(user)] fired a puff of reagents from \a [src] with a range of \[[range]\] and containing [puff_reagent_string] at [AREACOORD(src_turf)].")
 
 	// do_spray includes a series of step_towards and sleeps. As a result, it will handle deletion of the chempuff.
@@ -140,7 +140,7 @@
 	if(isturf(usr.loc) && src.loc == usr)
 		to_chat(usr, span_notice("You empty \the [src] onto the floor."))
 		reagents.expose(usr.loc)
-		log_attack(usr, src, "emptied", details = "([reagents.get_reagent_log_string()])", tags = list("reagents"))
+		log_attack(usr, "emptied", src, details = "([reagents.get_reagent_log_string()])", tags = list("reagents"))
 		src.reagents.clear_reagents()
 
 /// Handles updating the spray distance when the reagents change.

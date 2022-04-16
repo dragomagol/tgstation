@@ -228,7 +228,7 @@
 		return
 	teleporting.visible_message(span_hierophant_warning("[teleporting] fades in!"))
 	if(user != teleporting && success)
-		log_attack(user, teleporting, "teleported", details = "from [AREACOORD(source)]")
+		log_attack(user, "teleported", teleporting, details = "from [AREACOORD(source)]")
 
 /obj/item/hierophant_club/pickup(mob/living/user)
 	. = ..()
@@ -257,7 +257,7 @@
 	to_chat(user, span_notice("You shatter the bottle!"))
 	playsound(user.loc, 'sound/effects/glassbr1.ogg', 100, TRUE)
 	message_admins(span_adminnotice("[ADMIN_LOOKUPFLW(user)] has activated a bottle of mayhem!"))
-	log_attack(user, "a bottle of mayhem", "activated")
+	log_attack(user, "activated", src)
 	qdel(src)
 
 /obj/item/clothing/suit/hooded/hostile_environment

@@ -238,13 +238,13 @@
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			if (src.IsKnockdown() && !src.IsParalyzed())
 				Paralyze(40)
-				log_attack(user, src, "pinned")
+				log_attack(user, "pinned", src)
 				visible_message(span_danger("[user] pins [src] down!"), \
 								span_userdanger("[user] pins you down!"), span_hear("You hear shuffling and a muffled groan!"), null, user)
 				to_chat(user, span_danger("You pin [src] down!"))
 			else
 				Knockdown(30)
-				log_attack(user, src, "tackled")
+				log_attack(user, "tackled", src)
 				visible_message(span_danger("[user] tackles [src] down!"), \
 								span_userdanger("[user] tackles you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, user)
 				to_chat(user, span_danger("You tackle [src] down!"))
@@ -288,7 +288,7 @@
 		else
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			Paralyze(100)
-			log_attack(user, src, "tackled")
+			log_attack(user, "tackled", src)
 			visible_message(span_danger("[user] tackles [src] down!"), \
 							span_userdanger("[user] tackles you down!"), span_hear("You hear aggressive shuffling followed by a loud thud!"), null, user)
 			to_chat(user, span_danger("You tackle [src] down!"))
@@ -313,7 +313,7 @@
 		visible_message(span_danger("[user] slashes at [src]!"), \
 						span_userdanger("[user] slashes at you!"), span_hear("You hear a sickening sound of a slice!"), null, user)
 		to_chat(user, span_danger("You slash at [src]!"))
-		log_attack(user, src, "attacked")
+		log_attack(user, "attacked", src)
 		if(!dismembering_strike(user, user.zone_selected)) //Dismemberment successful
 			return TRUE
 		apply_damage(damage, BRUTE, affecting, armor_block)

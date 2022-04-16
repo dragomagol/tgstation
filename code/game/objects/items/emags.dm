@@ -69,7 +69,7 @@
 		return
 	if(!can_emag(target, user))
 		return
-	log_attack(user, A, "attempted to emag", tags = list("traitor"))
+	log_attack(user, "attempted to emag", A, tags = list("traitor"))
 	A.emag_act(user, src)
 
 /obj/item/card/emag/proc/can_emag(atom/target, mob/user)

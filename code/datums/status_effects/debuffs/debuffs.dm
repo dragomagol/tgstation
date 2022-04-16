@@ -791,7 +791,7 @@
 	var/mob/living/carbon/C = owner
 	C.cure_trauma_type(/datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY) //clear previous hypnosis
 	// The brain trauma itself does its own set of logging, but this is the only place the source of the hypnosis phrase can be found.
-	log_attack(hearing_speaker, C, "hypnotized", "the phrase '[hearing_args[HEARING_RAW_MESSAGE]]'")
+	log_attack(hearing_speaker, "hypnotized", C, "the phrase '[hearing_args[HEARING_RAW_MESSAGE]]'")
 	addtimer(CALLBACK(C, /mob/living/carbon.proc/gain_trauma, /datum/brain_trauma/hypnosis, TRAUMA_RESILIENCE_SURGERY, hearing_args[HEARING_RAW_MESSAGE]), 10)
 	addtimer(CALLBACK(C, /mob/living.proc/Stun, 60, TRUE, TRUE), 15) //Take some time to think about it
 	qdel(src)
@@ -818,7 +818,7 @@
 			if(!held_item)
 				return
 			to_chat(owner, span_warning("Your fingers spasm!"))
-			log_attack(owner, held_item, "used", details = "due to a Muscle Spasm")
+			log_attack(owner, "used", held_item, details = "due to a Muscle Spasm")
 			held_item.attack_self(owner)
 		if(3)
 			owner.set_combat_mode(TRUE)
@@ -833,13 +833,13 @@
 			if(LAZYLEN(targets))
 				var/target = pick(targets)
 				to_chat(owner, span_warning("Your arm spasms!"))
-				log_attack(owner, target, "attacked", details = "due to a Muscle Spasm") //the following attack will log itself
+				log_attack(owner, "attacked", target, details = "due to a Muscle Spasm") //the following attack will log itself
 				owner.ClickOn(target)
 			owner.set_combat_mode(FALSE)
 		if(4)
 			owner.set_combat_mode(TRUE)
 			to_chat(owner, span_warning("Your arm spasms!"))
-			log_attack(owner, owner, "attacked", details = "due to a Muscle Spasm")
+			log_attack(owner, "attacked", owner, details = "due to a Muscle Spasm")
 			owner.ClickOn(owner)
 			owner.set_combat_mode(FALSE)
 		if(5)
@@ -851,7 +851,7 @@
 				targets += nearby_turfs
 			if(LAZYLEN(targets) && held_item)
 				to_chat(owner, span_warning("Your arm spasms!"))
-				log_attack(owner, held_item, "thrown", details = "due to a Muscle Spasm")
+				log_attack(owner, "thrown", held_item, details = "due to a Muscle Spasm")
 				owner.throw_item(pick(targets))
 
 /datum/status_effect/convulsing
@@ -1031,7 +1031,7 @@
 		targets += potential_target
 	if(LAZYLEN(targets))
 		var/mob/living/target = pick(targets)
-		log_attack(owner, target, "attacked", details = "due to the amok debuff")
+		log_attack(owner, "attacked", target, details = "due to the amok debuff")
 		owner.ClickOn(target)
 	owner.set_combat_mode(prev_combat_mode)
 

@@ -76,7 +76,7 @@
 
 /obj/vehicle/sealed/car/atom_destruction(damage_flag)
 	explosion(src, heavy_impact_range = 1, light_impact_range = 2, flash_range = 3, adminlog = FALSE)
-	log_attack(src, "destruction", "exploded due to")
+	log_attack(src, "exploded due to", "destruction")
 	return ..()
 
 /obj/vehicle/sealed/car/relaymove(mob/living/user, direction)

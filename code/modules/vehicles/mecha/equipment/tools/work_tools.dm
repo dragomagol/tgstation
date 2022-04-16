@@ -122,7 +122,7 @@
 			playsound(src, get_dismember_sound(), 80, TRUE)
 			target.visible_message(span_danger("[chassis] rips [target]'s arms off!"), \
 						span_userdanger("[chassis] rips your arms off!"))
-			log_attack(source, M, "removed both arms with a real clamp,", src, "(DAMTYPE: [uppertext(damtype)])", tags = list("mech"))
+			log_attack(source, "removed both arms with a real clamp", M, src, "(DAMTYPE: [uppertext(damtype)])", tags = list("mech"))
 			return ..()
 
 		M.take_overall_damage(clamp_damage)
@@ -133,7 +133,7 @@
 		target.visible_message(span_danger("[chassis] squeezes [target]!"), \
 							span_userdanger("[chassis] squeezes you!"),\
 							span_hear("You hear something crack."))
-		log_attack(source, M, "attacked", src, "(DAMTYPE: [uppertext(damtype)])", tags = list("mech"))
+		log_attack(source, "attacked", M, src, "(DAMTYPE: [uppertext(damtype)])", tags = list("mech"))
 	return ..()
 
 

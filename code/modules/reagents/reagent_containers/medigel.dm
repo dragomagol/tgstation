@@ -59,7 +59,7 @@
 		to_chat(M, span_notice("You [apply_method] yourself with [src]."))
 
 	else
-		log_attack(user, M, "attempted to apply", src, "([reagents.get_reagent_log_string()])", list("reagents"))
+		log_attack(user, "attempted to apply", M, src, "([reagents.get_reagent_log_string()])", list("reagents"))
 		M.visible_message(span_danger("[user] attempts to [apply_method] [src] on [M]."), \
 							span_userdanger("[user] attempts to [apply_method] [src] on you."))
 		if(!do_mob(user, M, CHEM_INTERACT_DELAY(3 SECONDS, user)))
@@ -73,7 +73,7 @@
 		return
 
 	else
-		log_attack(user, M, "applied", src, "([reagents.get_reagent_log_string()])", list("reagents"))
+		log_attack(user, "applied", M, src, "([reagents.get_reagent_log_string()])", list("reagents"))
 		playsound(src, 'sound/effects/spray.ogg', 30, TRUE, -6)
 		reagents.trans_to(M, amount_per_transfer_from_this, transfered_by = user, methods = apply_type)
 	return

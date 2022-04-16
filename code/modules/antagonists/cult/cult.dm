@@ -63,7 +63,7 @@
 	add_objectives()
 	if(give_equipment)
 		equip_cultist(TRUE)
-	log_conversion(current, "been converted to the cult of Nar'Sie", tags = list("cult"))
+	log_conversion(current, "was converted to the cult of Nar'Sie", tags = list("cult"))
 
 	if(cult_team.blood_target && cult_team.blood_target_image && current.client)
 		current.client.images += cult_team.blood_target_image

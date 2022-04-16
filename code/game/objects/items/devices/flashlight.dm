@@ -429,7 +429,7 @@
 
 		if(ismob(A))
 			var/mob/M = A
-			log_attack(user, M, "attacked", "EMP-light", tags = list("traitor"))
+			log_attack(user, "attacked", M, "EMP-light", tags = list("traitor"))
 			M.visible_message(span_danger("[user] blinks \the [src] at \the [A]."), \
 								span_userdanger("[user] blinks \the [src] at you."))
 		else

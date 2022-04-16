@@ -69,7 +69,7 @@
 			span_notice("[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!"),
 			span_notice("[user] successfully augments [target]'s [parse_zone(target_zone)]!"))
 		display_pain(target, "Your [parse_zone(target_zone)] comes awash with synthetic sensation!", mechanical_surgery = TRUE)
-		log_attack(user, target, "augmented", tool, "([parse_zone(target_zone)])")
+		log_attack(user, "augmented", target, tool, "([parse_zone(target_zone)])")
 	else
 		to_chat(user, span_warning("[target] has no organic [parse_zone(target_zone)] there!"))
 	return ..()

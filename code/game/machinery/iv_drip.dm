@@ -156,7 +156,7 @@
 			return
 		reagent_container = W
 		to_chat(user, span_notice("You attach [W] to [src]."))
-		log_attack(user, src, "attached a [W] to", details = "containing ([reagent_container.reagents.get_reagent_log_string()])", tags = list("reagents"))
+		log_attack(user, "attached [W] to", src, details = "containing ([reagent_container.reagents.get_reagent_log_string()])", tags = list("reagents"))
 		add_fingerprint(user)
 		update_appearance()
 		return
@@ -234,7 +234,7 @@
 		return
 	usr.visible_message(span_warning("[usr] attaches [src] to [target]."), span_notice("You attach [src] to [target]."))
 	var/datum/reagents/container = get_reagent_holder()
-	log_attack(usr, target, "attached", src, "containing: ([container.get_reagent_log_string()])", list("reagents"))
+	log_attack(usr, "attached [src] to", target, "containing: ([container.get_reagent_log_string()])", list("reagents"))
 	add_fingerprint(usr)
 	attached = target
 	START_PROCESSING(SSmachines, src)

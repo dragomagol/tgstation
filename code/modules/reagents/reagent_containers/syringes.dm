@@ -46,7 +46,7 @@
 		return
 
 	var/contained = reagents.get_reagent_log_string()
-	log_attack(user, target, "attempted to inject", src, "([contained])", list("reagents"))
+	log_attack(user, "attempted to inject", target, src, "([contained])", list("reagents"))
 
 	if(!reagents.total_volume)
 		to_chat(user, span_warning("[src] is empty! Right-click to draw."))
@@ -75,7 +75,7 @@
 				return
 			living_target.visible_message(span_danger("[user] injects [living_target] with the syringe!"), \
 							span_userdanger("[user] injects you with the syringe!"))
-		log_attack(user, living_target, "injected", src, "([contained])", list("reagents"))
+		log_attack(user, "injected", living_target, src, "([contained])", list("reagents"))
 	reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user, methods = INJECT)
 	to_chat(user, span_notice("You inject [amount_per_transfer_from_this] units of the solution. The syringe now contains [reagents.total_volume] units."))
 

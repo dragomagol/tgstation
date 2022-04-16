@@ -392,7 +392,7 @@
 		power_source = cell
 		shock_damage = cell_damage
 	var/drained_hp = victim.electrocute_act(shock_damage, source, siemens_coeff) //zzzzzzap!
-	log_attack(source, victim, "electrocuted")
+	log_attack(source, "electrocuted", victim, power_source)
 
 	var/drained_energy = drained_hp*20
 

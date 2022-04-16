@@ -155,7 +155,7 @@ GLOBAL_LIST_INIT(strippable_human_items, create_strippable_list(list(
 		return FALSE
 
 	to_chat(user, span_notice("You try to empty [source]'s [pocket_side] pocket."))
-	log_attack(user, source, "started pickpocketing", details = "of [item] from their [pocket_side] pocket")
+	log_attack(user, "started pickpocketing", source, details = "of [item] from [source.p_their()] [pocket_side] pocket")
 	item.add_fingerprint(src)
 
 	var/result = start_unequip_mob(item, source, user, POCKET_STRIP_DELAY)

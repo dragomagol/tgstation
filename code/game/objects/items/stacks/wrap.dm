@@ -155,7 +155,7 @@
 		return
 
 	user.visible_message(span_notice("[user] wraps [target]."))
-	log_attack(user, target, "wrapped", src)
+	log_attack(user, "wrapped", target, src)
 
 /obj/item/stack/package_wrap/use(used, transfer = FALSE, check = TRUE)
 	var/turf/T = get_turf(src)

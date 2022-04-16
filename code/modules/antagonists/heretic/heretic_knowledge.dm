@@ -403,7 +403,7 @@
 		loc.balloon_alert(user, "ritual failed, invalid choice!")
 		return FALSE
 
-	log_attack(user, to_curse, "cursed", details = "via heretic ritual ([src])", tags = list("heretic"))
+	log_attack(user, "cursed", to_curse, details = "via heretic ritual ([src])", tags = list("heretic"))
 	curse(to_curse)
 	addtimer(CALLBACK(src, .proc/uncurse, to_curse), duration)
 	return TRUE

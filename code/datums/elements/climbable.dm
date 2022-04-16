@@ -75,7 +75,7 @@
 		if(do_climb(climbed_thing, user, params))
 			user.visible_message(span_warning("[user] climbs onto [climbed_thing]."), \
 								span_notice("You climb onto [climbed_thing]."))
-			log_attack(user, climbed_thing, "climbed onto")
+			log_attack(user, "climbed onto", climbed_thing)
 			if(adjusted_climb_stun)
 				user.Stun(adjusted_climb_stun)
 		else

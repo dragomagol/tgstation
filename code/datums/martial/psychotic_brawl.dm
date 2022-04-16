@@ -32,13 +32,13 @@
 					D.drop_all_held_items()
 					D.stop_pulling()
 					if(grab_attack)
-						log_attack(A, D, "grabbed", "psychotic brawling", "aggressively", list("martial arts"))
+						log_attack(A, "grabbed", D, "psychotic brawling", "aggressively", list("martial arts"))
 						D.visible_message(span_warning("[A] violently grabs [D]!"), \
 										span_userdanger("You're violently grabbed by [A]!"), span_hear("You hear sounds of aggressive fondling!"), null, A)
 						to_chat(A, span_danger("You violently grab [D]!"))
 						A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab
 					else
-						log_attack(A, D, "grabbed", "psychotic brawling", "passively", list("martial arts"))
+						log_attack(A, "grabbed", D, "psychotic brawling", "passively", list("martial arts"))
 						A.setGrabState(GRAB_PASSIVE)
 		if(4)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -70,5 +70,5 @@
 			return FALSE //Resume default behaviour
 
 	if(atk_verb)
-		log_attack(A, D, atk_verb, "psychotic brawling", tags = list("martial arts"))
+		log_attack(A, atk_verb, D, "psychotic brawling", tags = list("martial arts"))
 	return TRUE

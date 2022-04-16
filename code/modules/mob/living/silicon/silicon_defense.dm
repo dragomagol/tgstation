@@ -9,7 +9,7 @@
 	if(..()) //if harm or disarm intent
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		if (prob(90))
-			log_attack(user, src, "attacked", tags = list("silicon"))
+			log_attack(user, "attacked", src, tags = list("silicon"))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] slashes at [src]!"), \
 							span_userdanger("[user] slashes at you!"), null, null, user)

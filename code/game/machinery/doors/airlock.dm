@@ -1373,7 +1373,7 @@
 			else
 				action = "temp shocked for [secondsElectrified] seconds"
 		LAZYADD(shockedby, text("\[[time_stamp()]\] [key_name(user)] - ([uppertext(action)])"))
-		log_attack(user, src, action)
+		log_attack(user, action, src)
 		add_hiddenprint(user)
 
 /obj/machinery/door/airlock/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -1598,10 +1598,10 @@
 			to_chat(user, span_warning("The door has no power - you can't raise the door bolts."))
 		else
 			unbolt()
-			log_attack(user, src, "unbolted", tags = list("doors"))
+			log_attack(user, "unbolted", src, tags = list("doors"))
 	else
 		bolt()
-		log_attack(user, src, "bolted", tags = list("doors"))
+		log_attack(user, "bolted", src, tags = list("doors"))
 
 /obj/machinery/door/airlock/proc/toggle_emergency(mob/user)
 	if(!user_allowed(user))

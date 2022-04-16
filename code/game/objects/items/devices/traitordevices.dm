@@ -39,16 +39,13 @@ effective or pretty fucking useless.
 		to_chat(user, span_danger("The mind batterer has been burnt out!"))
 		return
 
-	log_attack(user, null, "knocked down people in the area", src)
-
 	for(var/mob/living/carbon/human/M in urange(10, user, 1))
 		if(prob(50))
-
 			M.Paralyze(rand(200,400))
 			to_chat(M, span_userdanger("You feel a tremendous, paralyzing wave flood your mind."))
-
 		else
 			to_chat(M, span_userdanger("You feel a sudden, electric jolt travel through your head."))
+		log_attack(user, "knocked down", M, src)
 
 	playsound(src.loc, 'sound/misc/interference.ogg', 50, TRUE)
 	to_chat(user, span_notice("You trigger [src]."))
@@ -85,7 +82,7 @@ effective or pretty fucking useless.
 		to_chat(user, span_warning("[M]'s clothing is fully protecting [M.p_them()] from irradiation!"))
 		return
 	if(!used)
-		log_attack(user, M, "irradiated", src, tags = list("traitor"))
+		log_attack(user, "irradiated", M, src, tags = list("traitor"))
 		var/cooldown = get_cooldown()
 		used = TRUE
 		icon_state = "health1"

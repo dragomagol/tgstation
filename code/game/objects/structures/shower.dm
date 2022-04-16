@@ -101,7 +101,7 @@
 			if(SHOWER_BOILING)
 				current_temperature = SHOWER_NORMAL
 		user.visible_message(span_notice("[user] adjusts the shower with \the [I]."), span_notice("You adjust the shower with \the [I] to [current_temperature] temperature."))
-		log_attack(user, src, "wrenched", I, "to [current_temperature]")
+		log_attack(user, "wrenched", src, I, "to [current_temperature]")
 		add_hiddenprint(user)
 	handle_mist()
 	return TRUE

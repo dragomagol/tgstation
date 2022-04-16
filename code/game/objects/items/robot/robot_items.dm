@@ -30,7 +30,7 @@
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 
-	log_attack(user, M, "stunned", src, tags = list("silicon"))
+	log_attack(user, "stunned", M, src, tags = list("silicon"))
 
 /obj/item/borg/cyborghug
 	name = "hugging module"
@@ -315,7 +315,7 @@
 		audible_message("<font color='red' size='7'>HUMAN HARM</font>")
 		playsound(get_turf(src), 'sound/ai/harmalarm.ogg', 70, 3)
 		cooldown = world.time + 200
-		log_attack(user, affected_mobs.Join(","), "stunned and confused", "the Cyborg Harm Alarm", tags = list("silicon"))
+		log_attack(user, "stunned and confused", affected_mobs.Join(","), src, tags = list("silicon"))
 		if(iscyborg(user))
 			var/mob/living/silicon/robot/R = user
 			to_chat(R.connected_ai, "<br>[span_notice("NOTICE - Peacekeeping 'HARM ALARM' used by: [user]")]<br>")
@@ -340,7 +340,7 @@
 					C.Jitter(25)
 		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
 		cooldown = world.time + 600
-		log_attack(user, affected_mobs.Join(","), "stunned and confused", "the emagged Cyborg Harm Alarm", tags = list("silicon"))
+		log_attack(user, "stunned and confused", affected_mobs.Join(","), "the emagged [src]", tags = list("silicon"))
 
 #define DISPENSE_LOLLIPOP_MODE 1
 #define THROW_LOLLIPOP_MODE 2

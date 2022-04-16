@@ -56,7 +56,7 @@
 	SSdisease.active_diseases += D //Add it to the active diseases list, now that it's actually in a mob and being processed.
 	D.after_add()
 	infectee.med_hud_set_status()
-	log_virus(infectee, D, "been infected by")
+	log_virus(infectee, "was infected by", D)
 
 ///Proc to process the disease and decide on whether to advance, cure or make the sympthoms appear. Returns a boolean on whether to continue acting on the symptoms or not.
 /datum/disease/proc/stage_act(delta_time, times_fired)

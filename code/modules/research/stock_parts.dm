@@ -121,7 +121,7 @@ If you create T5+ please take a pass at mech_fabricator.dm. The parts being good
 	if(inserted_cell.rigged || inserted_cell.corrupted)
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has inserted rigged/corrupted [inserted_cell] into [src].")
 		log_game("[key_name(usr)] has inserted rigged/corrupted [inserted_cell] into [src].")
-		log_attack(usr, src, "inserted rigged/corrupted [inserted_cell] into")
+		log_attack(usr, "inserted rigged/corrupted [inserted_cell] into", src)
 
 /**
  * Signal handler for when the reagents datum of an inserted part has reagents added to it.

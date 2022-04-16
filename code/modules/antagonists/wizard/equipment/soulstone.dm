@@ -172,7 +172,7 @@
 	if(HAS_TRAIT(M, TRAIT_NO_SOUL))
 		to_chat(user, span_warning("This body does not possess a soul to capture."))
 		return
-	log_attack(user, M, "captured the soul of", src)
+	log_attack(user, "captured the soul of", M, src)
 	capture_soul(M, user)
 
 ///////////////////Options for using captured souls///////////////////////////////////////

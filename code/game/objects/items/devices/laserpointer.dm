@@ -107,15 +107,15 @@
 			//chance to actually hit the eyes depends on internal component
 			if(prob(effectchance * diode.rating) && C.flash_act(severity))
 				outmsg = span_notice("You blind [C] by shining [src] in [C.p_their()] eyes.")
-				log_attack(user, C, "blinded", src)
+				log_attack(user, "blinded", C, src)
 			else
 				outmsg = span_warning("You fail to blind [C] by shining [src] at [C.p_their()] eyes!")
-				log_attack(user, C, "attempted to blind", src)
+				log_attack(user, "attempted to blind", C, src)
 
 	//robots
 	else if(iscyborg(target))
 		var/mob/living/silicon/S = target
-		log_attack(user, S, "shone in the sensors", src, tags = list("silicon"))
+		log_attack(user, "stunned", S, src, tags = list("silicon"))
 		//chance to actually hit the eyes depends on internal component
 		if(prob(effectchance * diode.rating))
 			S.flash_act(affect_silicon = 1)
@@ -131,7 +131,7 @@
 		if(prob(effectchance * diode.rating))
 			C.emp_act(EMP_HEAVY)
 			outmsg = span_notice("You hit the lens of [C] with [src], temporarily disabling the camera!")
-			log_attack(user, C, "EMPed", src)
+			log_attack(user, "EMPed", C, src)
 		else
 			outmsg = span_warning("You miss the lens of [C] with [src]!")
 
@@ -144,7 +144,7 @@
 			if(prob(effectchance * diode.rating))
 				H.visible_message(span_warning("[H] makes a grab for the light!"),span_userdanger("LIGHT!"))
 				H.Move(targloc)
-				log_attack(user, H, "moved", src)
+				log_attack(user, "moved", H, src)
 			else
 				H.visible_message(span_notice("[H] looks briefly distracted by the light."), span_warning("You're briefly tempted by the shiny light..."))
 		else

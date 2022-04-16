@@ -716,7 +716,7 @@ Difficulty: Hard
 		if(monster_damage_boost && (ismegafauna(L) || istype(L, /mob/living/simple_animal/hostile/asteroid)))
 			L.adjustBruteLoss(damage)
 		if(caster)
-			log_attack(caster, L, "struck", name)
+			log_attack(caster, "struck", L, name)
 	for(var/obj/vehicle/sealed/mecha/M in T.contents - hit_things) //also damage mechs.
 		hit_things += M
 		for(var/O in M.occupants)

@@ -107,7 +107,7 @@
 	var/turf/yeet_target = get_edge_target_turf(victim, dir)
 	victim.throw_at(yeet_target, 10, 5, src)
 	slam_cooldown = world.time
-	log_attack(src, victim, "slaughter slammed")
+	log_attack(src, "slaughter slammed", victim)
 
 /mob/living/simple_animal/hostile/imp/slaughter/UnarmedAttack(atom/attack_target, proximity_flag, list/modifiers)
 	if(LAZYACCESS(modifiers, RIGHT_CLICK))
