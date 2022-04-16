@@ -4,7 +4,7 @@
  * infectee - The person who was infected
  * virus - the virus' name and stats ()
  */
-/proc/log_virus(atom/infectee, datum/disease/virus, message)
+/proc/log_virus(atom/infectee, message, datum/disease/virus)
 	if (CONFIG_GET(flag/log_virus))
 		var/datum/log_entry/virus/virus_log = new(infectee)
 		virus_log.virus_disease(virus.admin_details())

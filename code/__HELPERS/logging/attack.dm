@@ -4,7 +4,7 @@
  *
  * Mirrors this log entry to the individual logs for the attacker and victim, if they're mobs.
  */
-/proc/log_attack(atom/source, atom/target, action, weapon = null, details = null, list/tags = list())
+/proc/log_attack(atom/source, action, atom/target, weapon = null, details = null, list/tags = list())
 	if (CONFIG_GET(flag/log_attack))
 		var/datum/log_entry/attack/combat/attack_log = new(source, target)
 		attack_log.add_tags(tags)

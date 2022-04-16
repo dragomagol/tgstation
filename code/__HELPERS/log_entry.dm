@@ -111,13 +111,13 @@
 
 //////////////////////////////////////// Specific logs
 
-/// atmos - investigate
+///////////////////////////////// atmos - investigate
 /datum/log_entry/atmospherics/New(_source, _target)
 	. = ..(_source, _target)
 	category = "ATMOS"
 	tags = list("atmospherics")
 
-/// attack
+///////////////////////////////// attack
 /datum/log_entry/attack/New(_source, _target)
 	. = ..(_source, _target)
 	category = "ATTACK"
@@ -165,9 +165,9 @@
 		postfix += " [details]"
 
 	if(is_attacker)
-		return "has [action] [key_name(target)][postfix]"
+		return "[action] [key_name(target)][postfix]"
 	else
-		return "has been [action] by [key_name(source)][postfix]"
+		return "[action] by [key_name(source)][postfix]"
 
 /**
  * Conversion Log
@@ -197,7 +197,7 @@
 /datum/log_entry/attack/conversion/proc/player_log_text()
 	var/action = extended_fields["action"]
 	var/details = extended_fields["details"]
-	return "has [action][details? " [details]" : ""]"
+	return "[action][details? " [details]" : ""]"
 
 /**
  * Wound Log
@@ -283,31 +283,31 @@
 	var/cause = extended_fields["cause"]
 	return "has [cause]"
 
-/// botany
+///////////////////////////////// botany
 /datum/log_entry/botany
 	category = "BOTANY"
 	tags = list("botany")
 
-/// cargo
+///////////////////////////////// cargo
 /datum/log_entry/cargo
 	category = "CARGO"
 	tags = list("cargo")
 
-/// cloning
+///////////////////////////////// cloning
 /datum/log_entry/cloning
 	category = "CLONING"
 	tags = list("cloning")
 
-/// crafting
+///////////////////////////////// crafting
 /datum/log_entry/crafting
 	category = "CRAFTING"
 	tags = list("crafting")
 
-/// dream daemon?
+///////////////////////////////// dream daemon?
 
-/// dynamic
+///////////////////////////////// dynamic
 
-/// econ
+///////////////////////////////// econ
 /**
  * Economy Log
  *
@@ -367,147 +367,153 @@
 	var/credits = extended_fields["credits"]
 	return ..() + "Round end [report]: [credits] credits."
 
-/// engine
+///////////////////////////////// engine
 /datum/log_entry/engine
 	category = "ENGINE"
 	tags = list("engineering")
 
-/// filters
+///////////////////////////////// filters
 /datum/log_entry/filter
 	category = "FILTER"
 	tags = list("filter")
 
-/// game
+///////////////////////////////// game
 /datum/log_entry/game
 	category = "GAME"
 	tags = list("game")
 
-/// gravity
+///////////////////////////////// gravity
 /datum/log_entry/gravity
 	category = "GRAVITY"
 	tags = list("engineering", "gravity")
 
-/// hallucinations
+///////////////////////////////// hallucinations
 /datum/log_entry/hallucination
 	category = "HALLUCINATION"
 	tags = list("hallucination")
 
-/// hrefs
+///////////////////////////////// hrefs
 /datum/log_entry/href
 	category = "HREF"
 	tags = list("href")
 
-/// id card changes
+///////////////////////////////// id card changes
 /datum/log_entry/id_access_change
 	category = "ID_ACCESS"
 	tags = list("access_change")
 
-/// init profiler
+///////////////////////////////// init profiler
 
-/// initialize
+///////////////////////////////// initialize
 
-/// job debug
+///////////////////////////////// job debug
 
-/// manifest
+///////////////////////////////// manifest
 /datum/log_entry/manifest
 	category = "MANIFEST"
 	tags = list("manifest")
 
-/// map errors
+///////////////////////////////// map errors
 
-/// mecha
+///////////////////////////////// mecha
 /datum/log_entry/mecha
 	category = "MECH"
 	tags = list("mech")
 
-/// mob tags
+///////////////////////////////// mob tags
 /datum/log_entry/mob_tag
 	category = "MOB"
 	tags = list("mob_tag")
 
-/// newscaster - this has JSON already, integrate it
+///////////////////////////////// newscaster - this has JSON already, integrate it
 /datum/log_entry/newscaster
 	category = "NEWSCASTER"
 	tags = list("newscaster")
 
-/// paper
+///////////////////////////////// paper
 /datum/log_entry/paper
 	category = "PAPER"
 	tags = list("paper")
 
-/// pda
+///////////////////////////////// pda
 /datum/log_entry/pda
 	category = "PDA"
 	tags = list("pda")
 
-/// portals
+///////////////////////////////// portals
 /datum/log_entry/portal
 	category = "PORTAL"
 	tags = list("portal")
 
-/// qdel
+///////////////////////////////// qdel
 /datum/log_entry/qdel
 	category = "QDEL"
 	tags = list("qdel")
 
-/// radiation
+///////////////////////////////// radiation
 /datum/log_entry/radiation
 	category = "RADIATION"
 	tags = list("radiation")
 
-/// records
+///////////////////////////////// records
 /datum/log_entry/records
 	category = "RECORD"
 	tags = list("records", "security")
 
-/// research
+///////////////////////////////// research
 /datum/log_entry/research
 	category = "RESEARCH"
 	tags = list("research", "rnd")
 
-/// round end data
+///////////////////////////////// round end data
 
-/// runtime
+///////////////////////////////// runtime
 /datum/log_entry/runtime
 	category = "RUNTIME"
 	tags = list("debug", "runtime")
 
-/// shuttle
+///////////////////////////////// shuttle
 /datum/log_entry/shuttle
 	category = "SHUTTLE"
 	tags = list("shuttle")
 
-/// silicon
+///////////////////////////////// silicon
 /datum/log_entry/silicon
 	category = "SILICON"
 	tags = list("silicon")
 
-/// sql
+///////////////////////////////// sql
 /datum/log_entry/sql
 	category = "SQL"
 	tags = list("debug", "sql")
 
-/// telecomms - Radio channels
+///////////////////////////////// telecomms - Radio channels
 /datum/log_entry/telecommunications
 	category = "TCOMMS"
 	tags = list("telecommunications")
+	extended_fields = list(
+		"channel" = null,
+		"network_id" = null,
+		"network_name" = null,
 
-/// tgui
+	)
+
+///////////////////////////////// tgui
 /datum/log_entry/tgui
 	category = "TGUI"
 	tags = list("tgui")
 
-/// tools
+///////////////////////////////// tools
 /datum/log_entry/tools
 	category = "TOOL"
 	tags = list("tools")
 
-/// uplink
+///////////////////////////////// uplink
 /datum/log_entry/uplink
 	category = "UPLINK"
 	tags = list("antagonists", "uplink")
 
-/// virus
+///////////////////////////////// virus
 /datum/log_entry/virus/New(_source)
 	..(_source, null)
 	category = "VIRUS"
@@ -526,9 +532,9 @@
 /datum/log_entry/virus/to_text()
 	var/disease = extended_fields["disease"]
 	var/message = extended_fields["message"]
-	return ..() + "[key_name(source)] has [message] [disease]"
+	return ..() + "[key_name(source)] [message] [disease]"
 
-/// wires
+///////////////////////////////// wires
 /datum/log_entry/wires
 	category = "WIRE"
 	tags = list("engineering", "wires")
