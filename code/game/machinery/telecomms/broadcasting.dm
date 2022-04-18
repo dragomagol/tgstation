@@ -208,8 +208,6 @@
 		spans_part = "[spans_part] ) "
 
 	var/lang_name = data["language"]
-	var/log_text = "\[[get_radio_name(frequency)]\] [spans_part]\"[message]\" (language: [lang_name])"
-
-	log_telecomms("[virt.source] [log_text] [loc_name(get_turf(virt.source))]")
+	log_broadcast(virt.source, get_radio_name(frequency), spans_part, message, lang_name)
 
 	QDEL_IN(virt, 50)  // Make extra sure the virtualspeaker gets qdeleted

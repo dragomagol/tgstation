@@ -418,7 +418,6 @@ SUBSYSTEM_DEF(networks)
  * * network_id - text, Fully qualified network name
  */
 /datum/controller/subsystem/networks/proc/create_network_simple(network_id)
-
 	var/datum/ntnet/network = networks[network_id]
 	if(network!=null)
 		return network // don't worry about it
@@ -441,7 +440,7 @@ SUBSYSTEM_DEF(networks)
 	if(!network)
 		CRASH("NETWORK CANNOT BE NULL")
 #endif
-	log_telecomms("create_network_simple:  created final [network.network_id]")
+	log_telecomms("create_network_simple: created final [network.network_id]")
 	return network // and we are done!
 
 
@@ -472,7 +471,7 @@ SUBSYSTEM_DEF(networks)
 		network_tree += network_string_to_list(part)
 
 	var/datum/ntnet/network = _hard_create_network(network_tree)
-	log_telecomms("create_network:  created final [network.network_id]")
+	log_telecomms(network.network_id, "create_network:  created final [network.network_id]")
 	return network
 
 /**

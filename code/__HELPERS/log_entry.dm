@@ -488,15 +488,69 @@
 	tags = list("debug", "sql")
 
 ///////////////////////////////// telecomms - Radio channels
-/datum/log_entry/telecommunications
+/datum/log_entry/telecomms/New()
+	..(null, null) // it's all abstract
 	category = "TCOMMS"
-	tags = list("telecommunications")
+	tags = list("telecomms")
+
+/**
+ * Network Log
+ *
+ * Extended fields:
+ * * log - the message to be logged (there is no "standard" tcomms log)
+ */
+/datum/log_entry/telecomms/network/New()
+	..()
+	category = "NETWORK"
+	extended_fields = list(
+		"log" = null
+	)
+
+/datum/log_entry/telecomms/network/proc/network_log(log)
+	extended_fields["log"] = log
+
+/datum/log_entry/telecomms/network/to_text()
+	var/log = extended_fields["log"]
+	return ..() + log
+
+/**
+ * Economy Log
+ *
+ * Extended fields:
+ * * channel - the channel broadcasted over
+ * * spans - who owns the account (optional)
+ * * message - what was said
+ * * language - what language it was said in
+ */
+/datum/log_entry/telecomms/broadcast/New(_source)
+	..(_source, null)
+	category = "COMMS"
 	extended_fields = list(
 		"channel" = null,
-		"network_id" = null,
-		"network_name" = null,
-
+		"spans" = null,
+		"message" = null,
+		"language" = null
 	)
+
+/datum/log_entry/telecomms/broadcast/proc/broadcast_channel(channel)
+	extended_fields["channel"] = channel
+
+/datum/log_entry/telecomms/broadcast/proc/broadcast_spans(spans)
+	extended_fields["spans"] = spans
+
+/datum/log_entry/telecomms/broadcast/proc/broadcast_message(message)
+	extended_fields["message"] = message
+
+/datum/log_entry/telecomms/broadcast/proc/broadcast_language(language)
+	extended_fields["language"] = language
+
+/datum/log_entry/telecomms/broadcast/to_text()
+	var/channel = extended_fields["channel"]
+	var/spans = extended_fields["spans"]
+	var/message = extended_fields["message"]
+	var/language = extended_fields["language"]
+
+	return ..() + "\[[channel]\] ["[spans] " || ""]\"[message]\" (language: [language])"
 
 ///////////////////////////////// tgui
 /datum/log_entry/tgui

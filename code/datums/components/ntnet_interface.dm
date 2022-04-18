@@ -59,12 +59,12 @@
  */
 /datum/component/ntnet_interface/Initialize(network_name, network_tag = null)
 	if(network_name == null || !istext(network_name))
-		log_telecomms("ntnet_interface/Initialize: Bad network '[network_name]' for '[parent]', going to limbo it")
+		log_telecomms("ntnet_interface/Initialize: Bad network '[network_name]' for '[parent]', going to LIMBO it")
 		network_name = LIMBO_NETWORK_ROOT
 	// Tags cannot be numbers and must be unique over the world
 	if(network_tag != null && !istext(network_tag))
 		// numbers are not allowed as lookups for interfaces
-		log_telecomms("Tag cannot be a number?  '[network_name]' for '[parent]', going to limbo it")
+		log_telecomms("Tag cannot be a number: '[network_name]' for '[parent]', going to LIMBO it")
 		network_tag = "BADTAG_" + network_tag
 
 	hardware_id = SSnetworks.get_next_HID()
