@@ -391,7 +391,7 @@
 		bananas.faction = faction
 	if (!QDELETED(bananas))
 		visible_message(span_notice("[src] expands!"))
-		log_attack(bananas, "was spawned via", src, details = "last touched by [key_name(spammer)]")
+		log_attack(src, "spawned", bananas, details = "([src] last touched by [key_name(spammer)])")
 	else if (!spammer) // Visible message in case there are no fingerprints
 		visible_message(span_notice("[src] fails to expand!"))
 	qdel(src)

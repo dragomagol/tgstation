@@ -167,7 +167,7 @@
 	if(is_attacker)
 		return "[action] [key_name(target)][postfix]"
 	else
-		return "[action] by [key_name(source)][postfix]"
+		return "was [action] by [key_name(source)][postfix]"
 
 /**
  * Conversion Log
@@ -409,8 +409,11 @@
 ///////////////////////////////// job debug
 
 ///////////////////////////////// manifest
-/datum/log_entry/manifest/New(_source)
+/datum/log_entry/manifest/New(_source, _source_ckey)
 	..(_source, null)
+	// when this is called in datacore for roundstart players, players' bodies and minds
+	// aren't yet connected so we have to set the ckey ourselves
+	source_ckey = _source_ckey
 	category = "MANIFEST"
 	tags = list("manifest")
 	extended_fields = list(
@@ -434,7 +437,7 @@
 	var/special_role = extended_fields["special_role"]
 	var/joined = extended_fields["joined"]
 
-	return ..() + "[source_mob.ckey] \\ [source_mob.real_name] \\ [job_title] \\ [special_role] \\ [joined]"
+	return ..() + "[source_ckey] \\ [source_mob.real_name] \\ [job_title] \\ [special_role] \\ [joined]"
 
 ///////////////////////////////// map errors
 

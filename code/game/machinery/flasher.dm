@@ -117,8 +117,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/flasher, 26)
 		if (get_dist(src, L) > range)
 			continue
 
-		if(L.flash_act(affect_silicon = 1))
-			log_attack(L, "was AOE flashed by", src)
+		if(L.flash_act(affect_silicon = TRUE))
+			log_attack(src, "AOE flashed", L)
 			L.Paralyze(strength)
 			flashed = TRUE
 

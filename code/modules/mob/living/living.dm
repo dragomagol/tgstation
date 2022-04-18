@@ -297,9 +297,8 @@
 			AM.visible_message(span_danger("[src] pulls [AM] from [AM.pulledby]'s grip."), \
 							span_danger("[src] pulls you from [AM.pulledby]'s grip."), null, null, src)
 			to_chat(src, span_notice("You pull [AM] from [AM.pulledby]'s grip!"))
-		log_attack(AM, "was pulled from", AM.pulledby, src)
+		log_attack(AM.pulledby, "pulled", AM, details = "from [src]")
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
-
 	pulling = AM
 	AM.set_pulledby(src)
 

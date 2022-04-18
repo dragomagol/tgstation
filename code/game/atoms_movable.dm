@@ -353,7 +353,7 @@
 		stop_pulling()
 
 	if(pulled_atom.pulledby)
-		log_attack(pulled_atom, "was pulled from", pulled_atom.pulledby, src)
+		log_attack(pulled_atom.pulledby, "pulled", pulled_atom, details = "from [src]")
 		pulled_atom.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = pulled_atom
 	pulled_atom.set_pulledby(src)
