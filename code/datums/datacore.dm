@@ -134,7 +134,7 @@ GLOBAL_DATUM_INIT(data_core, /datum/datacore, new)
 	for(var/i in GLOB.new_player_list)
 		var/mob/dead/new_player/N = i
 		if(N.new_character)
-			log_manifest(N.ckey,N.new_character.mind,N.new_character)
+			log_manifest(N)
 		if(ishuman(N.new_character))
 			manifest_inject(N.new_character, N.client)
 		CHECK_TICK

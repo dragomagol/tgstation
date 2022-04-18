@@ -345,6 +345,7 @@
 #include "code\__HELPERS\logging\economy.dm"
 #include "code\__HELPERS\logging\error.dm"
 #include "code\__HELPERS\logging\game.dm"
+#include "code\__HELPERS\logging\manifest.dm"
 #include "code\__HELPERS\logging\misc.dm"
 #include "code\__HELPERS\logging\mob.dm"
 #include "code\__HELPERS\logging\pda.dm"

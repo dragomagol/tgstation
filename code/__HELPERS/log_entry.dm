@@ -409,9 +409,32 @@
 ///////////////////////////////// job debug
 
 ///////////////////////////////// manifest
-/datum/log_entry/manifest
+/datum/log_entry/manifest/New(_source)
+	..(_source, null)
 	category = "MANIFEST"
 	tags = list("manifest")
+	extended_fields = list(
+		"job_title" = null,
+		"special_role" = null,
+		"joined" = null
+	)
+
+/datum/log_entry/manifest/proc/manifest_job_title(job_title)
+	extended_fields["job_title"] = job_title
+
+/datum/log_entry/manifest/proc/manifest_special_role(special_role)
+	extended_fields["special_role"] = special_role
+
+/datum/log_entry/manifest/proc/manifest_joined(joined)
+	extended_fields["joined"] = joined
+
+/datum/log_entry/manifest/to_text()
+	var/mob/source_mob = source
+	var/job_title = extended_fields["job_title"]
+	var/special_role = extended_fields["special_role"]
+	var/joined = extended_fields["joined"]
+
+	return ..() + "[source_mob.ckey] \\ [source_mob.real_name] \\ [job_title] \\ [special_role] \\ [joined]"
 
 ///////////////////////////////// map errors
 
