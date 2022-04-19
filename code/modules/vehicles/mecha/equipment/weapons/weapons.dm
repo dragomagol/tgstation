@@ -205,9 +205,9 @@
 		else
 			M.Jitter(500)
 
-	log_message("Honked from [src.name]. HONK!", LOG_MECHA)
 	var/turf/T = get_turf(src)
 	message_admins("[ADMIN_LOOKUPFLW(source)] used a Mecha Honker in [ADMIN_VERBOSEJMP(T)]")
+	log_mecha(chassis.occupants, chassis, "let out a mighty HONK", src)
 	log_game("[key_name(source)] used a Mecha Honker in [AREACOORD(T)]")
 	return ..()
 
@@ -246,7 +246,7 @@
 		else
 			projectiles = projectiles + projectiles_cache
 			projectiles_cache = 0
-		log_message("Rearmed [src].", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "rearmed", src)
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/weapon/ballistic/needs_rearm()
@@ -351,7 +351,7 @@
 		return
 	var/obj/O = new projectile(chassis.loc)
 	playsound(chassis, fire_sound, 50, TRUE)
-	log_message("Launched a [O.name] from [name], targeting [target].", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "launched [O.name], targeting [target]", src, target)
 	projectiles--
 	proj_init(O, source)
 	O.throw_at(target, missile_range, missile_speed, source, FALSE, diagonals_first = diags_first)

@@ -62,7 +62,7 @@
 		return
 	chassis.zoom_mode = !chassis.zoom_mode
 	button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
-	chassis.log_message("Toggled zoom mode.", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "toggled [chassis.leg_overload_mode ? "ON" : "OFF"]", src)
 	to_chat(owner, "[icon2html(chassis, owner)]<font color='[chassis.zoom_mode?"blue":"red"]'>Zoom mode [chassis.zoom_mode?"en":"dis"]abled.</font>")
 	if(chassis.zoom_mode)
 		owner.client.view_size.setTo(4.5)

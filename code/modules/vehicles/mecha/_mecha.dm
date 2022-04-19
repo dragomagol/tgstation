@@ -224,7 +224,7 @@
 	add_capacitor()
 	START_PROCESSING(SSobj, src)
 	SSpoints_of_interest.make_point_of_interest(src)
-	log_message("[src.name] created.", LOG_MECHA)
+	log_mecha(null, src, "Created")
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)
@@ -654,7 +654,7 @@
 	SIGNAL_HANDLER
 	if(internal_tank.disconnect()) // Something moved us and broke connection
 		to_chat(occupants, "[icon2html(src, occupants)][span_warning("Air port connection has been severed!")]")
-		log_message("Lost connection to gas port.", LOG_MECHA)
+		log_mecha(occupants, src, "Lost connection to gas port")
 
 /obj/vehicle/sealed/mecha/Process_Spacemove(movement_dir = 0)
 	. = ..()
@@ -787,10 +787,6 @@
 		if(mob_obstacle.move_resist <= move_force)
 			step(obstacle, dir)
 
-
-
-
-
 ///////////////////////////////////
 ////////  Internal damage  ////////
 ///////////////////////////////////
@@ -798,14 +794,14 @@
 /// tries to repair any internal damage and plays fluff for it
 /obj/vehicle/sealed/mecha/proc/try_repair_int_damage(mob/user, flag_to_heal)
 	balloon_alert(user, get_int_repair_fluff_start(flag_to_heal))
-	log_message("[key_name(user)] starting internal damage repair for flag [flag_to_heal]", LOG_MECHA)
+	log_mecha(user, src, "Started internal damage repair for flag [flag_to_heal]")
 	if(!do_after(user, 10 SECONDS, src))
 		balloon_alert(user, get_int_repair_fluff_fail(flag_to_heal))
-		log_message("Internal damage repair for flag [flag_to_heal] failed.", LOG_MECHA, color="red")
+		log_mecha(user, src, "Internal damage repair for flag [flag_to_heal] failed")
 		return
 	clear_internal_damage(flag_to_heal)
 	balloon_alert(user, get_int_repair_fluff_end(flag_to_heal))
-	log_message("Finished internal damage repair for flag [flag_to_heal]", LOG_MECHA)
+	log_mecha(user, src, "Finished internal damage repair for flag [flag_to_heal]")
 
 ///gets the starting balloon alert flufftext
 /obj/vehicle/sealed/mecha/proc/get_int_repair_fluff_start(flag)
@@ -845,7 +841,7 @@
 
 /obj/vehicle/sealed/mecha/proc/set_internal_damage(int_dam_flag)
 	internal_damage |= int_dam_flag
-	log_message("Internal damage of type [int_dam_flag].", LOG_MECHA)
+	log_mecha(occupants, src, "Internal damage of type [int_dam_flag]")
 	SEND_SOUND(occupants, sound('sound/machines/warning-buzzer.ogg',wait=0))
 	diag_hud_set_mechstat()
 
@@ -998,16 +994,16 @@
 	if(HAS_TRAIT(M, TRAIT_PRIMITIVE)) //no lavalizards either.
 		to_chat(M, span_warning("The knowledge to use this device eludes you!"))
 		return
-	log_message("[M] tries to move into [src].", LOG_MECHA)
+	log_mecha(occupants, src, "[M] tried to enter [src]")
 	if(dna_lock && M.has_dna())
 		var/mob/living/carbon/entering_carbon = M
 		if(entering_carbon.dna.unique_enzymes != dna_lock)
 			to_chat(M, span_warning("Access denied. [name] is secured with a DNA lock."))
-			log_message("Permission denied (DNA LOCK).", LOG_MECHA)
+			log_mecha(occupants, src, "Denied [M] permission to enter (DNA LOCK)")
 			return
 	if(!operation_allowed(M))
 		to_chat(M, span_warning("Access denied. Insufficient operation keycodes."))
-		log_message("Permission denied (No keycode).", LOG_MECHA)
+		log_mecha(occupants, src, "Denied [M] permission to enter (NO KEYCODE)")
 		return
 	. = ..()
 	if(.)
@@ -1019,11 +1015,11 @@
 		return FALSE
 	if(M.buckled)
 		to_chat(M, span_warning("You can't enter the exosuit while buckled."))
-		log_message("Permission denied (Buckled).", LOG_MECHA)
+		log_mecha(occupants, src, "Denied [M] permission to enter (BUCKLED)")
 		return FALSE
 	if(M.has_buckled_mobs())
 		to_chat(M, span_warning("You can't enter the exosuit with other creatures attached to you!"))
-		log_message("Permission denied (Attached mobs).", LOG_MECHA)
+		log_mecha(occupants, src, "Denied [M] permission to enter (ATTACHED MOBS)")
 		return FALSE
 	return ..()
 
@@ -1037,7 +1033,7 @@
 	newoccupant.forceMove(src)
 	newoccupant.update_mouse_pointer()
 	add_fingerprint(newoccupant)
-	log_message("[newoccupant] moved in as pilot.", LOG_MECHA)
+	log_mecha(newoccupant, src, "New pilot: \[[newoccupant]\]")
 	setDir(dir_in)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 	if(!internal_damage)
@@ -1086,7 +1082,7 @@
 	brain_mob.remote_control = src
 	brain_mob.update_mouse_pointer()
 	setDir(dir_in)
-	log_message("[brain_obj] moved in as pilot.", LOG_MECHA)
+	log_mecha(brain_obj, src, "New pilot: \[[brain_obj]\]")
 	if(!internal_damage)
 		SEND_SOUND(brain_obj, sound('sound/mecha/nominal.ogg',volume=50))
 	log_game("[key_name(user)] has put the MMI/posibrain of [key_name(brain_mob)] into [src] at [AREACOORD(src)]")
@@ -1140,8 +1136,9 @@
 		return ..()
 	var/mob/living/ejector = M
 	mecha_flags  &= ~SILICON_PILOT
-	mob_container.forceMove(newloc)//ejecting mob container
-	log_message("[mob_container] moved out.", LOG_MECHA)
+	mob_container.forceMove(newloc) //ejecting mob container
+	log_mecha(occupants, src, "Lost pilot: \[[mob_container]\]")
+
 	SStgui.close_user_uis(M, src)
 	if(istype(mob_container, /obj/item/mmi))
 		var/obj/item/mmi/mmi = mob_container

@@ -210,7 +210,7 @@
 		LAZYREMOVE(miner.cargo, crate)
 		if(crate == miner.box)
 			miner.box = null
-		log_message("Unloaded [crate]. Cargo compartment capacity: [miner.cargo_capacity - LAZYLEN(miner.cargo)]", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "unloaded [crate]. Cargo compartment capacity: [miner.cargo_capacity - LAZYLEN(miner.cargo)]", src)
 		return TRUE
 
 

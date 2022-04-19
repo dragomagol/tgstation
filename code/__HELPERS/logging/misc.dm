@@ -46,8 +46,6 @@
 			log_game(log_text)
 		if(LOG_GAME)
 			log_game(log_text)
-		if(LOG_MECHA)
-			log_mecha(log_text)
 		if(LOG_SHUTTLE)
 			log_shuttle(log_text)
 		else
@@ -59,10 +57,6 @@
 /proc/log_atmos(atom/source, atom/target, action, details = null, list/tags = list())
 	// var/datum/log_entry/atmos/atmos_log = new(source, target)
 	// log_game(message)
-
-/proc/log_mecha(text)
-	if (CONFIG_GET(flag/log_mecha))
-		WRITE_LOG(GLOB.world_mecha_log, "MECHA: [text]")
 
 /proc/log_cloning(text, mob/initiator)
 	if(CONFIG_GET(flag/log_cloning))

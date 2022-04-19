@@ -442,9 +442,31 @@
 ///////////////////////////////// map errors
 
 ///////////////////////////////// mecha
-/datum/log_entry/mecha
+/datum/log_entry/mecha/New(_source, _target)
+	..(_source, _target)
 	category = "MECH"
-	tags = list("mech")
+	tags += list("mech")
+	extended_fields = list(
+		"type" = null,
+		"log" = null,
+		"equipment" = null
+	)
+
+/datum/log_entry/mecha/proc/mecha_type(type)
+	extended_fields["type"] = type
+
+/datum/log_entry/mecha/proc/mecha_log(log)
+	extended_fields["log"] = log
+
+/datum/log_entry/mecha/proc/mecha_equipment(equipment)
+	extended_fields["equipment"] = equipment
+
+/datum/log_entry/mecha/to_text()
+	var/type = extended_fields["type"]
+	var/log = extended_fields["log"]
+	var/equipment = extended_fields["equipment"]
+
+	return ..() + "[type][source ? " (ridden by [key_name(source)])" : ""]: [equipment ? "[equipment] " : ""][log]"
 
 ///////////////////////////////// mob tags
 /datum/log_entry/mob_tag

@@ -85,7 +85,7 @@
 		if(!cargo_holder.box && istype(clamptarget, /obj/structure/ore_box))
 			cargo_holder.box = clamptarget
 		to_chat(source, "[icon2html(src, source)][span_notice("[target] successfully loaded.")]")
-		log_message("Loaded [clamptarget]. Cargo compartment capacity: [cargo_holder.cargo_capacity - LAZYLEN(cargo_holder.cargo)]", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "loaded [clamptarget]. Cargo compartment capacity: [cargo_holder.cargo_capacity - LAZYLEN(cargo_holder.cargo)]", src, clamptarget)
 
 	else if(isliving(target))
 		var/mob/living/M = target
