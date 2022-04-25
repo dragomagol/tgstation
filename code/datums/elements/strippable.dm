@@ -155,7 +155,7 @@
 	)
 
 	to_chat(user, span_danger("You try to remove [source]'s [item]..."))
-	log_attack(user, "begun stripping [item] off of", source)
+	log_attack(user, "began stripping [item] off of", source)
 
 	item.add_fingerprint(src)
 
