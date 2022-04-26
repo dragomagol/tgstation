@@ -22499,14 +22499,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/light_switch/directional/west,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/structure/closet/secure_closet/hos,
-/obj/effect/turf_decal/stripes/line{
-	dir = 9
-	},
 /turf/open/floor/iron,
 /area/command/heads_quarters/hos)
 "fgz" = (
