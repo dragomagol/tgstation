@@ -113,10 +113,6 @@
 		. += "fire_emagged"
 		. += mutable_appearance(icon, "fire_emagged")
 		. += emissive_appearance(icon, "fire_emagged", alpha = src.alpha)
-	else if(cold_alarm)
-		. += "fire_cold"
-		. += mutable_appearance(icon, "fire_cold")
-		. += emissive_appearance(icon, "fire_cold", alpha = src.alpha)
 	else
 		. += "fire_on"
 		. += mutable_appearance(icon, "fire_on")
@@ -150,26 +146,6 @@
 /obj/machinery/firealarm/should_atmos_process(datum/gas_mixture/air, exposed_temperature)
 	return (exposed_temperature > T0C + 200 || exposed_temperature < BODYTEMP_COLD_DAMAGE_LIMIT) && !(obj_flags & EMAGGED) && !machine_stat
 
-/obj/machinery/firealarm/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	if(!detecting)
-		return
-	if(!triggered)
-		triggered = TRUE
-		myarea.triggered_firealarms += 1
-		if(exposed_temperature < BODYTEMP_COLD_DAMAGE_LIMIT)
-			cold_alarm = TRUE
-		else
-			cold_alarm = FALSE
-	alarm()
-
-/obj/machinery/firealarm/atmos_end()
-	if(!detecting)
-		return
-	if(triggered)
-		triggered = FALSE
-		myarea.triggered_firealarms -= 1
-		update_appearance()
-
 /**
  * Signal handler for checking if we should update fire alarm appearance accordingly to a newly set security level
  *
@@ -201,8 +177,6 @@
 		firelock.activate(FIRELOCK_ALARM_TYPE_GENERIC)
 	if(user)
 		log_game("[user] triggered a fire alarm at [COORD(src)]")
-	triggered = TRUE
-	update_icon()
 	soundloop.start() //Manually pulled fire alarms will make the sound, rather than the doors.
 	SEND_SIGNAL(src, COMSIG_FIREALARM_ON_TRIGGER)
 	update_use_power(ACTIVE_POWER_USE)

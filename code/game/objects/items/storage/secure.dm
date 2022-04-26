@@ -31,6 +31,8 @@
 	var/panel_open = FALSE
 	/// Is this door hackable?
 	var/can_hack_open = TRUE
+	///this var decides if we want to apply a door overlay.
+	var/has_door = FALSE
 
 
 /obj/item/storage/secure/ComponentInitialize()

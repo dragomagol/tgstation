@@ -56,13 +56,8 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/bluespace_vendor, 30)
 
 /obj/machinery/bluespace_vendor/New(loc, ndir, nbuild)
 	. = ..()
-
 	if(nbuild)
 		panel_open = TRUE
-<<<<<<< HEAD
-=======
-
->>>>>>> 63fe67915d69badef6ac95a25008beffc05df888
 	update_appearance()
 
 /obj/machinery/bluespace_vendor/Initialize(mapload)

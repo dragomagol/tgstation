@@ -214,7 +214,6 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 /turf/closed/indestructible/opshuttle
 	icon_state = "wall3"
 
-
 /turf/closed/indestructible/fakeglass
 	name = "window"
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
