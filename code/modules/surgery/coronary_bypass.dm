@@ -9,6 +9,7 @@
 		/datum/surgery_step/coronary_bypass,
 		/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
+	organ_to_manipulate = ORGAN_SLOT_HEART
 
 /datum/surgery/coronary_bypass/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/heart/target_heart = target.getorganslot(ORGAN_SLOT_HEART)
@@ -27,6 +28,9 @@
 		/obj/item/knife = 45,
 		/obj/item/shard = 25)
 	time = 16
+	preop_sound = 'sound/surgery/scalpel1.ogg'
+	success_sound = 'sound/surgery/scalpel2.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/incise_heart/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to make an incision in [target]'s heart..."),
@@ -66,6 +70,9 @@
 		/obj/item/stack/package_wrap = 15,
 		/obj/item/stack/cable_coil = 5)
 	time = 90
+	preop_sound = 'sound/surgery/hemostat1.ogg'
+	success_sound = 'sound/surgery/hemostat1.ogg'
+	failure_sound = 'sound/surgery/organ2.ogg'
 
 /datum/surgery_step/coronary_bypass/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	display_results(user, target, span_notice("You begin to graft a bypass onto [target]'s heart..."),

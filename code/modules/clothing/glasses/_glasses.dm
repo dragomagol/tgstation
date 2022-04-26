@@ -22,6 +22,8 @@
 	var/vision_correction = FALSE
 	/// Colors your vision when worn
 	var/glass_colour_type
+	/// Whether or not vision coloring is forcing
+	var/forced_glass_color = FALSE
 
 /obj/item/clothing/glasses/suicide_act(mob/living/carbon/user)
 	user.visible_message(span_suicide("[user] is stabbing \the [src] into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!"))
@@ -29,7 +31,7 @@
 
 /obj/item/clothing/glasses/examine(mob/user)
 	. = ..()
-	if(glass_colour_type && ishuman(user))
+	if(glass_colour_type && !forced_glass_color && ishuman(user))
 		. += span_notice("Alt-click to toggle [p_their()] colors.")
 
 /obj/item/clothing/glasses/visor_toggling()
@@ -64,7 +66,7 @@
 				eyes.applyOrganDamage(5)
 
 /obj/item/clothing/glasses/AltClick(mob/user)
-	if(glass_colour_type && ishuman(user))
+	if(glass_colour_type && !forced_glass_color && ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 
 		if (human_user.glasses != src)
@@ -92,7 +94,7 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if (HAS_TRAIT(src, TRAIT_SEE_GLASS_COLORS) && glasses_equipped)
+	if((HAS_TRAIT(src, TRAIT_SEE_GLASS_COLORS) || G.forced_glass_color) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)
@@ -125,9 +127,10 @@
 
 /obj/item/clothing/glasses/meson/gar
 	name = "gar mesons"
-	icon_state = "garm"
-	inhand_icon_state = "garm"
 	desc = "Do the impossible, see the invisible!"
+	icon_state = "gar_meson"
+	inhand_icon_state = "gar_meson"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -141,15 +144,27 @@
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
 	icon_state = "purple"
 	inhand_icon_state = "glasses"
-	clothing_flags = SCAN_REAGENTS //You can see reagents while wearing science goggles
-	actions_types = list(/datum/action/item_action/toggle_research_scanner)
 	glass_colour_type = /datum/client_colour/glass_colour/purple
 	resistance_flags = ACID_PROOF
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 80, ACID = 100)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0, ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 80, ACID = 100)
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_RESEARCH_SCANNER)
 
 /obj/item/clothing/glasses/science/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
 		return 1
+
+/obj/item/clothing/glasses/science/suicide_act(mob/living/carbon/user)
+	user.visible_message(span_suicide("[user] is tightening \the [src]'s straps around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!"))
+	return OXYLOSS
+
+/obj/item/clothing/glasses/science/night
+	name = "night vision science goggles"
+	desc = "Lets the user see in the dark and recognize chemical compounds at a glance."
+	icon_state = "scihudnight"
+	darkness_view = 8
+	flash_protect = FLASH_PROTECTION_SENSITIVE
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+	glass_colour_type = /datum/client_colour/glass_colour/green
 
 /obj/item/clothing/glasses/night
 	name = "night vision goggles"
@@ -160,10 +175,6 @@
 	flash_protect = FLASH_PROTECTION_SENSITIVE
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
-
-/obj/item/clothing/glasses/science/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] is tightening \the [src]'s straps around [user.p_their()] neck! It looks like [user.p_theyre()] trying to commit suicide!"))
-	return OXYLOSS
 
 /obj/item/clothing/glasses/eyepatch
 	name = "eyepatch"
@@ -194,9 +205,10 @@
 
 /obj/item/clothing/glasses/material/mining/gar
 	name = "gar material scanner"
-	icon_state = "garm"
-	inhand_icon_state = "garm"
 	desc = "Do the impossible, see the invisible!"
+	icon_state = "gar_meson"
+	inhand_icon_state = "gar_meson"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 20
 	throw_speed = 4
@@ -295,20 +307,20 @@
 	name = "beer goggles"
 	icon_state = "sunhudbeer"
 	desc = "A pair of sunglasses outfitted with apparatus to scan reagents, as well as providing an innate understanding of liquid viscosity while in motion."
-	clothing_flags = SCAN_REAGENTS
-	clothing_traits = list(TRAIT_BOOZE_SLIDER)
+	clothing_traits = list(TRAIT_BOOZE_SLIDER, TRAIT_REAGENT_SCANNER)
 
 /obj/item/clothing/glasses/sunglasses/chemical
 	name = "science glasses"
 	icon_state = "sunhudsci"
 	desc = "A pair of tacky purple sunglasses that allow the wearer to recognize various chemical compounds with only a glance."
-	clothing_flags = SCAN_REAGENTS
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_RESEARCH_SCANNER)
 
-/obj/item/clothing/glasses/sunglasses/garb
+/obj/item/clothing/glasses/sunglasses/gar
 	name = "black gar glasses"
 	desc = "Go beyond impossible and kick reason to the curb!"
-	icon_state = "garb"
-	inhand_icon_state = "garb"
+	icon_state = "gar_black"
+	inhand_icon_state = "gar_black"
+	alternate_worn_layer = ABOVE_BODY_FRONT_HEAD_LAYER
 	force = 10
 	throwforce = 10
 	throw_speed = 4
@@ -317,35 +329,25 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharpness = SHARP_EDGED
 
-/obj/item/clothing/glasses/sunglasses/garb/supergarb
-	name = "black giga gar glasses"
-	desc = "Believe in us humans."
-	icon_state = "supergarb"
-	inhand_icon_state = "garb"
-	force = 12
-	throwforce = 12
-
-/obj/item/clothing/glasses/sunglasses/gar
+/obj/item/clothing/glasses/sunglasses/gar/orange
 	name = "gar glasses"
 	desc = "Just who the hell do you think I am?!"
 	icon_state = "gar"
 	inhand_icon_state = "gar"
-	force = 10
-	throwforce = 10
-	throw_speed = 4
-	attack_verb_continuous = list("slices")
-	attack_verb_simple = list("slice")
-	hitsound = 'sound/weapons/bladeslice.ogg'
-	sharpness = SHARP_EDGED
 	glass_colour_type = /datum/client_colour/glass_colour/orange
 
-/obj/item/clothing/glasses/sunglasses/gar/supergar
-	name = "giga gar glasses"
-	desc = "We evolve past the person we were a minute before. Little by little we advance with each turn. That's how a drill works!"
-	icon_state = "supergar"
-	inhand_icon_state = "gar"
+/obj/item/clothing/glasses/sunglasses/gar/giga
+	name = "black giga gar glasses"
+	desc = "Believe in us humans."
+	icon_state = "gigagar_black"
 	force = 12
 	throwforce = 12
+
+/obj/item/clothing/glasses/sunglasses/gar/giga/red
+	name = "giga gar glasses"
+	desc = "We evolve past the person we were a minute before. Little by little we advance with each turn. That's how a drill works!"
+	icon_state = "gigagar_red"
+	inhand_icon_state = "gar"
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
 /obj/item/clothing/glasses/welding
@@ -534,8 +536,8 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	glass_colour_type = FALSE
-	clothing_flags = SCAN_REAGENTS
 	vision_flags = SEE_TURFS
+	clothing_traits = list(TRAIT_REAGENT_SCANNER, TRAIT_SUPERMATTER_MADNESS_IMMUNE)
 	var/list/hudlist = list(DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_SECURITY_ADVANCED)
 	var/xray = FALSE
 
@@ -612,7 +614,7 @@
 
 /obj/item/clothing/glasses/salesman/proc/moodshift(atom/movable/source, amount)
 	SIGNAL_HANDLER
-	if(amount < SANITY_UNSTABLE)	
+	if(amount < SANITY_UNSTABLE)
 		icon_state = "salesman_fzz"
 		desc = "A pair of glasses, the lenses are full of TV static. They've certainly seen better days..."
 		bigshot.update_inv_glasses()
@@ -620,3 +622,11 @@
 		icon_state = initial(icon_state)
 		desc = initial(desc)
 		bigshot.update_inv_glasses()
+
+/obj/item/clothing/glasses/nightmare_vision
+	name = "nightmare vision goggles"
+	desc = "They give off a putrid stench. Seemingly no effect on anything."
+	icon_state = "nightmare"
+	inhand_icon_state = "glasses"
+	glass_colour_type = /datum/client_colour/glass_colour/nightmare
+	forced_glass_color = TRUE

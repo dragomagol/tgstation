@@ -25,7 +25,7 @@
 	throw_range = 7
 	throw_speed = 3
 	drop_sound = 'sound/items/handling/multitool_drop.ogg'
-	pickup_sound =  'sound/items/handling/multitool_pickup.ogg'
+	pickup_sound = 'sound/items/handling/multitool_pickup.ogg'
 	custom_materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	custom_premium_price = PAYCHECK_HARD * 3
 	toolspeed = 1
@@ -154,7 +154,7 @@
 	name = "Toggle AI detector HUD"
 	check_flags = NONE
 
-/datum/action/item_action/toggle_multitool/Trigger()
+/datum/action/item_action/toggle_multitool/Trigger(trigger_flags)
 	if(!..())
 		return FALSE
 	if(target)
@@ -167,6 +167,7 @@
 	desc = "An omni-technological interface."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "multitool"
+	belt_icon_state = "multitool_alien"
 	custom_materials = list(/datum/material/iron = 5000, /datum/material/silver = 2500, /datum/material/plasma = 5000, /datum/material/titanium = 2000, /datum/material/diamond = 2000)
 	toolspeed = 0.1
 

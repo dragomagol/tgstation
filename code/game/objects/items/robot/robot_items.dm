@@ -8,7 +8,7 @@
 /obj/item/borg/stun
 	name = "electrically-charged arm"
 	icon_state = "elecarm"
-	var/charge_cost = 30
+	var/charge_cost = 1000
 
 /obj/item/borg/stun/attack(mob/living/M, mob/living/user)
 	if(ishuman(M))
@@ -23,7 +23,7 @@
 
 	user.do_attack_animation(M)
 	M.Paralyze(100)
-	M.apply_effect(EFFECT_STUTTER, 5)
+	M.adjust_timed_status_effect(10 SECONDS, /datum/status_effect/speech/stutter)
 
 	M.visible_message(span_danger("[user] prods [M] with [src]!"), \
 					span_userdanger("[user] prods you with [src]!"))
@@ -96,6 +96,7 @@
 		if(1)
 			if(M.health >= 0)
 				if(ishuman(M))
+					M.adjust_status_effects_on_shake_up()
 					if(M.body_position == LYING_DOWN)
 						user.visible_message(span_notice("[user] shakes [M] trying to get [M.p_them()] up!"), \
 										span_notice("You shake [M] trying to get [M.p_them()] up!"))
@@ -326,12 +327,12 @@
 			switch(bang_effect)
 				if(1)
 					C.add_confusion(5)
-					C.stuttering += 10
+					C.adjust_timed_status_effect(20 SECONDS, /datum/status_effect/speech/stutter)
 					C.Jitter(10)
 				if(2)
 					C.Paralyze(40)
 					C.add_confusion(10)
-					C.stuttering += 15
+					C.adjust_timed_status_effect(30 SECONDS, /datum/status_effect/speech/stutter)
 					C.Jitter(25)
 		playsound(get_turf(src), 'sound/machines/warning-buzzer.ogg', 130, 3)
 		cooldown = world.time + 600
@@ -354,8 +355,6 @@
 
 	var/firedelay = 0
 	var/hitspeed = 2
-
-/obj/item/borg/lollipop/clown
 
 /obj/item/borg/lollipop/equipped()
 	. = ..()
@@ -390,7 +389,7 @@
 	var/obj/item/food_item
 	switch(mode)
 		if(DISPENSE_LOLLIPOP_MODE)
-			food_item = new /obj/item/food/lollipop(T)
+			food_item = new /obj/item/food/lollipop/cyborg(T)
 		if(DISPENSE_ICECREAM_MODE)
 			food_item = new /obj/item/food/icecream(T, list(ICE_CREAM_VANILLA))
 			food_item.desc = "Eat the ice cream."
@@ -544,7 +543,7 @@
 /obj/projectile/bullet/reusable/lollipop/Initialize(mapload)
 	. = ..()
 	var/obj/item/food/lollipop/S = new ammo_type(src)
-	color2 = S.headcolor
+	color2 = S.head_color
 	var/mutable_appearance/head = mutable_appearance('icons/obj/guns/projectiles.dmi', "lollipop_2")
 	head.color = color2
 	add_overlay(head)
@@ -583,7 +582,7 @@
 	var/energy_recharge_cyborg_drain_coefficient = 0.4
 	var/cyborg_cell_critical_percentage = 0.05
 	var/mob/living/silicon/robot/host = null
-	var/datum/proximity_monitor/advanced/dampening_field
+	var/datum/proximity_monitor/advanced/peaceborg_dampener/dampening_field
 	var/projectile_damage_coefficient = 0.5
 	/// Energy cost per tracked projectile damage amount per second
 	var/projectile_damage_tick_ecost_coefficient = 10
@@ -641,10 +640,9 @@
 /obj/item/borg/projectile_dampen/proc/activate_field()
 	if(istype(dampening_field))
 		QDEL_NULL(dampening_field)
-	dampening_field = make_field(/datum/proximity_monitor/advanced/peaceborg_dampener, list("current_range" = field_radius, "host" = src, "projector" = src))
 	var/mob/living/silicon/robot/owner = get_host()
-	if(owner)
-		owner.model.allow_riding = FALSE
+	dampening_field = new(owner, field_radius, TRUE, src)
+	owner?.model.allow_riding = FALSE
 	active = TRUE
 
 /obj/item/borg/projectile_dampen/proc/deactivate_field()
@@ -681,11 +679,6 @@
 /obj/item/borg/projectile_dampen/process(delta_time)
 	process_recharge(delta_time)
 	process_usage(delta_time)
-	update_location()
-
-/obj/item/borg/projectile_dampen/proc/update_location()
-	if(dampening_field)
-		dampening_field.HandleMove()
 
 /obj/item/borg/projectile_dampen/proc/process_usage(delta_time)
 	var/usage = 0
@@ -932,6 +925,8 @@
 /// Secondary attack spills the content of the beaker.
 /obj/item/borg/apparatus/beaker/pre_attack_secondary(atom/target, mob/living/silicon/robot/user)
 	var/obj/item/reagent_containers/stored_beaker = stored
+	if(!stored_beaker)
+		return ..()
 	stored_beaker.SplashReagents(drop_location(user))
 	loc.visible_message(span_notice("[user] spills the contents of [stored_beaker] all over the ground."))
 	. = ..()

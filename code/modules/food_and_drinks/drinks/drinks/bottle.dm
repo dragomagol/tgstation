@@ -32,30 +32,13 @@
 	custom_price = PAYCHECK_EASY * 0.9
 
 /obj/item/reagent_containers/food/drinks/bottle/smash(mob/living/target, mob/thrower, ranged = FALSE)
-	//Creates a shattering noise and replaces the bottle with a broken_bottle
 	if(bartender_check(target) && ranged)
 		return
+	SplashReagents(target, ranged, override_spillable = TRUE)
 	var/obj/item/broken_bottle/B = new (loc)
 	if(!ranged && thrower)
 		thrower.put_in_hands(B)
-	B.icon_state = icon_state
-
-	var/icon/I = new('icons/obj/drinks.dmi', src.icon_state)
-	I.Blend(B.broken_outline, ICON_OVERLAY, rand(5), 1)
-	I.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
-	B.icon = I
-
-	if(isGlass)
-		if(prob(33))
-			var/obj/item/shard/S = new(drop_location())
-			target.Bumped(S)
-		playsound(src, "shatter", 70, TRUE)
-	else
-		B.force = 0
-		B.throwforce = 0
-		B.desc = "A carton with the bottom half burst open. Might give you a papercut."
-	B.name = "broken [name]"
-	transfer_fingerprints_to(B)
+	B.mimic_broken(src, target)
 
 	qdel(src)
 	target.Bumped(B)
@@ -121,9 +104,6 @@
 	//Attack logs
 	log_combat(user, target, "attacked", src)
 
-	//The reagents in the bottle splash all over the target, thanks for the idea Nodrak
-	SplashReagents(target, override_spillable = TRUE)
-
 	//Finally, smash the bottle. This kills (del) the bottle.
 	smash(target, user)
 
@@ -151,7 +131,30 @@
 
 /obj/item/broken_bottle/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/caltrop, min_damage = force)
 	AddComponent(/datum/component/butchering, 200, 55)
+
+/// Mimics the appearance and properties of the passed in bottle.
+/// Takes the broken bottle to mimic, and the thing the bottle was broken agaisnt as args
+/obj/item/broken_bottle/proc/mimic_broken(obj/item/reagent_containers/food/drinks/to_mimic, atom/target)
+	icon_state = to_mimic.icon_state
+	var/icon/drink_icon = new('icons/obj/drinks.dmi', icon_state)
+	drink_icon.Blend(broken_outline, ICON_OVERLAY, rand(5), 1)
+	drink_icon.SwapColor(rgb(255, 0, 220, 255), rgb(0, 0, 0, 0))
+	icon = drink_icon
+
+	if(to_mimic.isGlass)
+		if(prob(33))
+			var/obj/item/shard/stab_with = new(to_mimic.drop_location())
+			target.Bumped(stab_with)
+		playsound(src, SFX_SHATTER, 70, TRUE)
+	else
+		force = 0
+		throwforce = 0
+		desc = "A carton with the bottom half burst open. Might give you a papercut."
+
+	name = "broken [to_mimic.name]"
+	to_mimic.transfer_fingerprints_to(src)
 
 /obj/item/reagent_containers/food/drinks/bottle/beer
 	name = "space beer"
@@ -169,6 +172,15 @@
 	name = "Carp Lite"
 	desc = "Brewed with \"Pure Ice Asteroid Spring Water\"."
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer/light = 30)
+
+/obj/item/reagent_containers/food/drinks/bottle/rootbeer
+	name = "Two-Time root beer"
+	desc = "A popular, old-fashioned brand of root beer, known for its extremely sugary formula. Might make you want a nap afterwards."
+	volume = 30
+	list_reagents = list(/datum/reagent/consumable/rootbeer = 30)
+	foodtype = SUGAR | JUNKFOOD
+	custom_price = PAYCHECK_HARD * 1.5
+	custom_premium_price = PAYCHECK_HARD * 2
 
 /obj/item/reagent_containers/food/drinks/bottle/ale
 	name = "Magm-Ale"
@@ -412,6 +424,25 @@
 	icon_state = "fernetbottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/fernet = 100)
 
+/obj/item/reagent_containers/food/drinks/bottle/bitters
+	name = "Andromeda Bitters"
+	desc = "An aromatic addition to any drink. Made in New Trinidad, now and forever."
+	icon_state = "bitters_bottle"
+	volume = 30
+	list_reagents = list(/datum/reagent/consumable/ethanol/bitters = 30)
+
+/obj/item/reagent_containers/food/drinks/bottle/curacao
+	name = "Beekhof Blauw Curaçao"
+	desc = "Still produced on the island of Curaçao, after all these years."
+	icon_state = "curacao_bottle"
+	list_reagents = list(/datum/reagent/consumable/ethanol/curacao = 100)
+
+/obj/item/reagent_containers/food/drinks/bottle/navy_rum
+	name = "Pride of the Union Navy-Strength Rum"
+	desc = "Ironically named, given it's made in Bermuda."
+	icon_state = "navy_rum_bottle"
+	list_reagents = list(/datum/reagent/consumable/ethanol/navy_rum = 100)
+
 //////////////////////////JUICES AND STUFF ///////////////////////
 
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice
@@ -541,28 +572,31 @@
 	playsound(src, 'sound/items/champagne_pop.ogg', 70, TRUE)
 	spillable = TRUE
 	update_appearance()
-	var/obj/item/champagne_cork/popped_cork = new(user.loc)
-	popped_cork.might_of_the_sun_king = TRUE
-	var/turf/pop_target = get_edge_target_turf(popped_cork, user.dir)
-	popped_cork.throw_at(target = pop_target, thrower = user, speed = 2, range = 7, spin = FALSE)
+	var/obj/projectile/bullet/reusable/champagne_cork/popped_cork = new (get_turf(src))
+	popped_cork.firer =  user
+	popped_cork.fired_from = src
+	popped_cork.fire(dir2angle(user.dir) + rand(-30, 30))
 
-/obj/item/champagne_cork
+/obj/projectile/bullet/reusable/champagne_cork
 	name = "champagne cork"
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "champagne_cork"
-	force = 0
-	throwforce = 10
-	///this var determines if the cork will knockdown on impact.
-	var/might_of_the_sun_king = FALSE
+	hitsound = 'sound/weapons/genhit.ogg'
+	damage = 10
+	sharpness = NONE
+	impact_effect_type = null
+	ricochets_max = 3
+	ricochet_chance = 70
+	ricochet_decay_damage = 1
+	ricochet_incidence_leeway = 0
+	range = 7
+	knockdown = 2 SECONDS
+	ammo_type = /obj/item/trash/champagne_cork
 
-/obj/item/champagne_cork/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	. = ..()
-	if(!iscarbon(hit_atom) || !might_of_the_sun_king)
-		return
-
-	var/mob/living/carbon/champagne_victim = hit_atom
-	champagne_victim.Knockdown(20)
-	might_of_the_sun_king = FALSE
+/obj/item/trash/champagne_cork
+	name = "champagne cork"
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "champagne_cork"
 
 /obj/item/reagent_containers/food/drinks/bottle/blazaam
 	name = "Ginbad's Blazaam"
@@ -704,6 +738,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/pruno/proc/do_fermentation()
 	fermentation_time_remaining = null
 	fermentation_timer = null
+	reagents.remove_reagent(/datum/reagent/consumable/prunomix, 50)
 	if(prob(10))
 		reagents.add_reagent(/datum/reagent/toxin/bad_food, 15) // closest thing we have to botulism
 		reagents.add_reagent(/datum/reagent/consumable/ethanol/pruno, 35)
@@ -715,10 +750,3 @@
 	for (var/mob/living/M in view(2, get_turf(src))) // letting people and/or narcs know when the pruno is done
 		to_chat(M, span_info("A pungent smell emanates from [src], like fruit puking out its guts."))
 		playsound(get_turf(src), 'sound/effects/bubbles2.ogg', 25, TRUE)
-
-/obj/item/reagent_containers/food/drinks/colocup/lean
-	name = "lean"
-	desc = "A cup of that purple drank, the stuff that makes you go WHEEZY BABY."
-	icon_state = "lean"
-	list_reagents = list(/datum/reagent/consumable/lean = 20)
-	random_sprite = FALSE

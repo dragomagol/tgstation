@@ -288,6 +288,9 @@ Security HUDs! Basic mode shows only the job.
 				if("Incarcerated")
 					holder.icon_state = "hudincarcerated"
 					return
+				if("Suspected")
+					holder.icon_state = "hudsuspected"
+					return
 				if("Paroled")
 					holder.icon_state = "hudparolled"
 					return
@@ -428,7 +431,7 @@ Diagnostic HUDs!
 	var/image/holder = hud_list[DIAG_STAT_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
-	if(on)
+	if(bot_mode_flags & BOT_MODE_ON)
 		holder.icon_state = "hudstat"
 	else if(stat) //Generally EMP causes this
 		holder.icon_state = "hudoffline"

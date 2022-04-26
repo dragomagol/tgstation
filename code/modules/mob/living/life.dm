@@ -43,7 +43,7 @@
 
 		if(stat != DEAD)
 			//Mutations and radiation
-			handle_mutations_and_radiation(delta_time, times_fired)
+			handle_mutations(delta_time, times_fired)
 
 		if(stat != DEAD)
 			//Breathing, if applicable
@@ -83,8 +83,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, delta_time, times_fired)
 	return
 
-/mob/living/proc/handle_mutations_and_radiation(delta_time, times_fired)
-	radiation = 0 //so radiation don't accumulate in simple animals
+/mob/living/proc/handle_mutations(delta_time, times_fired)
 	return
 
 /mob/living/proc/handle_diseases(delta_time, times_fired)
@@ -158,16 +157,16 @@
 	return reagents.has_reagent(reagent, amount, needs_metabolizing)
 
 /*
- * this updates some effects: mostly old stuff such as drunkness, druggy, stuttering, etc.
+ * this updates some effects: mostly old stuff such as drunkness, druggy, etc.
  * that should be converted to status effect datums one day.
+ * ^ March 4th, 2021
+ * Stuttering and slurring has been removed,
+ * but carbons still have a ton of effects that need to be moved over
+ * Good luck reader
+ * ^ April 6th, 2022
  */
 /mob/living/proc/handle_status_effects(delta_time, times_fired)
-	if(stuttering)
-		stuttering = max(stuttering - (0.5 * delta_time), 0)
-	if(slurring)
-		slurring = max(slurring - (0.5 * delta_time),0)
-	if(cultslurring)
-		cultslurring = max(cultslurring - (0.5 * delta_time), 0)
+	return
 
 /mob/living/proc/handle_traits(delta_time, times_fired)
 	//Eyes
@@ -183,7 +182,7 @@
 	return
 
 /mob/living/proc/handle_gravity(delta_time, times_fired)
-	var/gravity = mob_has_gravity()
+	var/gravity = has_gravity()
 	update_gravity(gravity)
 
 	if(gravity > STANDARD_GRAVITY)
