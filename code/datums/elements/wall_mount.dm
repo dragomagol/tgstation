@@ -11,15 +11,19 @@
 	//The wall mount template is made to work with them
 	switch(real_target.dir)
 		if(NORTH)
-			real_target.pixel_y = -8
+			real_target.pixel_y = 34
+			real_target.dir = SOUTH
 		if(SOUTH)
-			real_target.pixel_y = 35
+			real_target.pixel_y = -40
+			real_target.dir = NORTH
 		if(EAST)
-			real_target.pixel_x = -11
+			real_target.pixel_x = 10
 			real_target.pixel_y = 16
+			real_target.dir = WEST
 		if(WEST)
-			real_target.pixel_x = 11
+			real_target.pixel_x = -10
 			real_target.pixel_y = 16
+			real_target.dir = EAST
 
 	//target.RegisterSignal(target_to_listen_to, COMSIG_TURF_CHANGE, )
 	RegisterSignal(target, COMSIG_ATOM_DIR_CHANGE, .proc/on_dir_changed)
