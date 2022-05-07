@@ -20,7 +20,6 @@
 
 /obj/item/clothing/mask/gas/Initialize(mapload)
 	. = ..()
-	init_fov()
 	if(!max_filters || !starting_filter_type)
 		return
 
@@ -77,11 +76,6 @@
 	if(LAZYLEN(gas_filters) <= 0)
 		has_filter = FALSE
 	return filtered_breath
-
-/// Initializes the FoV component for the gas mask
-/obj/item/clothing/mask/gas/proc/init_fov()
-	if (has_fov)
-		AddComponent(/datum/component/clothing_fov_visor, FOV_90_DEGREES)
 
 /**
  * Getter for overall filter durability, takes into consideration all filters filter_status
@@ -229,7 +223,6 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	species_exception = list(/datum/species/golem/bananium)
-	has_fov = FALSE
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -297,7 +290,6 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	species_exception = list(/datum/species/golem)
-	has_fov = FALSE
 
 /obj/item/clothing/mask/gas/cyborg
 	name = "cyborg visor"

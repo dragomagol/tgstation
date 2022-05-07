@@ -10,7 +10,6 @@
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
 	SSpoints_of_interest.make_point_of_interest(src)
-	update_fov()
 
 /mob/living/ComponentInitialize()
 	. = ..()
