@@ -164,6 +164,7 @@
 #define BLIND_LAYER 4
 #define CRIT_LAYER 5
 #define CURSE_LAYER 6
+#define BLIND_EFFECT_LAYER 7
 
 ///--------------- FULLSCREEN RUNECHAT BUBBLES ------------
 
