@@ -4,9 +4,9 @@
 	name = "wall"
 	desc = "A huge chunk of iron used to separate rooms."
 	icon = 'icons/turf/walls/wall.dmi'
-	icon_state = "wall"
+	icon_state = "wall-0"
 	base_icon_state = "wall"
-	explosion_block = 1
+	explosion_block = TRUE
 
 	thermal_conductivity = WALL_HEAT_TRANSFER_COEFFICIENT
 	heat_capacity = 62500 //a little over 5 cm thick , 62500 for 1 m by 2.5 m by 0.25 m iron wall. also indicates the temperature at wich the wall will melt (currently only able to melt with H/E pipes)
@@ -53,6 +53,7 @@
 		underlays += underlay_appearance
 
 /turf/closed/wall/atom_destruction(damage_flag)
+	. = ..()
 	dismantle_wall(TRUE, FALSE)
 
 /turf/closed/wall/Destroy()
@@ -88,6 +89,7 @@
 		ChangeTurf(decon_type, flags = CHANGETURF_INHERIT_AIR)
 	else
 		ScrapeAway()
+	QUEUE_SMOOTH_NEIGHBORS(src)
 
 /turf/closed/wall/proc/break_wall()
 	new sheet_type(src, sheet_amount)
@@ -276,7 +278,7 @@
 	if(.)
 		ChangeTurf(/turf/closed/wall/mineral/cult)
 
-/turf/closed/wall/get_dumping_location(obj/item/storage/source, mob/user)
+/turf/closed/wall/get_dumping_location()
 	return null
 
 /turf/closed/wall/acid_act(acidpwr, acid_volume)
@@ -330,5 +332,8 @@
 	if(prob(70))
 		new /obj/effect/temp_visual/glowing_rune(src)
 	return ..()
+
+/turf/closed/wall/metal_foam_base
+	girder_type = /obj/structure/foamedmetal
 
 #undef MAX_DENT_DECALS

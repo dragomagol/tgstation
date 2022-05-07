@@ -7,31 +7,20 @@
 	density = FALSE
 	max_integrity = 200
 	integrity_failure = 0.25
+
+	offset_north = DEFAULT_OFFSET_Y_NORTH
+	offset_south = DEFAULT_OFFSET_Y_SOUTH
+	offset_east = DEFAULT_OFFSET_X
+	offset_west = DEFAULT_OFFSET_X
+
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 
-/obj/structure/extinguisher_cabinet/directional/north
-	dir = SOUTH
-	pixel_y = 32
-
-/obj/structure/extinguisher_cabinet/directional/south
-	dir = NORTH
-	pixel_y = -32
-
-/obj/structure/extinguisher_cabinet/directional/east
-	dir = WEST
-	pixel_x = 32
-
-/obj/structure/extinguisher_cabinet/directional/west
-	dir = EAST
-	pixel_x = -32
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/extinguisher_cabinet, offset_north, offset_south, offset_east, offset_west)
 
 /obj/structure/extinguisher_cabinet/Initialize(mapload, ndir, building)
 	. = ..()
 	if(building)
-		setDir(ndir)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -27 : 27)
-		pixel_y = (dir & 3)? (dir ==1 ? -30 : 30) : 0
 		opened = TRUE
 	else
 		stored_extinguisher = new /obj/item/extinguisher(src)
@@ -170,21 +159,9 @@
 	else
 		. += "cabinet_door_closed"
 
-/obj/structure/extinguisher_cabinet/directional/north
-	pixel_y = 32
-
-/obj/structure/extinguisher_cabinet/directional/south
-	pixel_y = -32
-
-/obj/structure/extinguisher_cabinet/directional/east
-	pixel_x = 26
-
-/obj/structure/extinguisher_cabinet/directional/west
-	pixel_x = -26
-
 /obj/item/wallframe/extinguisher_cabinet
 	name = "extinguisher cabinet frame"
 	desc = "Used for building wall-mounted extinguisher cabinets."
 	icon_state = "extinguisher"
 	result_path = /obj/structure/extinguisher_cabinet
-
+	pixel_shift = 29

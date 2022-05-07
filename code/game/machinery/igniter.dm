@@ -5,11 +5,8 @@
 	icon_state = "igniter0"
 	base_icon_state = "igniter"
 	plane = FLOOR_PLANE
-	use_power = IDLE_POWER_USE
-	idle_power_usage = 2
-	active_power_usage = 4
 	max_integrity = 300
-	armor = list(MELEE = 50, BULLET = 30, LASER = 70, ENERGY = 50, BOMB = 20, BIO = 0, RAD = 0, FIRE = 100, ACID = 70)
+	armor = list(MELEE = 50, BULLET = 30, LASER = 70, ENERGY = 50, BOMB = 20, BIO = 0, FIRE = 100, ACID = 70)
 	resistance_flags = FIRE_PROOF
 	var/id = null
 	var/on = FALSE
@@ -33,7 +30,7 @@
 		return
 	add_fingerprint(user)
 
-	use_power(50)
+	use_power(active_power_usage)
 	on = !( on )
 	update_appearance()
 
@@ -65,26 +62,18 @@
 	icon_state = "migniter"
 	base_icon_state = "migniter"
 	resistance_flags = FIRE_PROOF
+
+	offset_north = DEFAULT_OFFSET_Y_NORTH
+	offset_south = DEFAULT_OFFSET_Y_SOUTH
+	offset_east = DEFAULT_OFFSET_X
+	offset_west = DEFAULT_OFFSET_X
+
 	var/id = null
 	var/disable = 0
 	var/last_spark = 0
 	var/datum/effect_system/spark_spread/spark_system
 
-/obj/machinery/sparker/directional/north
-	dir = SOUTH
-	pixel_y = 26
-
-/obj/machinery/sparker/directional/south
-	dir = NORTH
-	pixel_y = -26
-
-/obj/machinery/sparker/directional/east
-	dir = WEST
-	pixel_x = 26
-
-/obj/machinery/sparker/directional/west
-	dir = EAST
-	pixel_x = -26
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/sparker, offset_north, offset_south, offset_east, offset_west)
 
 /obj/machinery/sparker/ordmix
 	id = INCINERATOR_ORDMIX_IGNITER
@@ -111,17 +100,16 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/sparker/attackby(obj/item/W, mob/user, params)
-	if (W.tool_behaviour == TOOL_SCREWDRIVER)
-		add_fingerprint(user)
-		disable = !disable
-		if (disable)
-			user.visible_message(span_notice("[user] disables \the [src]!"), span_notice("You disable the connection to \the [src]."))
-		if (!disable)
-			user.visible_message(span_notice("[user] reconnects \the [src]!"), span_notice("You fix the connection to \the [src]."))
-		update_appearance()
-	else
-		return ..()
+/obj/machinery/sparker/screwdriver_act(mob/living/user, obj/item/tool)
+	add_fingerprint(user)
+	tool.play_tool_sound(src, 50)
+	disable = !disable
+	if (disable)
+		user.visible_message(span_notice("[user] disables \the [src]!"), span_notice("You disable the connection to \the [src]."))
+	if (!disable)
+		user.visible_message(span_notice("[user] reconnects \the [src]!"), span_notice("You fix the connection to \the [src]."))
+	update_appearance()
+	return TRUE
 
 /obj/machinery/sparker/attack_ai()
 	if (anchored)
@@ -140,7 +128,7 @@
 	flick("[initial(icon_state)]-spark", src)
 	spark_system.start()
 	last_spark = world.time
-	use_power(1000)
+	use_power(active_power_usage)
 	var/turf/location = loc
 	if (isturf(location))
 		location.hotspot_expose(1000,2500,1)

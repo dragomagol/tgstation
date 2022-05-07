@@ -6,6 +6,13 @@
 	base_icon_state = "light"
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
+	use_power = NO_POWER_USE
+
+	offset_north = DEFAULT_OFFSET_Y_NORTH
+	offset_south = DEFAULT_OFFSET_Y_SOUTH
+	offset_east = DEFAULT_OFFSET_X
+	offset_west = DEFAULT_OFFSET_X
+
 	/// Set this to a string, path, or area instance to control that area
 	/// instead of the switch's location.
 	var/area/area = null
@@ -16,21 +23,7 @@
 		/obj/item/circuit_component/light_switch,
 	))
 
-/obj/machinery/light_switch/directional/north
-	dir = SOUTH
-	pixel_y = 26
-
-/obj/machinery/light_switch/directional/south
-	dir = NORTH
-	pixel_y = -26
-
-/obj/machinery/light_switch/directional/east
-	dir = WEST
-	pixel_x = 26
-
-/obj/machinery/light_switch/directional/west
-	dir = EAST
-	pixel_x = -26
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/light_switch, offset_north, offset_south, offset_east, offset_west)
 
 /obj/machinery/light_switch/Initialize(mapload)
 	. = ..()

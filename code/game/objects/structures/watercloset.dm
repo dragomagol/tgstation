@@ -24,7 +24,7 @@
 		return
 	if(swirlie)
 		user.changeNext_move(CLICK_CD_MELEE)
-		playsound(src.loc, "swing_hit", 25, TRUE)
+		playsound(src.loc, SFX_SWING_HIT, 25, TRUE)
 		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto your head!"), span_hear("You hear reverberating porcelain."))
 		log_combat(user, swirlie, "swirlied (brute)")
 		swirlie.adjustBruteLoss(5)
@@ -156,24 +156,16 @@
 	icon_state = "urinal"
 	density = FALSE
 	anchored = TRUE
+
+	offset_north = DEFAULT_OFFSET_Y_NORTH
+	offset_south = DEFAULT_OFFSET_Y_SOUTH
+	offset_east = DEFAULT_OFFSET_X
+	offset_west = DEFAULT_OFFSET_X
+
 	var/exposed = 0 // can you currently put an item inside
 	var/obj/item/hiddenitem = null // what's in the urinal
 
-/obj/structure/urinal/directional/north
-	dir = SOUTH
-	pixel_y = 32
-
-/obj/structure/urinal/directional/south
-	dir = NORTH
-	pixel_y = -32
-
-/obj/structure/urinal/directional/east
-	dir = WEST
-	pixel_x = 32
-
-/obj/structure/urinal/directional/west
-	dir = EAST
-	pixel_x = -32
+MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, offset_north, offset_south, offset_east, offset_west)
 
 /obj/structure/urinal/Initialize(mapload)
 	. = ..()
@@ -366,7 +358,7 @@
 		if(baton.cell?.charge && baton.active)
 			flick("baton_active", src)
 			user.Paralyze(baton.knockdown_time)
-			user.stuttering = baton.knockdown_time*0.5
+			user.set_timed_status_effect(baton.knockdown_time, /datum/status_effect/speech/stutter)
 			baton.cell.use(baton.cell_hit_cost)
 			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [baton.name]!"), \
 								span_userdanger("You unwisely attempt to wash [baton] while it's still on."))
@@ -470,14 +462,9 @@
 	anchored = FALSE
 	material_flags = MATERIAL_EFFECTS | MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 
-/obj/structure/sinkframe/ComponentInitialize()
+/obj/structure/sinkframe/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
-
-/obj/structure/sinkframe/proc/can_be_rotated(mob/user, rotation_type)
-	if(anchored)
-		to_chat(user, span_warning("It is fastened to the floor!"))
-	return !anchored
+	AddComponent(/datum/component/simple_rotation)
 
 /obj/structure/sinkframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stock_parts/water_recycler))
@@ -576,7 +563,7 @@
 		if(baton.cell?.charge && baton.active)
 			flick("baton_active", src)
 			user.Paralyze(baton.knockdown_time)
-			user.stuttering = baton.knockdown_time*0.5
+			user.set_timed_status_effect(baton.knockdown_time, /datum/status_effect/speech/stutter)
 			baton.cell.use(baton.cell_hit_cost)
 			user.visible_message(span_warning("[user] shocks [user.p_them()]self while attempting to wash the active [baton.name]!"), \
 								span_userdanger("You unwisely attempt to wash [baton] while it's still on."))
@@ -694,9 +681,9 @@
 	else
 		return ..()
 
-/obj/structure/curtain/wrench_act(mob/living/user, obj/item/I)
-	..()
-	default_unfasten_wrench(user, I, 50)
+/obj/structure/curtain/wrench_act(mob/living/user, obj/item/tool)
+	. = ..()
+	default_unfasten_wrench(user, tool, time = 5 SECONDS)
 	return TRUE
 
 /obj/structure/curtain/wirecutter_act(mob/living/user, obj/item/I)
@@ -788,3 +775,10 @@
 
 /obj/structure/curtain/cloth/fancy/mechanical/attack_hand(mob/user, list/modifiers)
 		return
+
+/obj/structure/curtain/cloth/fancy/mechanical/start_closed
+	icon_state = "cur_fancy-closed"
+
+/obj/structure/curtain/cloth/fancy/mechanical/start_closed/Initialize(mapload)
+	. = ..()
+	close()

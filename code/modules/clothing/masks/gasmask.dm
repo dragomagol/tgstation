@@ -91,8 +91,7 @@
 	desc = "Improved gas mask utilized by atmospheric technicians. It's flameproof!"
 	icon_state = "gas_atmos"
 	inhand_icon_state = "gas_atmos"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 10, FIRE = 20, ACID = 10)
-	w_class = WEIGHT_CLASS_SMALL
+	armor = list(MELEE = 0, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 20, ACID = 10)
 	permeability_coefficient = 0.001
 	resistance_flags = FIRE_PROOF
 	max_filters = 3
@@ -107,6 +106,9 @@
 /obj/item/clothing/mask/gas/atmos/centcom
 	name = "\improper CentCom gas mask"
 	desc = "Oooh, gold and green. Fancy! This should help as you sit in your office."
+	icon = 'icons/obj/clothing/masks.dmi'
+	worn_icon = 'icons/mob/clothing/mask.dmi'
+	worn_icon_state = "centcomspace"
 	icon_state = "gas_centcom"
 	inhand_icon_state = "gas_centcom"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
@@ -120,7 +122,7 @@
 	flash_protect = FLASH_PROTECTION_WELDER
 	custom_materials = list(/datum/material/iron=4000, /datum/material/glass=2000)
 	tint = 2
-	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, RAD = 0, FIRE = 100, ACID = 55)
+	armor = list(MELEE = 10, BULLET = 0, LASER = 0,ENERGY = 0, BOMB = 0, BIO = 0, FIRE = 100, ACID = 55)
 	actions_types = list(/datum/action/item_action/toggle)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDESNOUT
 	flags_cover = MASKCOVERSEYES
@@ -145,7 +147,8 @@
 	desc = "A modernised version of the classic design, this mask will not only filter out toxins but it can also be connected to an air supply."
 	icon_state = "plaguedoctor"
 	inhand_icon_state = "gas_mask"
-	armor = list(MELEE = 0, BULLET = 0, LASER = 2,ENERGY = 2, BOMB = 0, BIO = 75, RAD = 0, FIRE = 0, ACID = 0)
+	armor = list(MELEE = 0, BULLET = 0, LASER = 2,ENERGY = 2, BOMB = 0, BIO = 75, FIRE = 0, ACID = 0)
+	flags_cover = MASKCOVERSEYES
 
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
@@ -286,6 +289,7 @@
 	desc = "Beep boop."
 	icon_state = "death"
 	resistance_flags = FLAMMABLE
+	flags_cover = MASKCOVERSEYES
 
 /obj/item/clothing/mask/gas/owl_mask
 	name = "owl mask"
@@ -299,6 +303,7 @@
 	name = "carp mask"
 	desc = "Gnash gnash."
 	icon_state = "carp_mask"
+	flags_cover = MASKCOVERSEYES
 
 /obj/item/clothing/mask/gas/tiki_mask
 	name = "tiki mask"
@@ -307,6 +312,7 @@
 	inhand_icon_state = "tiki_eyebrow"
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 1.25)
 	resistance_flags = FLAMMABLE
+	flags_cover = MASKCOVERSEYES
 	max_integrity = 100
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = null
@@ -360,3 +366,22 @@
 	flags_inv = HIDEFACIALHAIR
 	w_class = WEIGHT_CLASS_NORMAL
 	inhand_icon_state = "driscoll_mask"
+
+/obj/item/clothing/mask/gas/prop
+	name = "prop gas mask"
+	desc = "A prop gas mask designed for appearance. Unlike a normal gas mask this does not filter gasses or protect against pepper spray."
+	icon_state = "gas_prop"
+	inhand_icon_state = "gas_prop"
+	clothing_flags = NONE
+	flags_cover = MASKCOVERSMOUTH
+	resistance_flags = FLAMMABLE
+
+/obj/item/clothing/mask/gas/atmosprop
+	name = "prop atmospheric gas mask"
+	desc = "A prop atmospheric gas mask designed for appearance. Unlike a normal atmospheric gas mask this does not filter gasses or protect against pepper spray."
+	worn_icon_state = "gas_prop_atmos"
+	icon_state = "gas_atmos"
+	inhand_icon_state = "gas_atmos"
+	clothing_flags = NONE
+	flags_cover = MASKCOVERSMOUTH
+	resistance_flags = FLAMMABLE

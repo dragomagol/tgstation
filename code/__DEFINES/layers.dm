@@ -14,20 +14,23 @@
 #define GRAVITY_PULSE_RENDER_TARGET "*GRAVPULSE_RENDER_TARGET"
 
 #define OPENSPACE_LAYER 600 //Openspace layer over all
+
+#define TRANSPARENT_FLOOR_PLANE -10 //Transparent plane that shows openspace underneath the floor
 #define OPENSPACE_PLANE -9 //Openspace plane below all turfs
 #define OPENSPACE_BACKDROP_PLANE -8 //Black square just over openspace plane to guaranteed cover all in openspace turf
 
-
-#define FLOOR_PLANE -7
+// WALLENING TODO: Figure out what the appropriate layers are on modern /tg/ code
+#define FLOOR_PLANE -9
 #define FLOOR_PLANE_RENDER_TARGET "FLOOR_PLANE"
-#define OVER_TILE_PLANE -6
-#define WALL_PLANE -5
-#define GAME_PLANE -4
+#define OVER_TILE_PLANE -8
+#define WALL_PLANE -7
+#define GAME_PLANE -6
 /// Doors, windows, frill shadow.
-#define UNDER_FRILL_PLANE -3
+#define UNDER_FRILL_PLANE -5
 #define UNDER_FRILL_RENDER_TARGET "UNDER_FRILL_PLANE"
-#define FRILL_PLANE -2
-#define OVER_FRILL_PLANE -1
+#define FRILL_PLANE -4
+#define OVER_FRILL_PLANE -3
+
 
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
@@ -54,9 +57,11 @@
 ///catwalk overlay of /turf/open/floor/plating/catwalk_floor
 #define CATWALK_LAYER 2.51
 #define LOW_SIGIL_LAYER 2.52
-#define SIGIL_LAYER 2.54
-#define HIGH_PIPE_LAYER 2.55
-#define HIGH_SIGIL_LAYER 2.56
+#define SIGIL_LAYER 2.53
+#define HIGH_PIPE_LAYER 2.54
+// Anything aboe this layer is not "on" a turf for the purposes of washing
+// I hate this life of ours
+#define FLOOR_CLEAN_LAYER 2.55
 
 #define BELOW_OPEN_DOOR_LAYER 2.6
 #define BLASTDOOR_LAYER 2.65
@@ -68,11 +73,11 @@
 #define BELOW_OBJ_LAYER 2.9
 #define LOW_ITEM_LAYER 2.95
 //#define OBJ_LAYER 3 //For easy recordkeeping; this is a byond define
-#define CLOSED_BLASTDOOR_LAYER 3.05
 #define CLOSED_DOOR_LAYER 3.1
 #define CLOSED_FIREDOOR_LAYER 3.11
-#define SHUTTER_LAYER 3.12 // HERE BE DRAGONS
 #define ABOVE_OBJ_LAYER 3.2
+#define CLOSED_BLASTDOOR_LAYER 3.3 // ABOVE WINDOWS AND DOORS
+#define SHUTTER_LAYER 3.3 // HERE BE DRAGONS
 #define ABOVE_WINDOW_LAYER 3.3
 #define SIGN_LAYER 3.4
 #define CORGI_ASS_PIN_LAYER 3.41
@@ -147,16 +152,11 @@
 ///AI Camera Static
 #define CAMERA_STATIC_PLANE 200
 
-///Popup Chat Messages
-#define RUNECHAT_PLANE 250
-
-/// Plane for balloon text (text that fades up)
-#define BALLOON_CHAT_PLANE 251
-
 ///Debug Atmos Overlays
 #define ATMOS_GROUP_PLANE 450
 
 ///--------------- FULLSCREEN IMAGES ------------
+
 #define FULLSCREEN_PLANE 500
 #define FLASH_LAYER 1
 #define FULLSCREEN_LAYER 2
@@ -165,11 +165,16 @@
 #define CRIT_LAYER 5
 #define CURSE_LAYER 6
 
+/// This should really just be using TOPDOWN_LAYER but I can't get it to co-operate. I'm conviced it's bugged, remind me to check
+#define ABOVE_FULLSCREEN_PLANE 501
+#define BLIND_EFFECT_LAYER 1
 
-//-------------------- Rendering ---------------------
-#define RENDER_PLANE_GAME 990
-#define RENDER_PLANE_NON_GAME 995
-#define RENDER_PLANE_MASTER 999
+///--------------- FULLSCREEN RUNECHAT BUBBLES ------------
+
+///Popup Chat Messages
+#define RUNECHAT_PLANE 501
+/// Plane for balloon text (text that fades up)
+#define BALLOON_CHAT_PLANE 502
 
 //-------------------- HUD ---------------------
 //HUD layer defines
@@ -182,9 +187,17 @@
 
 #define ADMIN_POPUP_LAYER 1
 
+///Layer for screentips
+#define SCREENTIP_LAYER 4
 
-///Plane of the "splash" icon used that shows on the lobby screen. Nothing should ever be above this.
-#define SPLASHSCREEN_PLANE 9999
+///Plane of the "splash" icon used that shows on the lobby screen. only render plate planes should be above this
+#define SPLASHSCREEN_PLANE 9900
+
+//-------------------- Rendering ---------------------
+#define RENDER_PLANE_GAME 9990
+#define RENDER_PLANE_NON_GAME 9995
+#define RENDER_PLANE_MASTER 9999
+//----------------------------------------------------
 
 #define LOBBY_BACKGROUND_LAYER 3
 #define LOBBY_BUTTON_LAYER 4
@@ -194,3 +207,4 @@
 
 ///Plane master controller keys
 #define PLANE_MASTERS_GAME "plane_masters_game"
+#define PLANE_MASTERS_COLORBLIND "plane_masters_colorblind"

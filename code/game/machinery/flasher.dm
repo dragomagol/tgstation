@@ -11,6 +11,12 @@
 	light_color = COLOR_WHITE
 	light_power = FLASH_LIGHT_POWER
 	damage_deflection = 10
+
+	offset_north = DEFAULT_OFFSET_Y_NORTH
+	offset_south = DEFAULT_OFFSET_Y_SOUTH
+	offset_east = DEFAULT_OFFSET_X
+	offset_west = DEFAULT_OFFSET_X
+
 	var/obj/item/assembly/flash/handheld/bulb
 	var/id = null
 	var/on_wall = TRUE
@@ -18,21 +24,7 @@
 	var/last_flash = 0 //Don't want it getting spammed like regular flashes
 	var/strength = 100 //How knocked down targets are when flashed.
 
-/obj/machinery/flasher/directional/north
-	dir = SOUTH
-	pixel_y = 26
-
-/obj/machinery/flasher/directional/south
-	dir = NORTH
-	pixel_y = -26
-
-/obj/machinery/flasher/directional/east
-	dir = WEST
-	pixel_x = 26
-
-/obj/machinery/flasher/directional/west
-	dir = EAST
-	pixel_x = -26
+MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/flasher, offset_north, offset_south, offset_east, offset_west)
 
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"
@@ -46,14 +38,12 @@
 	light_range = FLASH_LIGHT_RANGE
 	light_on = FALSE
 	on_wall = FALSE
+	///Proximity monitor associated with this atom, needed for proximity checks.
+	var/datum/proximity_monitor/proximity_monitor
 
 /obj/machinery/flasher/Initialize(mapload, ndir = 0, built = 0)
 	. = ..() // ..() is EXTREMELY IMPORTANT, never forget to add it
-	if(built)
-		setDir(ndir)
-		pixel_x = (dir & 3)? 0 : (dir == 4 ? -28 : 28)
-		pixel_y = (dir & 3)? (dir ==1 ? -28 : 28) : 0
-	else
+	if(!built)
 		bulb = new(src)
 
 	if(on_wall)
@@ -203,13 +193,13 @@
 			add_overlay("[base_icon_state]-s")
 			set_anchored(TRUE)
 			power_change()
-			proximity_monitor.SetRange(range)
+			proximity_monitor.set_range(range)
 		else
 			to_chat(user, span_notice("[src] can now be moved."))
 			cut_overlays()
 			set_anchored(FALSE)
 			power_change()
-			proximity_monitor.SetRange(0)
+			proximity_monitor.set_range(0)
 
 	else
 		return ..()
@@ -221,6 +211,7 @@
 	icon_state = "mflash_frame"
 	result_path = /obj/machinery/flasher
 	var/id = null
+	pixel_shift = 28
 
 /obj/item/wallframe/flasher/examine(mob/user)
 	. = ..()
