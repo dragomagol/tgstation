@@ -596,7 +596,6 @@
 		explosion_image = image('icons/effects/96x96.dmi', "judicial_explosion")
 		explosion_image.pixel_x = -32
 		explosion_image.pixel_y = -32
-		explosion_image.plane = ABOVE_GAME_PLANE
 	addtimer(CALLBACK(src, .proc/prime), prime_time)
 
 /obj/structure/mining_bomb/proc/prime()
