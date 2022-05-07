@@ -164,7 +164,10 @@
 #define BLIND_LAYER 4
 #define CRIT_LAYER 5
 #define CURSE_LAYER 6
-#define BLIND_EFFECT_LAYER 7
+
+/// This should really just be using TOPDOWN_LAYER but I can't get it to co-operate. I'm conviced it's bugged, remind me to check
+#define ABOVE_FULLSCREEN_PLANE 501
+#define BLIND_EFFECT_LAYER 1
 
 ///--------------- FULLSCREEN RUNECHAT BUBBLES ------------
 

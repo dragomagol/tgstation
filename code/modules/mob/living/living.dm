@@ -2318,7 +2318,7 @@ GLOBAL_LIST_EMPTY(fire_appearances)
 			continue
 		if(!effect) //Make the image once we found one recipient to receive it
 			effect = image(icon = 'icons/effects/fov/fov_effects.dmi', icon_state = icon_state, loc = anchor_point)
-			effect.plane = FULLSCREEN_PLANE
+			effect.plane = ABOVE_FULLSCREEN_PLANE
 			effect.layer = BLIND_EFFECT_LAYER
 			effect.dir = dir
 			effect.appearance_flags = RESET_COLOR | RESET_TRANSFORM

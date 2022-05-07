@@ -294,6 +294,12 @@
 	render_relay_plane = RENDER_PLANE_NON_GAME
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
+/atom/movable/screen/plane_master/above_fullscreen
+	name = "above fullscreen plane"
+	plane = ABOVE_FULLSCREEN_PLANE
+	render_relay_plane = RENDER_PLANE_NON_GAME
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+
 /atom/movable/screen/plane_master/hud
 	name = "HUD plane"
 	plane = HUD_PLANE
