@@ -37,8 +37,6 @@
 #define GAME_PLANE -6
 #define GAME_PLANE_FOV_HIDDEN -5
 
-#define ABOVE_GAME_PLANE -2
-
 #define SPACE_LAYER 1.8
 //#define TURF_LAYER 2 //For easy recordkeeping; this is a byond define
 #define CULT_OVERLAY_LAYER 2.01
