@@ -1,3 +1,4 @@
+/// Logging for player manifest (ckey, name, job, special role, roundstart/latejoin)
 /proc/log_manifest(mob/employee, ckey, latejoin = FALSE)
 	if (CONFIG_GET(flag/log_manifest))
 		var/datum/log_entry/manifest/manifest_log = new(employee, ckey)

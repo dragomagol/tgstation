@@ -58,9 +58,9 @@
 	owner.announce_objectives()
 
 /datum/antagonist/cult/on_gain()
+	add_objectives()
 	. = ..()
 	var/mob/living/current = owner.current
-	add_objectives()
 	if(give_equipment)
 		equip_cultist(TRUE)
 	log_conversion(current, "was converted to the cult of Nar'Sie", tags = list("cult"))
@@ -498,7 +498,8 @@
 	r_hand = /obj/item/melee/blood_magic/stun
 
 /datum/outfit/cultist/post_equip(mob/living/carbon/human/H, visualsOnly)
-	H.eye_color = BLOODCULT_EYE
+	H.eye_color_left = BLOODCULT_EYE
+	H.eye_color_right = BLOODCULT_EYE
 	H.update_body()
 
 	var/obj/item/clothing/suit/hooded/hooded = locate() in H

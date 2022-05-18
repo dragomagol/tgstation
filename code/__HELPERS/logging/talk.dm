@@ -29,3 +29,8 @@
 /proc/log_say(text)
 	if (CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "SAY: [text]")
+
+/// Logging for speech taking place over comms, as well as tcomms equipment
+/proc/log_telecomms(text)
+	if (CONFIG_GET(flag/log_telecomms))
+		WRITE_LOG(GLOB.world_telecomms_log, "TCOMMS: [text]")

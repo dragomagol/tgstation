@@ -1,20 +1,9 @@
-/*
+//Advance Disease is a system for Virologist to Engineer their own disease with symptoms that have effects and properties
+// which add onto the overall disease.
 
-	Advance Disease is a system for Virologist to Engineer their own disease with symptoms that have effects and properties
-	which add onto the overall disease.
+//If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
-	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
-
-*/
-
-
-
-
-/*
-
-	PROPERTIES
-
- */
+///PROPERTIES
 
 /datum/disease/advance
 	name = "Unknown" // We will always let our Virologist name our disease.
@@ -69,12 +58,6 @@
 										/datum/reagent/medicine/modafinil, /datum/reagent/toxin/anacea
 									)
 								)
-
-/*
-
-	OLD PROCS
-
- */
 
 /datum/disease/advance/New()
 	Refresh()
@@ -154,12 +137,6 @@
 	A.oldres = oldres
 	//this is a new disease starting over at stage 1, so processing is not copied
 	return A
-
-/*
-
-	NEW PROCS
-
- */
 
 // Mix the symptoms of two diseases (the src and the argument)
 /datum/disease/advance/proc/Mix(datum/disease/advance/D)
@@ -246,7 +223,7 @@
 		else
 			SetSpread(DISEASE_SPREAD_BLOOD)
 
-		permeability_mod = max(CEILING(0.4 * properties["transmittable"], 1), 1)
+		spreading_modifier = max(CEILING(0.4 * properties["transmittable"], 1), 1)
 		cure_chance = clamp(7.5 - (0.5 * properties["resistance"]), 5, 10) // can be between 5 and 10
 		stage_prob = max(0.5 * properties["stage_rate"], 1)
 		SetSeverity(properties["severity"])
