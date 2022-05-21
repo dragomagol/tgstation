@@ -621,7 +621,7 @@
 		var/injecting_amount = max(1, our_seed.potency * 0.2) // Minimum of 1, max of 20
 		our_plant.reagents.trans_to(living_target, injecting_amount, methods = INJECT)
 		to_chat(target, span_danger("You are pricked by [our_plant]!"))
-		log_combat(our_plant, living_target, "pricked and attempted to inject reagents from [our_plant] to [living_target]. Last touched by: [our_plant.fingerprintslast].")
+		log_attack(our_plant, "pricked", living_target, details = "injecting reagents [living_target.reagents] [injecting_amount]u", tags = list("botany", "reagents"))
 		our_plant.investigate_log("pricked and injected [key_name(living_target)] and injected [injecting_amount] reagents at [AREACOORD(living_target)]. Last touched by: [our_plant.fingerprintslast].", INVESTIGATE_BOTANY)
 
 /// Explodes into reagent-filled smoke when squashed.
@@ -854,7 +854,7 @@
 /datum/plant_gene/trait/never_mutate
 	name = "Prosophobic Inclination"
 	mutability_flags = PLANT_GENE_REMOVABLE | PLANT_GENE_MUTATABLE | PLANT_GENE_GRAFTABLE
-	
+
 /// Prevents stat mutation caused by instability.  Trait acts as a tag for hydroponics.dm to recognise.
 /datum/plant_gene/trait/stable_stats
 	name = "Symbiotic Resilience"

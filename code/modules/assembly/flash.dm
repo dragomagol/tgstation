@@ -136,7 +136,7 @@
  *
  * This proc is awful in every sense of the way, someone should definately refactor this whole code.
  * Arguments:
- * * M - Victim
+ * * flashed - Victim
  * * user - Attacker
  * * confusion_duration - handles the amount of confusion it gives you
  * * targeted - determines if it was aoe or targeted
@@ -145,10 +145,7 @@
 /obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/flashed, mob/user, confusion_duration = 15 SECONDS, targeted = TRUE, generic_message = FALSE)
 	if(!istype(flashed))
 		return
-	if(user)
-		log_combat(user, flashed, "[targeted? "flashed(targeted)" : "flashed(AOE)"]", src)
-	else //caused by emp/remote signal
-		flashed.log_message("was [targeted? "flashed(targeted)" : "flashed(AOE)"]",LOG_ATTACK)
+	log_attack(user, "flashed", flashed, src, "[targeted? "(targeted)" : "(AOE)"]")
 
 	if(generic_message && flashed != user)
 		to_chat(flashed, span_danger("[src] emits a blinding light!"))
@@ -243,7 +240,7 @@
 		return
 	if(issilicon(M))
 		var/mob/living/silicon/robot/flashed_borgo = M
-		log_combat(user, flashed_borgo, "flashed", src)
+		log_attack(user, "flashed", flashed_borgo, src, tags = list("silicon"))
 		update_icon(ALL, TRUE)
 		if(!flashed_borgo.flash_act(affect_silicon = TRUE))
 			user.visible_message(span_warning("[user] fails to blind [flashed_borgo] with the flash!"), span_warning("You fail to blind [flashed_borgo] with the flash!"))
@@ -371,10 +368,7 @@
 /obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, confusion_duration = 15, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
-	if(user)
-		log_combat(user, M, "[targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]", src)
-	else //caused by emp/remote signal
-		M.log_message("was [targeted? "hypno-flashed(targeted)" : "hypno-flashed(AOE)"]",LOG_ATTACK)
+	log_attack(user, "hypno-flashed", M, src, "[targeted? "(targeted)" : "(AOE)"]", tags = list("traitor"))
 	if(generic_message && M != user)
 		to_chat(M, span_notice("[src] emits a soothing light..."))
 	if(targeted)

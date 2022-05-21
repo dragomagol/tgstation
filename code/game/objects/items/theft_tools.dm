@@ -201,7 +201,7 @@
 		return ..()
 	if(throwingdatum?.thrower)
 		var/mob/user = throwingdatum.thrower
-		log_combat(throwingdatum?.thrower, hit_atom, "consumed", src)
+		log_attack(throwingdatum?.thrower, "consumed", hit_atom, src)
 		message_admins("[src] has consumed [key_name_admin(victim)] [ADMIN_JMP(src)], thrown by [key_name_admin(user)].")
 		investigate_log("has consumed [key_name(victim)], thrown by [key_name(user)]", INVESTIGATE_ENGINE)
 	else
@@ -328,7 +328,7 @@
 		investigate_log("has consumed [AM].", INVESTIGATE_ENGINE)
 		qdel(AM)
 	if (user)
-		log_combat(user, AM, "consumed", sliver, "via [src]")
+		log_attack(user, "consumed", AM, sliver, "via [src]", tags = list("traitor"))
 		user.visible_message(span_danger("As [user] touches [AM] with \the [src], both flash into dust and silence fills the room..."),\
 			span_userdanger("You touch [AM] with [src], and everything suddenly goes silent.\n[AM] and [sliver] flash into dust, and soon as you can register this, you do as well."),\
 			span_hear("Everything suddenly goes silent."))

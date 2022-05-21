@@ -306,10 +306,7 @@
 		for(var/datum/reagent/R in reagents.reagent_list)
 			reagent_note += "[R.name] ([num2text(R.volume)])"
 
-	if(ismob(firer))
-		log_combat(firer, L, "shot", src, reagent_note)
-	else
-		L.log_message("has been shot by [firer] with [src]", LOG_ATTACK, color="orange")
+	log_attack(firer, "shot", L, src, reagent_note, list("reagents"))
 
 	return BULLET_ACT_HIT
 
@@ -680,7 +677,7 @@
 	if(shrapnel_type && LAZYLEN(embedding))
 		AddElement(/datum/element/embed, projectile_payload = shrapnel_type)
 	if(!log_override && firer && original)
-		log_combat(firer, original, "fired at", src, "from [get_area_name(src, TRUE)]")
+		log_attack(firer, "fired at", original, src, "from [get_area_name(src, TRUE)]")
 	if(direct_target && (get_dist(direct_target, get_turf(src)) <= 1)) // point blank shots
 		process_hit(get_turf(direct_target), direct_target)
 		if(QDELETED(src))

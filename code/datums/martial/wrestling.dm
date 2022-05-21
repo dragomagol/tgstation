@@ -124,7 +124,7 @@ If you make a derivative work from this code, you must include this notification
 /datum/martial_art/wrestling/harm_act(mob/living/A, mob/living/D)
 	if(check_streak(A,D))
 		return 1
-	log_combat(A, D, "punched with wrestling")
+	log_attack(A, "punched", D, "wrestling", tags = list("martial arts"))
 	..()
 
 /datum/martial_art/wrestling/proc/throw_wrassle(mob/living/A, mob/living/D)
@@ -200,7 +200,7 @@ If you make a derivative work from this code, you must include this notification
 			if (!D.stat)
 				D.emote("scream")
 			D.throw_at(T, 10, 4, A, TRUE, TRUE, callback = CALLBACK(D, /mob/living.proc/Paralyze, 20))
-	log_combat(A, D, "has thrown with wrestling")
+	log_attack(A, "tossed", D, "wrestling", tags = list("martial arts"))
 	return
 
 /datum/martial_art/wrestling/proc/FlipAnimation(mob/living/D)
@@ -319,8 +319,7 @@ If you make a derivative work from this code, you must include this notification
 			D.pixel_x = D.base_pixel_x
 			D.pixel_y = D.base_pixel_y
 
-
-	log_combat(A, D, "body-slammed")
+	log_attack(A, "body-slammed", D, "wrestling", tags = list("martial arts"))
 	return
 
 /datum/martial_art/wrestling/proc/CheckStrikeTurf(mob/living/A, turf/T)
@@ -344,7 +343,7 @@ If you make a derivative work from this code, you must include this notification
 		D.adjustBruteLoss(rand(10,20))
 		playsound(A.loc, SFX_SWING_HIT, 50, TRUE)
 		D.Unconscious(20)
-	log_combat(A, D, "headbutted")
+	log_attack(A, "headbutted", D, "wrestling", tags = list("martial arts"))
 
 /datum/martial_art/wrestling/proc/kick(mob/living/A, mob/living/D)
 	if(!D)
@@ -363,7 +362,7 @@ If you make a derivative work from this code, you must include this notification
 	if (T && isturf(T))
 		D.Paralyze(20)
 		D.throw_at(T, 3, 2)
-	log_combat(A, D, "roundhouse-kicked")
+	log_attack(A, "roundhouse-kicked", D, "wrestling", tags = list("martial arts"))
 
 /datum/martial_art/wrestling/proc/drop(mob/living/A, mob/living/D)
 	if(!D)
@@ -440,13 +439,13 @@ If you make a derivative work from this code, you must include this notification
 	else
 		if (A)
 			A.pixel_y = A.base_pixel_y
-	log_combat(A, D, "leg-dropped")
+	log_attack(A, "leg-dropped", D, "wrestling", tags = list("martial arts"))
 	return
 
 /datum/martial_art/wrestling/disarm_act(mob/living/A, mob/living/D)
 	if(check_streak(A,D))
 		return 1
-	log_combat(A, D, "wrestling-disarmed")
+	log_attack(A, "wrestling-disarmed", D, "wrestling", tags = list("martial arts"))
 	..()
 
 /datum/martial_art/wrestling/grab_act(mob/living/A, mob/living/D)
@@ -459,7 +458,7 @@ If you make a derivative work from this code, you must include this notification
 					span_userdanger("You're put into a cinch by [A]!"), span_hear("You hear aggressive shuffling!"), COMBAT_MESSAGE_RANGE, A)
 	to_chat(A, span_danger("You get [D] in a cinch!"))
 	D.Stun(rand(60,100))
-	log_combat(A, D, "cinched")
+	log_attack(A, "cinched", D, "wrestling", tags = list("martial arts"))
 	return 1
 
 /obj/item/storage/belt/champion/wrestling

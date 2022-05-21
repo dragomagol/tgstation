@@ -188,7 +188,7 @@
 	if(!discharge)
 		user.visible_message(span_danger("[user] fires \the [src]!"), \
 				    		 span_danger("You fire \the [src]!"))
-	log_combat(user, target, "fired at", src)
+	log_attack(user, "fired at", target, src, tags = list("guns"))
 	var/turf/T = get_target(target, get_turf(src))
 	playsound(src, fire_sound, 50, TRUE)
 	fire_items(T, user)

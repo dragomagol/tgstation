@@ -297,7 +297,7 @@
 			AM.visible_message(span_danger("[src] pulls [AM] from [AM.pulledby]'s grip."), \
 							span_danger("[src] pulls you from [AM.pulledby]'s grip."), null, null, src)
 			to_chat(src, span_notice("You pull [AM] from [AM.pulledby]'s grip!"))
-		log_combat(AM, AM.pulledby, "pulled from", src)
+		log_attack(AM.pulledby, "pulled", AM, details = "from [src]")
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 
 	pulling = AM
@@ -319,7 +319,7 @@
 	if(ismob(AM))
 		var/mob/M = AM
 
-		log_combat(src, M, "grabbed", addition="passive grab")
+		log_attack(src, "grabbed", M, "a passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER)))
 			if(ishuman(M))
 				var/mob/living/carbon/human/grabbed_human = M
@@ -754,7 +754,7 @@
 				spell.updateButtons()
 		if(excess_healing)
 			INVOKE_ASYNC(src, .proc/emote, "gasp")
-			log_combat(src, src, "revived")
+			log_attack(src, "[admin_revive ? "admin " : ""]revived", src)
 	else if(admin_revive)
 		updatehealth()
 		get_up(TRUE)
@@ -1001,7 +1001,7 @@
 	SEND_SIGNAL(src, COMSIG_LIVING_RESIST, src)
 	//resisting grabs (as if it helps anyone...)
 	if(!HAS_TRAIT(src, TRAIT_RESTRAINED) && pulledby)
-		log_combat(src, pulledby, "resisted grab")
+		log_attack(src, "resisted the grab of", pulledby)
 		resist_grab()
 		return
 
@@ -1035,7 +1035,7 @@
 			visible_message(span_danger("[src] breaks free of [pulledby]'s grip!"), \
 							span_danger("You break free of [pulledby]'s grip!"), null, null, pulledby)
 			to_chat(pulledby, span_warning("[src] breaks free of your grip!"))
-			log_combat(pulledby, src, "broke grab")
+			log_attack(pulledby, "broke the grab of", src)
 			pulledby.stop_pulling()
 			return FALSE
 		else

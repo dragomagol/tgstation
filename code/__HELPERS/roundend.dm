@@ -513,7 +513,7 @@
 		tourist_income += venue.total_income
 		parts += "The [venue] served [venue.customers_served] customer\s and made [venue.total_income] credits.<br>"
 	parts += "In total, they earned [tourist_income] credits[tourist_income ? "!" : "..."]<br>"
-	log_econ("Roundend service income: [tourist_income] credits.")
+	log_econ_summary("service income", tourist_income)
 	switch(tourist_income)
 		if(0)
 			parts += "[span_redtext("Service did not earn any credits...")]<br>"
@@ -531,7 +531,8 @@
 	parts += "There were [station_vault] credits collected by crew this shift.<br>"
 	if(total_players > 0)
 		parts += "An average of [station_vault/total_players] credits were collected.<br>"
-		log_econ("Roundend credit total: [station_vault] credits. Average Credits: [station_vault/total_players]")
+		log_econ_summary("credit total", station_vault)
+		log_econ_summary("average credits", "[station_vault/total_players]")
 	if(mr_moneybags)
 		parts += "The most affluent crew member at shift end was <b>[mr_moneybags.account_holder] with [mr_moneybags.account_balance]</b> cr!</div>"
 	else

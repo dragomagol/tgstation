@@ -38,7 +38,7 @@
 		if(prob(10))
 			to_chat(target, span_revennotice("You feel as if you are being watched."))
 		return
-	log_combat(src, target, "started to harvest")
+	log_attack(src, "started to harvest", target)
 	face_atom(target)
 	draining = TRUE
 	essence_drained += rand(15, 20)
@@ -100,7 +100,8 @@
 					target.visible_message(span_warning("[target] slumps onto the ground."), \
 										   span_revenwarning("Violets lights, dancing in your vision, getting clo--"))
 					drained_mobs += REF(target)
-					target.death(0)
+					target.death(FALSE)
+					log_attack(src, "finished harvesting [essence_drained] essence from", target)
 				else
 					to_chat(src, span_revenwarning("[target ? "[target] has":"[target.p_theyve(TRUE)]"] been drawn out of your grasp. The link has been broken."))
 					if(target) //Wait, target is WHERE NOW?

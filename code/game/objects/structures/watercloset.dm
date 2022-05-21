@@ -26,7 +26,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src.loc, SFX_SWING_HIT, 25, TRUE)
 		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto your head!"), span_hear("You hear reverberating porcelain."))
-		log_combat(user, swirlie, "swirlied (brute)")
+		log_attack(user, "swirlied", swirlie, src, "(brute)")
 		swirlie.adjustBruteLoss(5)
 
 	else if(user.pulling && isliving(user.pulling))
@@ -46,10 +46,10 @@
 						if(iscarbon(GM))
 							var/mob/living/carbon/C = GM
 							if(!C.internal)
-								log_combat(user, C, "swirlied (oxy)")
+								log_attack(user, "swirlied", C, src, "(oxy)")
 								C.adjustOxyLoss(5)
 						else
-							log_combat(user, GM, "swirlied (oxy)")
+							log_attack(user, "swirlied", GM, src, "(oxy)")
 							GM.adjustOxyLoss(5)
 					if(was_alive && swirlie.stat == DEAD && swirlie.client)
 						swirlie.client.give_award(/datum/award/achievement/misc/swirlie, swirlie) // just like space high school all over again!
@@ -57,7 +57,7 @@
 				else
 					playsound(src.loc, 'sound/effects/bang.ogg', 25, TRUE)
 					GM.visible_message(span_danger("[user] slams [GM.name] into [src]!"), span_userdanger("[user] slams you into [src]!"))
-					log_combat(user, GM, "toilet slammed")
+					log_attack(user, "toilet slammed", GM, src)
 					GM.adjustBruteLoss(5)
 		else
 			to_chat(user, span_warning("You need a tighter grip!"))

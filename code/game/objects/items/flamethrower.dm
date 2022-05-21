@@ -84,7 +84,7 @@
 		var/turf/target_turf = get_turf(target)
 		if(target_turf)
 			var/turflist = get_line(user, target_turf)
-			log_combat(user, target, "flamethrowered", src)
+			log_attack(user, "flamethrowered", target, src)
 			flame_turf(turflist)
 
 /obj/item/flamethrower/wrench_act(mob/living/user, obj/item/tool)

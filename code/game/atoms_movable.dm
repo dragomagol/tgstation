@@ -358,7 +358,7 @@
 		stop_pulling()
 
 	if(pulled_atom.pulledby)
-		log_combat(pulled_atom, pulled_atom.pulledby, "pulled from", src)
+		log_attack(pulled_atom.pulledby, "pulled", pulled_atom, details = "from [src]")
 		pulled_atom.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 	pulling = pulled_atom
 	pulled_atom.set_pulledby(src)
@@ -366,7 +366,7 @@
 	setGrabState(state)
 	if(ismob(pulled_atom))
 		var/mob/pulled_mob = pulled_atom
-		log_combat(src, pulled_mob, "grabbed", addition="passive grab")
+		log_attack(src, "grabbed", pulled_mob, "a passive grab")
 		if(!supress_message)
 			pulled_mob.visible_message(span_warning("[src] grabs [pulled_mob] passively."), \
 				span_danger("[src] grabs you passively."))

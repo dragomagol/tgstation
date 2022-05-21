@@ -60,7 +60,7 @@
 		var/mob/living/carbon/human/humantarget = target
 		if (!humantarget.try_inject(user, injection_flags = INJECT_TRY_SHOW_ERROR_MESSAGE))
 			return
-	log_combat(user, target, "attempted to inject", src)
+	log_attack(user, "attempted to inject", target, src)
 
 	if(target != user)
 		target.visible_message(span_danger("[user] is trying to inject [target] with [src]!"), \
@@ -73,12 +73,12 @@
 	else
 		to_chat(user, span_notice("You inject yourself with [src]."))
 
-	log_combat(user, target, "injected", src)
+	log_attack(user, "injected", target, src)
 
 	if(!inject(target, user)) //Now we actually do the heavy lifting.
 		to_chat(user, span_notice("It appears that [target] does not have compatible DNA."))
 
-	used = 1
+	used = TRUE
 	icon_state = "dnainjector0"
 	desc += " This one is used up."
 

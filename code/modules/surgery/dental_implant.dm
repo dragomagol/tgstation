@@ -41,7 +41,7 @@
 		return FALSE
 	var/obj/item/item_target = target
 	to_chat(owner, span_notice("You grit your teeth and burst the implanted [item_target.name]!"))
-	log_combat(owner, null, "swallowed an implanted pill", target)
+	log_attack(owner, "swallowed", target, details = "([item_target.reagents.get_reagent_log_string()])", tags = list("reagents"))
 	if(item_target.reagents.total_volume)
 		item_target.reagents.trans_to(owner, item_target.reagents.total_volume, transfered_by = owner, methods = INGEST)
 	qdel(target)

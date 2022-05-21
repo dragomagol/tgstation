@@ -151,7 +151,7 @@
 		return FALSE
 	to_chat(user, span_warning("You stab [M] with the pen."))
 	to_chat(M, span_danger("You feel a tiny prick!"))
-	log_combat(user, M, "stabbed", src)
+	log_attack(user, "stabbed", M, src)
 	return TRUE
 
 /obj/item/pen/afterattack(obj/O, mob/living/user, proximity)

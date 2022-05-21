@@ -94,7 +94,7 @@
 	playsound(get_turf(attacker), 'sound/effects/hit_kick.ogg', 50, TRUE, -1)
 	defender.apply_damage(rand(20, 30), STAMINA, affecting, armor_block)
 	defender.Knockdown(60)
-	log_combat(attacker, defender, "leg sweeped")
+	log_attack(attacker, "leg sweeped", defender, "krav maga", tags = list("martial arts"))
 	return TRUE
 
 /datum/martial_art/krav_maga/proc/quick_choke(mob/living/attacker, mob/living/defender)//is actually lung punch
@@ -105,7 +105,7 @@
 	if(defender.losebreath <= 10)
 		defender.losebreath = clamp(defender.losebreath + 5, 0, 10)
 	defender.adjustOxyLoss(10)
-	log_combat(attacker, defender, "quickchoked")
+	log_attack(attacker, "quickchoked", defender, "krav maga", tags = list("martial arts"))
 	return TRUE
 
 /datum/martial_art/krav_maga/proc/neck_chop(mob/living/attacker, mob/living/defender)
@@ -118,19 +118,19 @@
 		var/mob/living/carbon/carbon_defender = defender
 		if(carbon_defender.silent <= 10)
 			carbon_defender.silent = clamp(carbon_defender.silent + 10, 0, 10)
-	log_combat(attacker, defender, "neck chopped")
+	log_attack(attacker, "quickchoked", defender, "krav maga", tags = list("martial arts"))
 	return TRUE
 
 /datum/martial_art/krav_maga/grab_act(mob/living/attacker, mob/living/defender)
 	if(check_streak(attacker, defender))
 		return TRUE
-	log_combat(attacker, defender, "grabbed (Krav Maga)")
+	log_attack(attacker, "grabbed", defender, "krav maga", tags = list("martial arts"))
 	..()
 
 /datum/martial_art/krav_maga/harm_act(mob/living/attacker, mob/living/defender)
 	if(check_streak(attacker, defender))
 		return TRUE
-	log_combat(attacker, defender, "punched")
+	log_attack(attacker, "punched", defender, "krav maga", tags = list("martial arts"))
 	var/obj/item/bodypart/affecting = defender.get_bodypart(ran_zone(attacker.zone_selected))
 	var/armor_block = defender.run_armor_check(affecting, MELEE)
 	var/picked_hit_type = pick("punch", "kick")
@@ -148,7 +148,7 @@
 	defender.visible_message(span_danger("[attacker] [picked_hit_type]s [defender]!"), \
 					span_userdanger("You're [picked_hit_type]ed by [attacker]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, attacker)
 	to_chat(attacker, span_danger("You [picked_hit_type] [defender]!"))
-	log_combat(attacker, defender, "[picked_hit_type] with [name]")
+	log_attack(attacker, picked_hit_type, defender, "krav maga", tags = list("martial arts"))
 	return TRUE
 
 /datum/martial_art/krav_maga/disarm_act(mob/living/attacker, mob/living/defender)
@@ -163,7 +163,7 @@
 		attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
 		playsound(defender, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		defender.apply_damage(rand(5, 10), STAMINA, affecting, armor_block)
-		log_combat(attacker, defender, "punched nonlethally")
+		log_attack(attacker, "punched", defender, "krav maga", "nonlethally", list("martial arts"))
 	if(defender.body_position == LYING_DOWN)
 		defender.visible_message(span_danger("[attacker] reprimands [defender]!"), \
 					span_userdanger("You're manhandled by [attacker]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, attacker)
@@ -171,7 +171,7 @@
 		attacker.do_attack_animation(defender, ATTACK_EFFECT_KICK)
 		playsound(defender, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		defender.apply_damage(rand(10, 15), STAMINA, affecting, armor_block)
-		log_combat(attacker, defender, "stomped nonlethally")
+		log_attack(attacker, "stomped", defender, "krav maga", "nonlethally", list("martial arts"))
 	if(prob(defender.getStaminaLoss()) && defender.stat < UNCONSCIOUS)
 		defender.visible_message(span_warning("[defender] sputters and recoils in pain!"), span_userdanger("You recoil in pain as you are jabbed in a nerve!"))
 		defender.drop_all_held_items()

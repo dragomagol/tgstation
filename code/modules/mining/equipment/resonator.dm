@@ -126,7 +126,7 @@
 	playsound(src_turf, 'sound/weapons/resonator_blast.ogg', 50, TRUE)
 	for(var/mob/living/attacked_living in src_turf)
 		if(creator)
-			log_combat(creator, attacked_living, "used a resonator field on", "resonator")
+			log_attack(creator, "attacked", attacked_living, "a resonator field")
 		to_chat(attacked_living, span_userdanger("[src] ruptured with you in it!"))
 		attacked_living.apply_damage(resonance_damage, BRUTE)
 		attacked_living.add_movespeed_modifier(/datum/movespeed_modifier/resonance)

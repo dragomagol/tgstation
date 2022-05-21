@@ -518,7 +518,7 @@
 	playsound(src,  'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	if(HAS_TRAIT(M,MOB_ORGANIC))
 		M.emote("gasp")
-	log_combat(user, M, "zapped", src)
+	log_attack(user, "zapped", M, src)
 	do_success()
 
 /obj/item/shockpaddles/proc/do_harm(mob/living/carbon/H, mob/living/user)
@@ -557,7 +557,7 @@
 						span_userdanger("You feel a horrible agony in your chest!"))
 				H.set_heartattack(TRUE)
 			H.apply_damage(50, BURN, BODY_ZONE_CHEST)
-			log_combat(user, H, "overloaded the heart of", defib)
+			log_attack(user, "overloaded the heart of", H, defib)
 			H.Paralyze(100)
 			H.set_timed_status_effect(200 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 			do_success()
@@ -637,7 +637,7 @@
 					H.set_timed_status_effect(200 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 					SEND_SIGNAL(H, COMSIG_LIVING_MINOR_SHOCK)
 					SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "saved_life", /datum/mood_event/saved_life)
-					log_combat(user, H, "revived", defib)
+					log_attack(user, "revived", H, defib)
 				do_success()
 				return
 			else if (!H.getorgan(/obj/item/organ/heart))

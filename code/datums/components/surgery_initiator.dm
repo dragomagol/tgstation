@@ -328,7 +328,7 @@
 		span_notice("You drape [parent] over [target]'s [parse_zone(selected_zone)] to prepare for \an [procedure.name]."),
 	)
 
-	log_combat(user, target, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
+	log_attack(user, "operated on", target, details = "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])", tags = list("surgery"))
 
 /datum/component/surgery_initiator/proc/surgery_needs_exposure(datum/surgery/surgery, mob/living/target)
 	var/mob/living/user = last_user_ref?.resolve()

@@ -17,9 +17,7 @@
 	var/datum/port/input/target_input
 	var/datum/port/input/image_pixel_x = 0
 	var/datum/port/input/image_pixel_y = 0
-
 	var/max_range = 7
-
 	var/datum/port/input/option/lasercolour_option
 
 
@@ -36,19 +34,15 @@
 	)
 	lasercolour_option = add_option_port("Laser Colour", component_options)
 
-
 /obj/item/circuit_component/laserpointer/populate_ports()
 	target_input = add_input_port("Target", PORT_TYPE_ATOM)
 	image_pixel_x = add_input_port("X-Axis Shift", PORT_TYPE_NUMBER)
 	image_pixel_y = add_input_port("Y-Axis Shift", PORT_TYPE_NUMBER)
 
-
 /obj/item/circuit_component/laserpointer/input_received(datum/port/input/port)
-
 	var/atom/target = target_input.value
 	var/atom/movable/shell = parent.shell
 	var/turf/targloc = get_turf(target)
-
 
 	var/pointer_icon_state = lasercolour_option.value
 
@@ -59,10 +53,9 @@
 	/// only has cyborg flashing since felinid moving spikes time dilation when spammed and the other two features of laserpointers would be unbalanced when spammed
 	if(iscyborg(target))
 		var/mob/living/silicon/silicon = target
-		log_combat(shell, silicon, "shone in the sensors", src)
+		log_attack(shell, "stunned", silicon, src, tags = list("silicon"))
 		silicon.flash_act(affect_silicon = 1) /// no stunning, just a blind
 		to_chat(silicon, span_danger("Your sensors were overloaded by a weakened laser shone by [shell]!"))
-
 
 	///laserpointer image
 	var/image/laser_location = image('icons/obj/guns/projectiles.dmi',targloc,"[pointer_icon_state]_laser",10)
@@ -71,5 +64,3 @@
 	laser_location.pixel_y = clamp(target.pixel_y + image_pixel_y.value,-15,15)
 
 	flick_overlay_view(laser_location, targloc, 10)
-
-

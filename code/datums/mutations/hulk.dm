@@ -38,7 +38,7 @@
 		if(world.time > (last_scream + scream_delay))
 			last_scream = world.time
 			INVOKE_ASYNC(src, .proc/scream_attack, source)
-		log_combat(source, target, "punched", "hulk powers")
+		log_attack(source, "punched", target, "hulk powers")
 		source.do_attack_animation(target, ATTACK_EFFECT_SMASH)
 		source.changeNext_move(CLICK_CD_MELEE)
 
@@ -129,7 +129,7 @@
 	yeeted_person.forceMove(the_hulk.loc)
 	yeeted_person.setDir(get_dir(yeeted_person, the_hulk))
 
-	log_combat(the_hulk, yeeted_person, "has started swinging by tail")
+	log_attack(the_hulk, "started swinging", yeeted_person, details = "by [yeeted_person.p_their()] tail")
 	yeeted_person.Stun(2 SECONDS)
 	yeeted_person.visible_message(span_danger("[the_hulk] starts grasping [yeeted_person] by the tail..."), \
 					span_userdanger("[the_hulk] begins grasping your tail!"), span_hear("You hear aggressive shuffling!"), null, the_hulk)
@@ -200,8 +200,8 @@
 
 		yeeted_person.adjustBruteLoss(step*0.5)
 		playsound(collateral_mob,'sound/weapons/punch1.ogg',50,TRUE)
-		log_combat(the_hulk, collateral_mob, "has smacked with tail swing victim")
-		log_combat(the_hulk, yeeted_person, "has smacked this person into someone while tail swinging") // i have no idea how to better word this
+		log_attack(the_hulk, "smacked", collateral_mob, "[key_name(yeeted_person)] (tail swing victim)")
+		log_attack(the_hulk, "smacked", yeeted_person, details = "into [key_name(collateral_mob)] after being swung by [yeeted_person.p_their()] tail")
 
 		if(collateral_mob == the_hulk) // if the hulk moves wrong and crosses himself
 			the_hulk.visible_message(span_warning("[the_hulk] smacks [the_hulk.p_them()]self with [yeeted_person]!"), span_userdanger("You end up smacking [yeeted_person] into yourself!"), ignored_mobs = yeeted_person)
@@ -247,6 +247,6 @@
 	if(!yeeted_person.stat)
 		yeeted_person.emote("scream")
 	yeeted_person.throw_at(T, 10, 6, the_hulk, TRUE, TRUE)
-	log_combat(the_hulk, yeeted_person, "has thrown by tail")
+	log_attack(the_hulk, "thrown", yeeted_person, details = "by [yeeted_person.p_their()] tail")
 
 #undef HULK_TAILTHROW_STEPS

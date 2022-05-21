@@ -255,7 +255,7 @@
 		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
 		to_chat(src, span_userdanger("(#$*#$^^( OVERRIDE DETECTED"))
 		if(user)
-			log_combat(user, src, "emagged")
+			log_silicon(user, src, "emagged")
 		return
 	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, span_warning("You need to open maintenance panel first!"))
@@ -957,7 +957,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	to_chat(src, span_notice("You sense your form change as you are uploaded into [src]."))
 	name = paicard.pai.name
 	faction = user.faction.Copy()
-	log_combat(user, paicard.pai, "uploaded to [initial(src.name)],")
+	log_silicon(user, paicard.pai, "uploaded to [initial(src.name)],")
 	return TRUE
 
 /mob/living/simple_animal/bot/proc/ejectpai(mob/user = null, announce = TRUE)
@@ -970,10 +970,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 			ghostize(0) // The pAI card that just got ejected was dead.
 		key = null
 		paicard.forceMove(loc)
-		if(user)
-			log_combat(user, paicard.pai, "ejected from [initial(src.name)],")
-		else
-			log_combat(src, paicard.pai, "ejected")
+		log_silicon(user, paicard.pai, "ejected from [initial(src.name)],")
+
 		if(announce)
 			to_chat(paicard.pai, span_notice("You feel your control fade as [paicard] ejects from [initial(src.name)]."))
 		paicard = null

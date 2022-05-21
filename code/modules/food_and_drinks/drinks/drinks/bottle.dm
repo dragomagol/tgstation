@@ -102,7 +102,7 @@
 				span_userdanger("You hit yourself with a bottle of [src.name][head_attack_message]!"))
 
 	//Attack logs
-	log_combat(user, target, "attacked", src)
+	log_attack(user, "attacked", target, src, tags = list("reagents"))
 
 	//Finally, smash the bottle. This kills (del) the bottle.
 	smash(target, user)

@@ -93,7 +93,6 @@
 							R.ai_lockdown = TRUE
 						message_admins(span_notice("[ADMIN_LOOKUPFLW(usr)] [!R.lockcharge ? "locked down" : "released"] [ADMIN_LOOKUPFLW(R)]!"))
 						log_silicon("[key_name(usr)] [!R.lockcharge ? "locked down" : "released"] [key_name(R)]!")
-						log_combat(usr, R, "[!R.lockcharge ? "locked down" : "released"] cyborg")
 						R.SetLockdown(!R.lockcharge)
 						to_chat(R, !R.lockcharge ? span_notice("Your lockdown has been lifted!") : span_alert("You have been locked down!"))
 						if(R.connected_ai)
