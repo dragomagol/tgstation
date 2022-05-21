@@ -22,7 +22,7 @@
 	return ..()
 
 /datum/status_effect/his_grace/on_apply()
-	owner.log_message("gained His Grace's stun immunity", LOG_ATTACK)
+	log_attack(owner, "gained", "His Grace's stun immunity", tags = list("traitor"))
 	owner.add_stun_absorption("hisgrace", INFINITY, 3, null, "His Grace protects you from the stun!")
 	return ..()
 
@@ -46,7 +46,7 @@
 	owner.adjustCloneLoss(-grace_heal)
 
 /datum/status_effect/his_grace/on_remove()
-	owner.log_message("lost His Grace's stun immunity", LOG_ATTACK)
+	log_attack(owner, "lost", "His Grace's stun immunity", tags = list("traitor"))
 	if(islist(owner.stun_absorption) && owner.stun_absorption["hisgrace"])
 		owner.stun_absorption -= "hisgrace"
 
@@ -123,7 +123,7 @@
 			H.physiology.oxy_mod *= 0.1
 			H.physiology.clone_mod *= 0.1
 			H.physiology.stamina_mod *= 0.1
-		owner.log_message("gained blood-drunk stun immunity", LOG_ATTACK)
+		log_attack(owner, "gained", "blood-drunk stun immunity")
 		owner.add_stun_absorption("blooddrunk", INFINITY, 4)
 		owner.playsound_local(get_turf(owner), 'sound/effects/singlebeat.ogg', 40, 1, use_reverb = FALSE)
 
@@ -136,7 +136,7 @@
 		H.physiology.oxy_mod *= 10
 		H.physiology.clone_mod *= 10
 		H.physiology.stamina_mod *= 10
-	owner.log_message("lost blood-drunk stun immunity", LOG_ATTACK)
+	log_attack(owner, "lost", "blood-drunk stun immunity")
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, BLOODDRUNK_TRAIT);
 	if(islist(owner.stun_absorption) && owner.stun_absorption["blooddrunk"])
 		owner.stun_absorption -= "blooddrunk"
@@ -610,7 +610,7 @@
 	SEND_SOUND(owner, sound('sound/hallucinations/veryfar_noise.ogg'))
 	new /datum/hallucination/delusion(owner, forced = TRUE, force_kind = "demon", duration = duration, skip_nearby = FALSE)
 	chainsaw = new(get_turf(owner))
-	owner.log_message("entered a blood frenzy", LOG_ATTACK)
+	log_attack(owner, "entered", "a blood frenzy")
 	ADD_TRAIT(chainsaw, TRAIT_NODROP, CHAINSAW_FRENZY_TRAIT)
 	owner.drop_all_held_items()
 	owner.put_in_hands(chainsaw, forced = TRUE)
@@ -623,7 +623,7 @@
 /datum/status_effect/mayhem/on_remove()
 	. = ..()
 	to_chat(owner, span_notice("Your bloodlust seeps back into the bog of your subconscious and you regain self control."))
-	owner.log_message("exited a blood frenzy", LOG_ATTACK)
+	log_attack(owner, "exited", "a blood frenzy")
 	QDEL_NULL(chainsaw)
 
 /datum/status_effect/speed_boost

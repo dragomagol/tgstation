@@ -97,7 +97,7 @@
 
 	to_chat(new_holder, "<font color='green'>At last it feels like victory is assured!</font>")
 	new_holder.mind.add_antag_datum(/datum/antagonist/greentext)
-	new_holder.log_message("won with greentext!!!", LOG_ATTACK, color = "green")
+	log_game("[new_holder] won with greentext!!!")
 	color_altered_mobs -= new_holder
 	resistance_flags |= ON_FIRE
 	qdel(src)

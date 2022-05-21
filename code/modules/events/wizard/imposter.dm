@@ -33,5 +33,5 @@
 		master.wiz_team.add_member(imposter)
 		I.mind.add_antag_datum(imposter)
 		I.mind.special_role = "imposter"
-		I.log_message("is an imposter!", LOG_ATTACK, color="red") //?
+		log_conversion(I, "was made into a wizard imposter")
 		SEND_SOUND(I, sound('sound/effects/magic.ogg'))

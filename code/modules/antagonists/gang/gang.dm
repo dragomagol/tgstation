@@ -90,6 +90,7 @@
 	if(starter_gangster)
 		equip_gangster_in_inventory()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/thatshowfamiliesworks.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
+	log_conversion(owner.current, "joined the [gang_name] family")
 	add_objectives()
 	..()
 
@@ -103,6 +104,7 @@
 		have that datum onhand. it would be easier if all of the code the gang team calls on its my_gang_datum was
 		just in the team datum itself, and there were different types of teams instead of different types of gangster
 		that imprint on generic teams, but i'm too lazy to refactor THAT too */
+		log_conversion(owner.current, "left the [gang_name] family")
 	..()
 
 /datum/antagonist/gang/apply_innate_effects(mob/living/mob_override)

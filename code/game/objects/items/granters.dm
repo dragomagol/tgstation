@@ -171,7 +171,7 @@
 	to_chat(user, span_notice("You feel like you've experienced enough to cast [spellname]!"))
 	var/obj/effect/proc_holder/spell/S = new spell
 	user.mind.AddSpell(S)
-	user.log_message("learned the spell [spellname] ([S])", LOG_ATTACK, color="orange")
+	log_attack(user, "learned the spell [spellname] ([S]) from", src, tags = list("magic"))
 	onlearned(user)
 
 /obj/item/book/granter/spell/recoil(mob/user)
@@ -367,7 +367,7 @@
 	to_chat(user, "[greet]")
 	var/datum/martial_art/MA = new martial
 	MA.teach(user)
-	user.log_message("learned the martial art [martialname] ([MA])", LOG_ATTACK, color="orange")
+	log_attack(user, "learned the martial art [martialname] ([MA]) from", src, tags = list("martial arts"))
 	onlearned(user)
 
 /obj/item/book/granter/martial/cqc

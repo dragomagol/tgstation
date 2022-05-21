@@ -110,9 +110,7 @@
 					LAZYADD(victim_human.afk_thefts, new_entry)
 
 	to_chat(user, span_notice("You try to put [equipping] on [source]..."))
-
-	user.log_message("is putting [equipping] on [key_name(source)]", LOG_ATTACK, color="red")
-	source.log_message("is having [equipping] put on them by [key_name(user)]", LOG_VICTIM, color="orange", log_globally=FALSE)
+	log_attack(user, "started putting [equipping] on", source)
 
 	return TRUE
 
@@ -157,8 +155,7 @@
 	)
 
 	to_chat(user, span_danger("You try to remove [source]'s [item]..."))
-	user.log_message("is stripping [key_name(source)] of [item]", LOG_ATTACK, color="red")
-	source.log_message("is being stripped of [item] by [key_name(user)]", LOG_VICTIM, color="orange", log_globally=FALSE)
+	log_attack(user, "started stripping [item] from", source)
 	item.add_fingerprint(src)
 
 	if(ishuman(source))
@@ -295,8 +292,7 @@
 
 /// A utility function for `/datum/strippable_item`s to finish equipping an item to a mob.
 /proc/finish_equip_mob(obj/item/item, mob/source, mob/user)
-	user.log_message("has put [item] on [key_name(source)]", LOG_ATTACK, color="red")
-	source.log_message("had [item] put on them by [key_name(user)]", LOG_VICTIM, color="orange", log_globally=FALSE)
+	log_attack(user, "put [item] on", source)
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
@@ -310,8 +306,7 @@
 	if (!item.doStrip(user, source))
 		return FALSE
 
-	user.log_message("has stripped [key_name(source)] of [item]", LOG_ATTACK, color="red")
-	source.log_message("has been stripped of [item] by [key_name(user)]", LOG_VICTIM, color="orange", log_globally=FALSE)
+	log_attack(user, "stripped [item] from", source)
 
 	// Updates speed in case stripped speed affecting item
 	source.update_equipment_speed_mods()

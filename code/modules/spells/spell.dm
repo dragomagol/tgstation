@@ -304,8 +304,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/perform(list/targets, recharge = TRUE, mob/user = usr) //if recharge is started is important for the trigger spells
 	before_cast(targets)
 	invocation(user)
-	if(user?.ckey)
-		user.log_message(span_danger("cast the spell [name]."), LOG_ATTACK)
+	log_attack(user, "cast the spell [name] at", targets.Join(","), tags = list("magic"))
 	if(recharge)
 		recharging = TRUE
 	if(sound)

@@ -46,9 +46,7 @@
 /datum/antagonist/brainwashed/farewell()
 	to_chat(owner, span_warning("Your mind suddenly clears..."))
 	to_chat(owner, "<big>[span_warning("<b>You feel the weight of the Directives disappear! You no longer have to obey them.</b>")]</big>")
-	if(owner.current)
-		var/mob/living/owner_mob = owner.current
-		owner_mob.log_message("is no longer brainwashed with the objectives: [english_list(objectives)].", LOG_ATTACK)
+	log_conversion(owner.current, "lost [owner.p_their()] brainwashing", "- Objectives: ([english_list(objectives)])")
 	owner.announce_objectives()
 	return ..()
 
