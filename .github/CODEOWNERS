@@ -88,6 +88,11 @@
 
 # CONTRIBUTORS
 
+# Dragomagol/Tattle
+
+code/_HELPERS/logging/ @dragomagol
+code/_HELPERS/log_entry.dm @dragomagol
+
 # Fikou
 
 /code/modules/mod/ @Fikou
