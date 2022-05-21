@@ -36,7 +36,3 @@
 	if(source != target)
 		target.log_talk(message, LOG_VICTIM, tag = "[tag] from [key_name(source)]", log_globally = FALSE)
 
-/// Logging for speech taking place over comms, as well as tcomms equipment
-/proc/log_telecomms(text)
-	if (CONFIG_GET(flag/log_telecomms))
-		WRITE_LOG(GLOB.world_telecomms_log, "TCOMMS: [text]")
