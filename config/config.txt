@@ -152,7 +152,7 @@ LOG_MANIFEST
 LOG_PICTURES
 
 ## log mecha actions
-# LOG_MECHA
+LOG_MECHA
 
 ## log virus and actions
 LOG_VIRUS
