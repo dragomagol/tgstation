@@ -85,45 +85,44 @@ Expects a turf. Returns true if the attack should be blocked, false if not.*/
 		return FALSE
 	. = FALSE
 	switch(dir)
-		if (1)
+		if (NORTH)
 			if(abs(x - aloc.x) <= (y - aloc.y) * -2)
 				. = TRUE
-		if (2)
+		if (SOUTH)
 			if(abs(x - aloc.x) <= (y - aloc.y) * 2)
 				. = TRUE
-		if (4)
+		if (EAST)
 			if(abs(y - aloc.y) <= (x - aloc.x) * -2)
 				. = TRUE
-		if (8)
+		if (WEST)
 			if(abs(y - aloc.y) <= (x - aloc.x) * 2)
 				. = TRUE
 	return
 
 /obj/vehicle/sealed/mecha/combat/durand/attack_generic(mob/user, damage_amount = 0, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armor_penetration = 0)
 	if(defense_check(user.loc))
-		log_message("Attack absorbed by defense field. Attacker - [user].", LOG_MECHA, color="orange")
+		log_mecha(occupants, src, "Attacked by [user] - damage absorbed by defense field")
 		shield.attack_generic(user, damage_amount, damage_type, damage_flag, sound_effect, armor_penetration)
 	else
 		. = ..()
 
 /obj/vehicle/sealed/mecha/combat/durand/blob_act(obj/structure/blob/B)
 	if(defense_check(B.loc))
-		log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
-		log_message("Attack absorbed by defense field.", LOG_MECHA, color="orange")
+		log_mecha(occupants, src, "Attacked by [B] - damage absorbed by defense field")
 		shield.blob_act(B)
 	else
 		. = ..()
 
 /obj/vehicle/sealed/mecha/combat/durand/attackby(obj/item/W as obj, mob/user as mob, params)
 	if(defense_check(user.loc))
-		log_message("Attack absorbed by defense field. Attacker - [user], with [W]", LOG_MECHA, color="orange")
+		log_mecha(occupants, src, "Attacked by [user] with [W]")
 		shield.attackby(W, user, params)
 	else
 		. = ..()
 
 /obj/vehicle/sealed/mecha/combat/durand/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(defense_check(AM.loc))
-		log_message("Impact with [AM] absorbed by defense field.", LOG_MECHA, color="orange")
+		log_mecha(occupants, src, "Attacked by [AM] - damage absorbed by defense field")
 		shield.hitby(AM, skipcatch, hitpush, blocked, throwingdatum)
 	else
 		. = ..()
@@ -207,9 +206,9 @@ own integrity back to max. Shield is automatically dropped if we run out of powe
 	chassis.defense_mode = !chassis.defense_mode
 	if(!signal_args[1])
 		chassis.balloon_alert(owner, "shield [chassis.defense_mode?"enabled":"disabled"]")
-		chassis.log_message("User has toggled defense mode -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "User has toggled defense mode -- now [chassis.defense_mode ? "ENABLED" : "DISABLED"]")
 	else
-		chassis.log_message("defense mode state changed -- now [chassis.defense_mode?"enabled":"disabled"].", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "Defense mode state changed -- now [chassis.defense_mode ? "ENABLED" : "DISABLED"]")
 	for(var/occupant in chassis.occupants)
 		var/datum/action/button = chassis.occupant_actions[occupant][/datum/action/vehicle/sealed/mecha/mech_defense_mode]
 		button.button_icon_state = "mech_defense_mode_[chassis.defense_mode ? "on" : "off"]"

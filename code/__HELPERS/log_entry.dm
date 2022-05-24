@@ -452,12 +452,15 @@
 		"equipment" = null
 	)
 
+/// The type of this mech (Odysseus, Clarke, etc.)
 /datum/log_entry/mecha/proc/mecha_type(type)
 	extended_fields["type"] = type
 
+/// The textual log
 /datum/log_entry/mecha/proc/mecha_log(log)
 	extended_fields["log"] = log
 
+/// The equipment associated with this log (if any)
 /datum/log_entry/mecha/proc/mecha_equipment(equipment)
 	extended_fields["equipment"] = equipment
 

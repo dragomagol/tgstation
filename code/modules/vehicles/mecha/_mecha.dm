@@ -229,7 +229,7 @@
 	add_capacitor()
 	START_PROCESSING(SSobj, src)
 	SSpoints_of_interest.make_point_of_interest(src)
-	log_message("[src.name] created.", LOG_MECHA)
+	log_mecha(null, src, "Created")
 	GLOB.mechas_list += src //global mech list
 	prepare_huds()
 	for(var/datum/atom_hud/data/diagnostic/diag_hud in GLOB.huds)

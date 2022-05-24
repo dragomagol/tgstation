@@ -1,6 +1,6 @@
 /**
  * Mecha Equipment
- * All mech equippables are currently childs of this
+ * All mech equippables are currently children of this
  */
 /obj/item/mecha_parts/mecha_equipment
 	name = "mecha equipment"
@@ -32,7 +32,7 @@
 /obj/item/mecha_parts/mecha_equipment/Destroy()
 	if(chassis)
 		detach(get_turf(src))
-		log_message("[src] is destroyed.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "was destroyed", src)
 		if(LAZYLEN(chassis.occupants))
 			to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_danger("[src] is destroyed!")]")
 			playsound(chassis, destroy_sound, 50)
@@ -148,7 +148,7 @@
 		M.equip_by_category[to_equip_slot] = src
 	chassis = M
 	forceMove(M)
-	log_message("[src] initialized.", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "initialized", src)
 
 /**
  * called to detach this equipment
@@ -169,13 +169,8 @@
 		chassis.equip_by_category[to_unequip_slot] -= src
 	else
 		chassis.equip_by_category[to_unequip_slot] = null
-	log_message("[src] removed from equipment.", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "removed from equipment", src)
 	chassis = null
-
-/obj/item/mecha_parts/mecha_equipment/log_message(message, message_type=LOG_GAME, color=null, log_globally)
-	if(chassis)
-		return chassis.log_message("ATTACHMENT: [src] [message]", message_type, color)
-	return ..()
 
 /**
  * ## get_snowflake_data

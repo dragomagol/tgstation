@@ -228,11 +228,11 @@
 	if(activated)
 		START_PROCESSING(SSobj, src)
 		droid_overlay = new(src.icon, icon_state = "repair_droid_a")
-		log_message("Activated.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "activated", src)
 	else
 		STOP_PROCESSING(SSobj, src)
 		droid_overlay = new(src.icon, icon_state = "repair_droid")
-		log_message("Deactivated.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "deactivated", src)
 	chassis.add_overlay(droid_overlay)
 
 
@@ -313,11 +313,11 @@
 		if(activated)
 			to_chat(usr, "[icon2html(src, usr)][span_warning("Power generation enabled.")]")
 			START_PROCESSING(SSobj, src)
-			log_message("Activated.", LOG_MECHA)
+			log_mecha(chassis.occupants, chassis, "activated", src)
 		else
 			to_chat(usr, "[icon2html(src, usr)][span_warning("Power generation disabled.")]")
 			STOP_PROCESSING(SSobj, src)
-			log_message("Deactivated.", LOG_MECHA)
+			log_mecha(chassis.occupants, chassis, "deactivated", src)
 		return TRUE
 
 /obj/item/mecha_parts/mecha_equipment/generator/attackby(weapon, mob/user, params)
@@ -349,14 +349,14 @@
 		return PROCESS_KILL
 	if(fuel.amount<=0)
 		activated = FALSE
-		log_message("Deactivated - no fuel.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "deactivated (no fuel)", src)
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Fuel reserves depleted.")]")
 		return PROCESS_KILL
 	var/cur_charge = chassis.get_charge()
 	if(isnull(cur_charge))
 		activated = FALSE
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("No power cell detected.")]")
-		log_message("Deactivated.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "deactivated", src)
 		return PROCESS_KILL
 	var/use_fuel = fuelrate_idle
 	if(cur_charge < chassis.cell.maxcharge)
@@ -400,11 +400,11 @@
 		if(activated) //inactive
 			START_PROCESSING(SSobj, src)
 			enable()
-			log_message("Activated.", LOG_MECHA)
+			log_mecha(chassis.occupants, chassis, "activated", src)
 		else
 			STOP_PROCESSING(SSobj, src)
 			disable()
-			log_message("Deactivated.", LOG_MECHA)
+			log_mecha(chassis.occupants, chassis, "deactivated", src)
 
 /obj/item/mecha_parts/mecha_equipment/thrusters/proc/enable()
 	if (chassis.active_thrusters == src)

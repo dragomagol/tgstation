@@ -205,7 +205,8 @@
 		else
 			M.set_timed_status_effect(1000 SECONDS, /datum/status_effect/jitter, only_if_higher = TRUE)
 
-	log_message("Honked from [src.name]. HONK!", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "blasted", src)
+
 	var/turf/T = get_turf(src)
 	message_admins("[ADMIN_LOOKUPFLW(source)] used a Mecha Honker in [ADMIN_VERBOSEJMP(T)]")
 	log_game("[key_name(source)] used a Mecha Honker in [AREACOORD(T)]")

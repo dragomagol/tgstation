@@ -4,16 +4,16 @@
 	if(HAS_TRAIT(M, TRAIT_PRIMITIVE)) //no lavalizards either.
 		to_chat(M, span_warning("The knowledge to use this device eludes you!"))
 		return
-	log_message("[M] tries to move into [src].", LOG_MECHA)
+	log_mecha(M, src, "tried to move into [src]")
 	if(dna_lock && M.has_dna())
 		var/mob/living/carbon/entering_carbon = M
 		if(entering_carbon.dna.unique_enzymes != dna_lock)
 			to_chat(M, span_warning("Access denied. [name] is secured with a DNA lock."))
-			log_message("Permission denied (DNA LOCK).", LOG_MECHA)
+			log_mecha(occupants, src, "permission for [key_name(M)] to enter denied (DNA LOCK)")
 			return
 	if(!operation_allowed(M))
 		to_chat(M, span_warning("Access denied. Insufficient operation keycodes."))
-		log_message("Permission denied (No keycode).", LOG_MECHA)
+		log_mecha(occupants, src, "permission for [key_name(M)] to enter denied (NO KEYCODE)")
 		return
 	. = ..()
 	if(.)
@@ -25,11 +25,11 @@
 		return FALSE
 	if(M.buckled)
 		to_chat(M, span_warning("You can't enter the exosuit while buckled."))
-		log_message("Permission denied (Buckled).", LOG_MECHA)
+		log_mecha(occupants, src, "permission for [key_name(M)] to enter denied (BUCKLED)")
 		return FALSE
 	if(M.has_buckled_mobs())
 		to_chat(M, span_warning("You can't enter the exosuit with other creatures attached to you!"))
-		log_message("Permission denied (Attached mobs).", LOG_MECHA)
+		log_mecha(occupants, src, "permission for [key_name(M)] to enter denied (ATTACHED MOBS)")
 		return FALSE
 	return ..()
 
@@ -43,7 +43,7 @@
 	newoccupant.forceMove(src)
 	newoccupant.update_mouse_pointer()
 	add_fingerprint(newoccupant)
-	log_message("[newoccupant] moved in as pilot.", LOG_MECHA)
+	log_mecha(occupants, src, "[key_name(newoccupant)] moved in as pilot")
 	setDir(dir_in)
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, TRUE)
 	set_mouse_pointer()
@@ -95,7 +95,7 @@
 	brain_mob.remote_control = src
 	brain_mob.update_mouse_pointer()
 	setDir(dir_in)
-	log_message("[brain_obj] moved in as pilot.", LOG_MECHA)
+	log_mecha(occupants, src, "[key_name(brain_mob)] moved in as pilot")
 	if(!internal_damage)
 		SEND_SOUND(brain_obj, sound('sound/mecha/nominal.ogg',volume=50))
 	log_game("[key_name(user)] has put the MMI/posibrain of [key_name(brain_mob)] into [src] at [AREACOORD(src)]")
@@ -134,7 +134,7 @@
 	var/mob/living/ejector = M
 	mecha_flags  &= ~SILICON_PILOT
 	mob_container.forceMove(newloc)//ejecting mob container
-	log_message("[mob_container] moved out.", LOG_MECHA)
+	log_mecha(occupants, src, "lost [key_name(ejector)] as a pilot")
 	SStgui.close_user_uis(M, src)
 	if(istype(mob_container, /obj/item/mmi))
 		var/obj/item/mmi/mmi = mob_container

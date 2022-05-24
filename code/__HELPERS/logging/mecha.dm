@@ -1,8 +1,6 @@
 /**
  * Configures a log_entry with given information and writes the textual representation of the
- * datum to the global attack log.
- *
- * Mirrors this log entry to the individual logs for the attacker and victim, if they're mobs.
+ * datum to the global mech log.
  */
 /proc/log_mecha(list/source, type, log, equipment = null, target = null, list/tags = list())
 	if (CONFIG_GET(flag/log_mecha))

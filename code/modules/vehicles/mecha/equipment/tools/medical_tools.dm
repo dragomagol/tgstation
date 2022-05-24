@@ -76,7 +76,7 @@
 	START_PROCESSING(SSobj, src)
 	to_chat(source, "[icon2html(src, source)][span_notice("[target] successfully loaded into [src]. Life support functions engaged.")]")
 	chassis.visible_message(span_warning("[chassis] loads [target] into [src]."))
-	log_message("[target] loaded. Life support functions engaged.", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "engaged life support functions for [target]", src, target)
 	return ..()
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/patient_insertion_check(mob/living/carbon/target, mob/user)
@@ -96,7 +96,7 @@
 		return
 	patient.forceMove(get_turf(src))
 	to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("[patient] ejected. Life support functions disabled.")]")
-	log_message("[patient] ejected. Life support functions disabled.", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "ejected [patient]", src, patient)
 	STOP_PROCESSING(SSobj, src)
 	patient = null
 
@@ -199,7 +199,7 @@
 	var/to_inject = min(R.volume, inject_amount)
 	if(to_inject && patient.reagents.get_reagent_amount(R.type) + to_inject <= inject_amount*2)
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("Injecting [patient] with [to_inject] units of [R.name].")]")
-		log_message("Injecting [patient] with [to_inject] units of [R.name].", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "injected [patient] with [to_inject] units of [R.name]", src, patient, tags = list("reagents"))
 		log_attack(chassis.occupants, "injected", patient, "[name] ([R] - [to_inject] units)", tags = list("reagents"))
 		SG.reagents.trans_id_to(patient,R.type,to_inject)
 
@@ -211,7 +211,7 @@
 	if(.)
 		return
 	if(!chassis.has_charge(energy_drain))
-		log_message("Deactivated.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "deactivated", src)
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_warning("[src] deactivated - no power.")]")
 		STOP_PROCESSING(SSobj, src)
 		return
@@ -220,7 +220,7 @@
 		return
 	if(ex_patient.loc != src)
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_notice("[patient] no longer detected. Life support functions diabled.")]")
-		log_message("[patient] no longer detected - Life support functions disabled.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "disabled life support functions - [patient] no longer detected", src, patient)
 		STOP_PROCESSING(SSobj, src)
 		patient = null
 	if(ex_patient.health > 0)
@@ -335,7 +335,7 @@
 		to_chat(source, span_alert("The [src] might be lethally chambered! You don't want to risk harming anyone..."))
 		return
 	var/obj/item/ammo_casing/syringegun/chambered = new /obj/item/ammo_casing/syringegun(src)
-	log_message("Fired [chambered] from [src] by [source], targeting [target].", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "fired [chambered] by [source] targeting [target]", src, target, tags = list("attack", "medical"))
 	chambered.fire_casing(target, source, null, 0, 0, null, 0, src)
 	return ..()
 
@@ -361,7 +361,7 @@
 			START_PROCESSING(SSobj, src)
 			to_chat(usr, message)
 			to_chat(usr, "[icon2html(src, usr)][span_notice("Reagent processing started.")]")
-			log_message("Reagent processing started.", LOG_MECHA)
+			log_mecha(chassis.occupants, chassis, "started processing reagent [processed_reagents]", src, tags = list("reagents"))
 		return
 	if (href_list["purge_reagent"])
 		var/reagent = href_list["purge_reagent"]
@@ -481,7 +481,7 @@
 		return
 	if(!LAZYLEN(processed_reagents) || reagents.total_volume >= reagents.maximum_volume || !chassis.has_charge(energy_drain))
 		to_chat(chassis.occupants, "[icon2html(src, chassis.occupants)][span_alert("Reagent processing stopped.")]")
-		log_message("Reagent processing stopped.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "stopped processing reagent [processed_reagents]", src, tags = list("reagents"))
 		return PROCESS_KILL
 	var/amount = delta_time * synth_speed / LAZYLEN(processed_reagents)
 	for(var/reagent in processed_reagents)

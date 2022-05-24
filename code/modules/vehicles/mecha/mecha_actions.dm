@@ -36,13 +36,13 @@
 	if(!chassis.internal_tank) //Just in case.
 		chassis.use_internal_tank = FALSE
 		chassis.balloon_alert(owner, "no tank available!")
-		chassis.log_message("Switch to internal tank failed. No tank available.", LOG_MECHA)
+		log_mecha(chassis.occupants, chassis, "Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"]")
 		return
 
 	chassis.use_internal_tank = !chassis.use_internal_tank
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
 	chassis.balloon_alert(owner, "taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"]")
-	chassis.log_message("Now taking air from [chassis.use_internal_tank?"internal airtank":"environment"].", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"]")
 	UpdateButtons()
 
 /datum/action/vehicle/sealed/mecha/mech_toggle_lights
@@ -64,7 +64,7 @@
 	chassis.set_light_on(chassis.mecha_flags & LIGHTS_ON)
 	chassis.balloon_alert(owner, "toggled lights [chassis.mecha_flags & LIGHTS_ON ? "on":"off"]")
 	playsound(chassis,'sound/machines/clockcult/brass_skewer.ogg', 40, TRUE)
-	chassis.log_message("Toggled lights [(chassis.mecha_flags & LIGHTS_ON)?"on":"off"].", LOG_MECHA)
+	log_mecha(chassis.occupants, chassis, "Toggled lights [(chassis.mecha_flags & LIGHTS_ON) ? "ON" : "OFF"]")
 	UpdateButtons()
 
 /datum/action/vehicle/sealed/mecha/mech_view_stats
@@ -105,7 +105,7 @@
 	strafe = !strafe
 
 	to_chat(occupants, "strafing mode [strafe?"on":"off"].")
-	log_message("Toggled strafing mode [strafe?"on":"off"].", LOG_MECHA)
+	log_mecha(occupants, src, "Toggled strafing mode [strafe ? "ON" : "OFF"]")
 
 	for(var/occupant in occupants)
 		var/datum/action/action = LAZYACCESSASSOC(occupant_actions, occupant, /datum/action/vehicle/sealed/mecha/strafe)

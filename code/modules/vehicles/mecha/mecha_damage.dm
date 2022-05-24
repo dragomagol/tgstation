@@ -36,14 +36,14 @@
 /// tries to repair any internal damage and plays fluff for it
 /obj/vehicle/sealed/mecha/proc/try_repair_int_damage(mob/user, flag_to_heal)
 	balloon_alert(user, get_int_repair_fluff_start(flag_to_heal))
-	log_message("[key_name(user)] starting internal damage repair for flag [flag_to_heal]", LOG_MECHA)
+	log_mecha(user, src, "starting internal damage repair for flag [flag_to_heal]")
 	if(!do_after(user, 10 SECONDS, src))
 		balloon_alert(user, get_int_repair_fluff_fail(flag_to_heal))
-		log_message("Internal damage repair for flag [flag_to_heal] failed.", LOG_MECHA, color="red")
+		log_mecha(user, src, "internal damage repair for flag [flag_to_heal] failed")
 		return
 	clear_internal_damage(flag_to_heal)
 	balloon_alert(user, get_int_repair_fluff_end(flag_to_heal))
-	log_message("Finished internal damage repair for flag [flag_to_heal]", LOG_MECHA)
+	log_mecha(user, src, "finished internal damage repair for flag [flag_to_heal]")
 
 ///gets the starting balloon alert flufftext
 /obj/vehicle/sealed/mecha/proc/get_int_repair_fluff_start(flag)
@@ -83,7 +83,7 @@
 
 /obj/vehicle/sealed/mecha/proc/set_internal_damage(int_dam_flag)
 	internal_damage |= int_dam_flag
-	log_message("Internal damage of type [int_dam_flag].", LOG_MECHA)
+	log_mecha(occupants, src, "internal damage of type [int_dam_flag]")
 	SEND_SOUND(occupants, sound('sound/machines/warning-buzzer.ogg',wait=0))
 	diag_hud_set_mechstat()
 

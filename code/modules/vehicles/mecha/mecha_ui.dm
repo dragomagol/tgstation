@@ -290,19 +290,19 @@
 				return
 			use_internal_tank = !use_internal_tank
 			balloon_alert(usr, "taking air from [use_internal_tank ? "internal airtank" : "environment"]")
-			log_message("Now taking air from [use_internal_tank?"internal airtank":"environment"].", LOG_MECHA)
+			log_mecha(occupants, src, "Now taking air from [use_internal_tank ? "internal airtank" : "environment"]")
 		if("toggle_port")
 			if(internal_tank.connected_port)
 				if(internal_tank.disconnect())
 					to_chat(occupants, "[icon2html(src, occupants)][span_notice("Disconnected from the air system port.")]")
-					log_message("Disconnected from gas port.", LOG_MECHA)
+					log_mecha(occupants, src, "Disconnected from gas port")
 					return TRUE
 				to_chat(occupants, "[icon2html(src, occupants)][span_warning("Unable to disconnect from the air system port!")]")
 				return
 			var/obj/machinery/atmospherics/components/unary/portables_connector/possible_port = locate() in loc
 			if(internal_tank.connect(possible_port))
 				to_chat(occupants, "[icon2html(src, occupants)][span_notice("Connected to the air system port.")]")
-				log_message("Connected to gas port.", LOG_MECHA)
+				log_mecha(occupants, src, "Connected to gas port")
 				return TRUE
 			to_chat(occupants, "[icon2html(src, occupants)][span_warning("Unable to connect with air system port!")]")
 		if("toggle_maintenance")

@@ -16,7 +16,7 @@
 	SIGNAL_HANDLER
 	if(internal_tank.disconnect()) // Something moved us and broke connection
 		to_chat(occupants, "[icon2html(src, occupants)][span_warning("Air port connection has been severed!")]")
-		log_message("Lost connection to gas port.", LOG_MECHA)
+		log_mecha(occupants, src, "lost connection to gas port")
 
 /obj/vehicle/sealed/mecha/Process_Spacemove(movement_dir = 0)
 	. = ..()

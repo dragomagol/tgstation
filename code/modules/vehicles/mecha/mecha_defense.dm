@@ -40,7 +40,7 @@
 		try_deal_internal_damage(.)
 		if(. >= 5 || prob(33))
 			to_chat(occupants, "[icon2html(src, occupants)][span_userdanger("Taking damage!")]")
-		log_message("Took [.] points of damage. Damage type: [damage_type]", LOG_MECHA)
+		log_mecha(occupants, src, "Took [.] points of damage. Damage type: [uppertext(damage_type)]")
 
 /obj/vehicle/sealed/mecha/run_atom_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penentration)
 	. = ..()
@@ -57,33 +57,34 @@
 	user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 	playsound(loc, 'sound/weapons/tap.ogg', 40, TRUE, -1)
 	user.visible_message(span_danger("[user] hits [src]. Nothing happens."), null, null, COMBAT_MESSAGE_RANGE)
-	log_message("Attack by hand/paw (no damage). Attacker - [user].", LOG_MECHA, color="red")
+	log_mecha(occupants, src, "Attacked by [user] (INTEGRITY: [get_integrity()])")
 
 /obj/vehicle/sealed/mecha/attack_paw(mob/user, list/modifiers)
 	return attack_hand(user, modifiers)
 
 /obj/vehicle/sealed/mecha/attack_alien(mob/living/user, list/modifiers)
-	log_message("Attack by alien. Attacker - [user].", LOG_MECHA, color="red")
+	var/attack_damage = rand(user.melee_damage_lower, user.melee_damage_upper)
+	log_mecha(occupants, src, "Attacked by [user] (INTEGRITY: [get_integrity()])")
 	playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
-	attack_generic(user, rand(user.melee_damage_lower, user.melee_damage_upper), BRUTE, MELEE, 0)
+	attack_generic(user, attack_damage, BRUTE, MELEE, 0)
 
 /obj/vehicle/sealed/mecha/attack_animal(mob/living/simple_animal/user, list/modifiers)
-	log_message("Attack by simple animal. Attacker - [user].", LOG_MECHA, color="red")
 	if(!user.melee_damage_upper && !user.obj_damage)
 		user.emote("custom", message = "[user.friendly_verb_continuous] [src].")
-		return 0
+		return FALSE
 	else
-		var/play_soundeffect = 1
+		var/play_soundeffect = TRUE
 		if(user.environment_smash)
-			play_soundeffect = 0
+			play_soundeffect = FALSE
 			playsound(src, 'sound/effects/bang.ogg', 50, TRUE)
 		var/animal_damage = rand(user.melee_damage_lower,user.melee_damage_upper)
 		if(user.obj_damage)
 			animal_damage = user.obj_damage
 		animal_damage = min(animal_damage, 20*user.environment_smash)
-		log_attack(user, "attacked", src)
+		log_mecha(occupants, src, "Attacked by [user] (INTEGRITY: [get_integrity()])")
+		log_attack(user, "attacked", src, tags = list("mech"))
 		attack_generic(user, animal_damage, user.melee_damage_type, MELEE, play_soundeffect)
-		return 1
+		return TRUE
 
 /obj/vehicle/sealed/mecha/hulk_damage()
 	return 15
@@ -91,17 +92,18 @@
 /obj/vehicle/sealed/mecha/attack_hulk(mob/living/carbon/human/user)
 	. = ..()
 	if(.)
-		log_attack(user, "punched", src, "hulk powers")
+		log_mecha(occupants, src, "Attacked by [user] (hulk) (INTEGRITY: [get_integrity()])")
+		log_attack(user, "punched", src, "hulk powers", tags = list("mech"))
 
 /obj/vehicle/sealed/mecha/blob_act(obj/structure/blob/B)
-	log_message("Attack by blob. Attacker - [B].", LOG_MECHA, color="red")
+	log_mecha(occupants, src, "Attacked by [B] (INTEGRITY: [get_integrity()])")
 	take_damage(30, BRUTE, MELEE, 0, get_dir(src, B))
 
 /obj/vehicle/sealed/mecha/attack_tk()
 	return
 
 /obj/vehicle/sealed/mecha/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //wrapper
-	log_message("Hit by [AM].", LOG_MECHA, color="red")
+	log_mecha(occupants, src, "Hit by [AM] (INTEGRITY: [get_integrity()])")
 	return ..()
 
 /obj/vehicle/sealed/mecha/bullet_act(obj/projectile/hitting_projectile, def_zone, piercing_hit) //wrapper
@@ -109,13 +111,13 @@
 		for(var/mob/living/hitmob as anything in occupants)
 			hitmob.bullet_act(hitting_projectile, def_zone, piercing_hit) //If the sides are open, the occupant can be hit
 		return BULLET_ACT_HIT
-	log_message("Hit by projectile. Type: [hitting_projectile]([hitting_projectile.damage_type]).", LOG_MECHA, color="red")
+	log_mecha(occupants, src, "Hit by [hitting_projectile]([hitting_projectile.damage_type])")
 	// yes we *have* to run the armor calc proc here I love tg projectile code too
 	try_damage_component(run_atom_armor(hitting_projectile.damage, hitting_projectile.damage_type, hitting_projectile.damage_type, 0, REVERSE_DIR(hitting_projectile.dir), hitting_projectile.armour_penetration), hitting_projectile.def_zone)
 	return ..()
 
 /obj/vehicle/sealed/mecha/ex_act(severity, target)
-	log_message("Affected by explosion of severity: [severity].", LOG_MECHA, color="red")
+	log_mecha(occupants, src, "Affected by explosion of severity: [severity] (INTEGRITY: [get_integrity()])")
 	return ..()
 
 /obj/vehicle/sealed/mecha/contents_explosion(severity, target)
@@ -157,7 +159,7 @@
 	if(get_charge())
 		use_power((cell.charge/3)/(severity*2))
 		take_damage(30 / severity, BURN, ENERGY, 1)
-	log_message("EMP detected", LOG_MECHA, color="red")
+	log_mecha(occupants, src, "EMP detected with severity: [severity] (INTEGRITY: [get_integrity()])")
 
 	if(!equipment_disabled && LAZYLEN(occupants)) //prevent spamming this message with back-to-back EMPs
 		to_chat(occupants, span_warning("Error -- Connection to equipment control unit has been lost."))
@@ -169,7 +171,7 @@
 	return exposed_temperature > max_temperature
 
 /obj/vehicle/sealed/mecha/atmos_expose(datum/gas_mixture/air, exposed_temperature)
-	log_message("Exposed to dangerous temperature.", LOG_MECHA, color="red")
+	log_mecha(occupants, src, "Exposed to dangerous temperature: [exposed_temperature], taking damage")
 	take_damage(5, BURN, 0, 1)
 
 /obj/vehicle/sealed/mecha/fire_act() //Check if we should ignite the pilot of an open-canopy mech
@@ -219,7 +221,7 @@
 				to_chat(user, span_notice("You install the power cell."))
 				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 				cell = C
-				log_message("Power cell installed", LOG_MECHA)
+				log_mecha(occupants, src, "[cell] installed by [user]")
 			else
 				to_chat(user, span_warning("There's already a power cell installed!"))
 		return
@@ -232,7 +234,7 @@
 				to_chat(user, span_notice("You install the scanning module."))
 				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 				scanmod = W
-				log_message("[W] installed", LOG_MECHA)
+				log_mecha(occupants, src, "[W] installed by [user]")
 				update_part_values()
 			else
 				to_chat(user, span_warning("There's already a scanning module installed!"))
@@ -246,7 +248,7 @@
 				to_chat(user, span_notice("You install the capacitor."))
 				playsound(src, 'sound/items/screwdriver2.ogg', 50, FALSE)
 				capacitor = W
-				log_message("[W] installed", LOG_MECHA)
+				log_mecha(occupants, src, "[W] installed by [user]")
 				update_part_values()
 			else
 				to_chat(user, span_warning("There's already a capacitor installed!"))
@@ -257,7 +259,7 @@
 		P.try_attach_part(user, src, FALSE)
 		return
 	. = ..()
-	log_message("Attacked by [W]. Attacker - [user], Damage - [.]", LOG_MECHA)
+	log_mecha(occupants, src, "Attacked by [user] with [W] (INTEGRITY: [get_integrity()])")
 	if(isliving(user))
 		var/mob/living/living_user = user
 		try_damage_component(., living_user.zone_selected)

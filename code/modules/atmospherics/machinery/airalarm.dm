@@ -347,7 +347,7 @@
 					tlv.vars[name] = -1
 				else
 					tlv.vars[name] = round(value, 0.01)
-				investigate_log(" treshold value for [env]:[name] was set to [value] by [key_name(usr)]",INVESTIGATE_ATMOS)
+				investigate_log("threshold value for [env]:[name] was set to [value] by [key_name(usr)]",INVESTIGATE_ATMOS)
 				var/turf/our_turf = get_turf(src)
 				var/datum/gas_mixture/environment = our_turf.return_air()
 				check_air_dangerlevel(our_turf, environment, environment.temperature)

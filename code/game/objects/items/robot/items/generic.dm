@@ -340,7 +340,7 @@
 		user.audible_message("<font color='red' size='7'>BZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZT</font>")
 		for(var/mob/living/carbon/carbon in get_hearers_in_view(9, user))
 			var/bang_effect = carbon.soundbang_act(2, 0, 0, 5)
-			log_attack(user, "confused", carbon, src, "(EMAGGED)" tags = list("silicon"))
+			log_attack(user, "confused", carbon, src, "(EMAGGED)", tags = list("silicon"))
 			switch(bang_effect)
 				if(1)
 					carbon.adjust_timed_status_effect(5 SECONDS, /datum/status_effect/confusion)
