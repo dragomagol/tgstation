@@ -117,6 +117,9 @@
 	category = "ATMOS"
 	tags = list("atmospherics")
 
+/datum/log_entry/atmospherics/to_text()
+	return ""
+
 ///////////////////////////////// attack
 /datum/log_entry/attack/New(_source, _target)
 	. = ..(_source, _target)
@@ -288,20 +291,24 @@
 	category = "BOTANY"
 	tags = list("botany")
 
+/datum/log_entry/botany/to_text()
+	return ""
+
 ///////////////////////////////// cargo
 /datum/log_entry/cargo
 	category = "CARGO"
 	tags = list("cargo")
 
-///////////////////////////////// cloning
-/datum/log_entry/cloning
-	category = "CLONING"
-	tags = list("cloning")
+/datum/log_entry/cargo/to_text()
+	return ""
 
 ///////////////////////////////// crafting
 /datum/log_entry/crafting
 	category = "CRAFTING"
 	tags = list("crafting")
+
+/datum/log_entry/crafting/to_text()
+	return ""
 
 ///////////////////////////////// dream daemon?
 
@@ -372,35 +379,56 @@
 	category = "ENGINE"
 	tags = list("engineering")
 
+/datum/log_entry/engine/to_text()
+	return ""
+
 ///////////////////////////////// filters
 /datum/log_entry/filter
 	category = "FILTER"
 	tags = list("filter")
+
+/datum/log_entry/filter/to_text()
+	return ""
 
 ///////////////////////////////// game
 /datum/log_entry/game
 	category = "GAME"
 	tags = list("game")
 
+/datum/log_entry/game/to_text()
+	return ""
+
 ///////////////////////////////// gravity
 /datum/log_entry/gravity
 	category = "GRAVITY"
 	tags = list("engineering", "gravity")
+
+/datum/log_entry/gravity/to_text()
+	return ""
 
 ///////////////////////////////// hallucinations
 /datum/log_entry/hallucination
 	category = "HALLUCINATION"
 	tags = list("hallucination")
 
+/datum/log_entry/hallucination/to_text()
+	return ""
+
 ///////////////////////////////// hrefs
 /datum/log_entry/href
 	category = "HREF"
 	tags = list("href")
 
+/datum/log_entry/href/to_text()
+	return ""
+
 ///////////////////////////////// id card changes
 /datum/log_entry/id_access_change
 	category = "ID_ACCESS"
 	tags = list("access_change")
+
+/datum/log_entry/id_access_change/to_text()
+	return ""
 
 ///////////////////////////////// init profiler
 
@@ -476,30 +504,48 @@
 	category = "MOB"
 	tags = list("mob_tag")
 
+/datum/log_entry/mob_tag/to_text()
+	return ""
+
 ///////////////////////////////// newscaster - this has JSON already, integrate it
 /datum/log_entry/newscaster
 	category = "NEWSCASTER"
 	tags = list("newscaster")
+
+/datum/log_entry/newscaster/to_text()
+	return ""
 
 ///////////////////////////////// paper
 /datum/log_entry/paper
 	category = "PAPER"
 	tags = list("paper")
 
+/datum/log_entry/paper/to_text()
+	return ""
+
 ///////////////////////////////// pda
 /datum/log_entry/pda
 	category = "PDA"
 	tags = list("pda")
+
+/datum/log_entry/pda/to_text()
+	return ""
 
 ///////////////////////////////// portals
 /datum/log_entry/portal
 	category = "PORTAL"
 	tags = list("portal")
 
+/datum/log_entry/portal/to_text()
+	return ""
+
 ///////////////////////////////// qdel
 /datum/log_entry/qdel
 	category = "QDEL"
 	tags = list("qdel")
+
+/datum/log_entry/qdel/to_text()
+	return ""
 
 ///////////////////////////////// radiation
 /datum/log_entry/radiation
@@ -533,10 +579,16 @@
 	category = "SILICON"
 	tags = list("silicon")
 
+/datum/log_entry/silicon/to_text()
+	return ""
+
 ///////////////////////////////// sql
 /datum/log_entry/sql
 	category = "SQL"
 	tags = list("debug", "sql")
+
+/datum/log_entry/sql/to_text()
+	return ""
 
 ///////////////////////////////// telecomms - Radio channels
 /datum/log_entry/telecomms/New()
@@ -608,15 +660,24 @@
 	category = "TGUI"
 	tags = list("tgui")
 
+/datum/log_entry/tgui/to_text()
+	return ""
+
 ///////////////////////////////// tools
 /datum/log_entry/tools
 	category = "TOOL"
 	tags = list("tools")
 
+/datum/log_entry/tools/to_text()
+	return ""
+
 ///////////////////////////////// uplink
 /datum/log_entry/uplink
 	category = "UPLINK"
 	tags = list("antagonists", "uplink")
+
+/datum/log_entry/uplink/to_text()
+	return ""
 
 ///////////////////////////////// virus
 /datum/log_entry/virus/New(_source)
@@ -643,3 +704,6 @@
 /datum/log_entry/wires
 	category = "WIRE"
 	tags = list("engineering", "wires")
+
+/datum/log_entry/wires/to_text()
+	return ""

@@ -1,10 +1,11 @@
+/// Logging for tags that uniquely identify mobs
 /proc/log_mob_tag(text)
 	WRITE_LOG(GLOB.world_mob_tag_log, "TAG: [text]")
 
+/// Logging for silicon-based actions
 /proc/log_silicon(text)
 	if (CONFIG_GET(flag/log_silicon))
 		WRITE_LOG(GLOB.world_silicon_log, "SILICON: [text]")
-
 
 /// Logs a message in a mob's individual log, and in the global logs as well if log_globally is true
 /mob/log_message(message, message_type, color = null, log_globally = TRUE)
