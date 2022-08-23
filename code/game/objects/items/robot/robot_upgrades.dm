@@ -59,7 +59,7 @@
 	desc = "Used to cool a mounted disabler, increasing the potential current in it and thus its recharge rate."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/security)
+	model_type = list(/datum/robot_model/security)
 	model_flags = BORG_MODEL_SECURITY
 
 /obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R, user = usr)
@@ -109,15 +109,15 @@
 	desc = "A diamond drill replacement for the mining model's standard drill."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/miner)
+	model_type = list(/datum/robot_model/miner)
 	model_flags = BORG_MODEL_MINER
 
 /obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
-		for(var/obj/item/pickaxe/drill/cyborg/D in R.model)
+		for(var/obj/item/pickaxe/drill/cyborg/D in R.model.modules)
 			R.model.remove_module(D, TRUE)
-		for(var/obj/item/shovel/S in R.model)
+		for(var/obj/item/shovel/S in R.model.modules)
 			R.model.remove_module(S, TRUE)
 
 		var/obj/item/pickaxe/drill/cyborg/diamond/DD = new /obj/item/pickaxe/drill/cyborg/diamond(R.model)
@@ -127,7 +127,7 @@
 /obj/item/borg/upgrade/ddrill/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		for(var/obj/item/pickaxe/drill/cyborg/diamond/DD in R.model)
+		for(var/obj/item/pickaxe/drill/cyborg/diamond/DD in R.model.modules)
 			R.model.remove_module(DD, TRUE)
 
 		var/obj/item/pickaxe/drill/cyborg/D = new (R.model)
@@ -142,13 +142,13 @@
 	desc = "A satchel of holding replacement for mining cyborg's ore satchel module."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/miner)
+	model_type = list(/datum/robot_model/miner)
 	model_flags = BORG_MODEL_MINER
 
 /obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
 	. = ..()
 	if(.)
-		for(var/obj/item/storage/bag/ore/cyborg/S in R.model)
+		for(var/obj/item/storage/bag/ore/cyborg/S in R.model.modules)
 			R.model.remove_module(S, TRUE)
 
 		var/obj/item/storage/bag/ore/holding/H = new /obj/item/storage/bag/ore/holding(R.model)
@@ -158,7 +158,7 @@
 /obj/item/borg/upgrade/soh/deactivate(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
-		for(var/obj/item/storage/bag/ore/holding/H in R.model)
+		for(var/obj/item/storage/bag/ore/holding/H in R.model.modules)
 			R.model.remove_module(H, TRUE)
 
 		var/obj/item/storage/bag/ore/cyborg/S = new (R.model)
@@ -170,7 +170,7 @@
 	desc = "A trash bag of holding replacement for the janiborg's standard trash bag."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/janitor)
+	model_type = list(/datum/robot_model/janitor)
 	model_flags = BORG_MODEL_JANITOR
 
 /obj/item/borg/upgrade/tboh/action(mob/living/silicon/robot/R)
@@ -198,7 +198,7 @@
 	desc = "An advanced mop replacement for the janiborg's standard mop."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/janitor)
+	model_type = list(/datum/robot_model/janitor)
 	model_flags = BORG_MODEL_JANITOR
 
 /obj/item/borg/upgrade/amop/action(mob/living/silicon/robot/R)
@@ -226,7 +226,7 @@
 	desc = "A tiny heating device to repair burnt and damaged hull platings with."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/janitor)
+	model_type = list(/datum/robot_model/janitor)
 	model_flags = BORG_MODEL_JANITOR
 
 /obj/item/borg/upgrade/prt/action(mob/living/silicon/robot/R)
@@ -271,7 +271,7 @@
 	icon_state = "ash_plating"
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/miner)
+	model_type = list(/datum/robot_model/miner)
 	model_flags = BORG_MODEL_MINER
 
 /obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R, user = usr)
@@ -392,7 +392,7 @@
 		to produce more advanced and complex medical reagents."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/medical)
+	model_type = list(/datum/robot_model/medical)
 	model_flags = BORG_MODEL_MEDICAL
 	var/list/additional_reagents = list()
 
@@ -442,7 +442,7 @@
 		defibrillator, for on the scene revival."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/medical)
+	model_type = list(/datum/robot_model/medical)
 	model_flags = BORG_MODEL_MEDICAL
 
 /obj/item/borg/upgrade/defib/action(mob/living/silicon/robot/R, user = usr)
@@ -498,7 +498,7 @@
 		out procedures"
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/medical, /obj/item/robot_model/syndicate_medical)
+	model_type = list(/datum/robot_model/medical, /datum/robot_model/syndicate_medical)
 	model_flags = BORG_MODEL_MEDICAL
 
 /obj/item/borg/upgrade/processor/action(mob/living/silicon/robot/R, user = usr)
@@ -584,7 +584,7 @@
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "borgrped"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/engineering, /obj/item/robot_model/saboteur)
+	model_type = list(/datum/robot_model/engineering, /datum/robot_model/saboteur)
 	model_flags = BORG_MODEL_ENGINEERING
 
 /obj/item/borg/upgrade/rped/action(mob/living/silicon/robot/R, user = usr)
@@ -613,7 +613,7 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinpointer_crew"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/medical, /obj/item/robot_model/syndicate_medical)
+	model_type = list(/datum/robot_model/medical, /datum/robot_model/syndicate_medical)
 	model_flags = BORG_MODEL_MEDICAL
 	var/datum/action/crew_monitor
 
@@ -656,7 +656,7 @@
 	name = "borg model picker (Standard)"
 	desc = "Allows you to to turn a cyborg into a standard cyborg."
 	icon_state = "cyborg_upgrade3"
-	var/obj/item/robot_model/new_model = null
+	var/datum/robot_model/new_model = null
 
 /obj/item/borg/upgrade/transform/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -667,14 +667,14 @@
 	name = "borg model picker (Clown)"
 	desc = "Allows you to to turn a cyborg into a clown, honk."
 	icon_state = "cyborg_upgrade3"
-	new_model = /obj/item/robot_model/clown
+	new_model = /datum/robot_model/clown
 
 /obj/item/borg/upgrade/circuit_app
 	name = "circuit manipulation apparatus"
 	desc = "An engineering cyborg upgrade allowing for manipulation of circuit boards."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/engineering, /obj/item/robot_model/saboteur)
+	model_type = list(/datum/robot_model/engineering, /datum/robot_model/saboteur)
 	model_flags = BORG_MODEL_ENGINEERING
 
 /obj/item/borg/upgrade/circuit_app/action(mob/living/silicon/robot/R, user = usr)
@@ -701,7 +701,7 @@
 	desc = "A supplementary beaker storage apparatus for medical cyborgs."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/medical)
+	model_type = list(/datum/robot_model/medical)
 	model_flags = BORG_MODEL_MEDICAL
 
 /obj/item/borg/upgrade/beaker_app/action(mob/living/silicon/robot/R, user = usr)
@@ -728,7 +728,7 @@
 	desc = "An experimental push broom used for efficiently pushing refuse."
 	icon_state = "cyborg_upgrade3"
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/janitor)
+	model_type = list(/datum/robot_model/janitor)
 	model_flags = BORG_MODEL_JANITOR
 
 /obj/item/borg/upgrade/broomer/action(mob/living/silicon/robot/R, user = usr)

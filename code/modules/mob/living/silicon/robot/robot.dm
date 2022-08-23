@@ -37,7 +37,7 @@
 
 	create_modularInterface()
 
-	model = new /obj/item/robot_model(src)
+	model = new /datum/robot_model(src)
 	model.rebuild_modules()
 
 	if(lawupdate)
@@ -98,7 +98,6 @@
 		modularInterface.saved_job = "Cyborg"
 	return ..()
 
-
 /**
  * Sets the tablet theme and icon
  *
@@ -106,7 +105,7 @@
  * and also borg emag code.
  */
 /mob/living/silicon/robot/proc/set_modularInterface_theme()
-	if(istype(model, /obj/item/robot_model/syndicate) || emagged)
+	if(istype(model, /datum/robot_model/syndicate) || emagged)
 		modularInterface.device_theme = "syndicate"
 		modularInterface.icon_state = "tablet-silicon-syndicate"
 		modularInterface.icon_state_powered = "tablet-silicon-syndicate"
@@ -166,7 +165,7 @@
 	return cell
 
 /mob/living/silicon/robot/proc/pick_model()
-	if(model.type != /obj/item/robot_model)
+	if(model.type != /datum/robot_model)
 		return
 
 	if(wires.is_cut(WIRE_RESET_MODEL))
@@ -178,26 +177,26 @@
 		return
 
 	var/list/model_list = list(
-		"Engineering" = /obj/item/robot_model/engineering,
-		"Medical" = /obj/item/robot_model/medical,
-		"Miner" = /obj/item/robot_model/miner,
-		"Janitor" = /obj/item/robot_model/janitor,
-		"Service" = /obj/item/robot_model/service,
+		"Engineering" = /datum/robot_model/engineering,
+		"Medical" = /datum/robot_model/medical,
+		"Miner" = /datum/robot_model/miner,
+		"Janitor" = /datum/robot_model/janitor,
+		"Service" = /datum/robot_model/service,
 	)
 	if(!CONFIG_GET(flag/disable_peaceborg))
-		model_list["Peacekeeper"] = /obj/item/robot_model/peacekeeper
+		model_list["Peacekeeper"] = /datum/robot_model/peacekeeper
 	if(!CONFIG_GET(flag/disable_secborg))
-		model_list["Security"] = /obj/item/robot_model/security
+		model_list["Security"] = /datum/robot_model/security
 
 	// Create radial menu for choosing borg model
 	var/list/model_icons = list()
 	for(var/option in model_list)
-		var/obj/item/robot_model/model = model_list[option]
+		var/datum/robot_model/model = model_list[option]
 		var/model_icon = initial(model.cyborg_base_icon)
 		model_icons[option] = image(icon = 'icons/mob/robots.dmi', icon_state = model_icon)
 
 	var/input_model = show_radial_menu(src, src, model_icons, radius = 42)
-	if(!input_model || model.type != /obj/item/robot_model)
+	if(!input_model || model.type != /datum/robot_model)
 		return
 
 	model.transform_to(model_list[input_model])
@@ -702,7 +701,7 @@
 	uneq_all()
 	shown_robot_modules = FALSE
 
-	for(var/obj/item/storage/bag in model.contents) // drop all of the items that may be stored by the cyborg
+	for(var/obj/item/storage/bag in model.storages) // drop all of the items that may be stored by the cyborg
 		for(var/obj/item in bag)
 			item.forceMove(drop_location())
 
@@ -715,7 +714,7 @@
 		update_transform()
 	logevent("Chassis model has been reset.")
 	log_silicon("CYBORG: [key_name(src)] has reset their cyborg model.")
-	model.transform_to(/obj/item/robot_model)
+	model.transform_to(/datum/robot_model)
 
 	// Remove upgrades.
 	for(var/obj/item/borg/upgrade/I in upgrades)
@@ -730,7 +729,7 @@
 	return
 
 /mob/living/silicon/robot/proc/has_model()
-	if(!model || model.type == /obj/item/robot_model)
+	if(!model || model.type == /datum/robot_model)
 		. = FALSE
 	else
 		. = TRUE
@@ -749,6 +748,13 @@
 
 	INVOKE_ASYNC(src, .proc/updatename)
 
+/mob/living/silicon/robot/model/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_CONTENTS)
+		return
+	for(var/obj/module in model.modules)
+		module.emp_act(severity)
+	..()
 
 /mob/living/silicon/robot/proc/place_on_head(obj/item/new_hat)
 	if(hat)

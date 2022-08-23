@@ -18,7 +18,7 @@
 	hud_type = /datum/hud/robot
 
 	///Represents the cyborg's model (engineering, medical, etc.)
-	var/obj/item/robot_model/model = null
+	var/datum/robot_model/model = null
 
 	radio = /obj/item/radio/borg
 
@@ -143,42 +143,42 @@
 	cell = null
 
 /mob/living/silicon/robot/model
-	var/set_model = /obj/item/robot_model
+	var/set_model = /datum/robot_model
 
 /mob/living/silicon/robot/model/Initialize(mapload)
 	. = ..()
-	INVOKE_ASYNC(model, /obj/item/robot_model.proc/transform_to, set_model, TRUE)
+	INVOKE_ASYNC(model, /datum/robot_model.proc/transform_to, set_model, TRUE)
 
 /mob/living/silicon/robot/model/clown
-	set_model = /obj/item/robot_model/clown
+	set_model = /datum/robot_model/clown
 	icon_state = "clown"
 
 /mob/living/silicon/robot/model/engineering
-	set_model = /obj/item/robot_model/engineering
+	set_model = /datum/robot_model/engineering
 	icon_state = "engineer"
 
 /mob/living/silicon/robot/model/janitor
-	set_model = /obj/item/robot_model/janitor
+	set_model = /datum/robot_model/janitor
 	icon_state = "janitor"
 
 /mob/living/silicon/robot/model/medical
-	set_model = /obj/item/robot_model/medical
+	set_model = /datum/robot_model/medical
 	icon_state = "medical"
 
 /mob/living/silicon/robot/model/miner
-	set_model = /obj/item/robot_model/miner
+	set_model = /datum/robot_model/miner
 	icon_state = "miner"
 
 /mob/living/silicon/robot/model/peacekeeper
-	set_model = /obj/item/robot_model/peacekeeper
+	set_model = /datum/robot_model/peacekeeper
 	icon_state = "peace"
 
 /mob/living/silicon/robot/model/security
-	set_model = /obj/item/robot_model/security
+	set_model = /datum/robot_model/security
 	icon_state = "sec"
 
 /mob/living/silicon/robot/model/service
-	set_model = /obj/item/robot_model/service
+	set_model = /datum/robot_model/service
 	icon_state = "brobot"
 
 /mob/living/silicon/robot/model/syndicate
@@ -193,7 +193,7 @@
 							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
 							<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_model = /obj/item/robot_model/syndicate
+	set_model = /datum/robot_model/syndicate
 	cell = /obj/item/stock_parts/cell/hyper
 	radio = /obj/item/radio/borg/syndicate
 
@@ -209,7 +209,7 @@
 						Your defibrillator paddles can revive operatives through their suits, or can be used on harm intent to shock enemies! \
 						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_model = /obj/item/robot_model/syndicate_medical
+	set_model = /datum/robot_model/syndicate_medical
 
 /mob/living/silicon/robot/model/syndicate/saboteur
 	icon_state = "synd_engi"
@@ -220,8 +220,8 @@
 						Your cyborg chameleon projector allows you to assume the appearance and registered name of a Nanotrasen engineering borg, and undertake covert actions on the station \
 						Be aware that almost any physical contact or incidental damage will break your camouflage \
 						<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_model = /obj/item/robot_model/saboteur
+	set_model = /datum/robot_model/saboteur
 
 /mob/living/silicon/robot/model/syndicate/kiltborg
-	set_model = /obj/item/robot_model/syndicate/kiltborg
+	set_model = /datum/robot_model/syndicate/kiltborg
 	icon_state = "peace"

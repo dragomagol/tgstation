@@ -172,7 +172,7 @@
 	icon_state = "modkit"
 	w_class = WEIGHT_CLASS_SMALL
 	require_model = TRUE
-	model_type = list(/obj/item/robot_model/miner)
+	model_type = list(/datum/robot_model/miner)
 	model_flags = BORG_MODEL_MINER
 	var/denied_type = null
 	var/maximum_of_type = 1

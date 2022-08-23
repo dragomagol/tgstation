@@ -217,8 +217,8 @@
 			. = TRUE
 
 			var/mob/living/silicon/robot/cyborg = loc
-			if(istype(loc, /obj/item/robot_model))
-				var/obj/item/robot_model/container_model = loc
+			if(istype(loc, /datum/robot_model))
+				var/datum/robot_model/container_model = loc
 				cyborg = container_model.robot
 			playsound(cyborg, 'sound/effects/pop.ogg', 50, FALSE)
 			balloon_alert(cyborg, "dispensing [selected_reagent.name]")

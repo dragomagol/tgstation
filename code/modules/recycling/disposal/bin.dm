@@ -144,7 +144,7 @@
 	if(!iscarbon(user) && !ventcrawler) //only carbon and ventcrawlers can climb into disposal by themselves.
 		if (iscyborg(user))
 			var/mob/living/silicon/robot/borg = user
-			if (!borg.model || !borg.model.canDispose)
+			if (!borg.model || !borg.model.can_dispose)
 				return
 		else
 			return
