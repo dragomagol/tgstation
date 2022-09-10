@@ -24,7 +24,7 @@
 		if(power_changes) //This needs to be here I swear
 			power += projectile.damage * bullet_energy + kiss_power
 			if(!has_been_powered)
-				var/fired_from_str = projectile.fired_from ? " with [projectile.fired_from]" : ""
+				var/fired_from_str = projectile.fired_from ? " with [projectile.fired_from]. Last touched by: [projectile.firer.fingerprintslast]" : ""
 				investigate_log(
 					projectile.firer \
 						? "has been powered for the first time by [key_name(projectile.firer)][fired_from_str]." \
