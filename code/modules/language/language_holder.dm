@@ -41,6 +41,8 @@ Key procs
 	var/list/understood_languages = list(/datum/language/common = list(LANGUAGE_MIND))
 	/// A list of languages that can be spoken. Tongue organ may also set limits beyond this list.
 	var/list/spoken_languages = list(/datum/language/common = list(LANGUAGE_ATOM))
+	/// A list of languages that can't be spoken fluently. Can only use words of that language in the most common 1000 words json.
+	var/list/broken_languages = list()
 	/// A list of blocked languages. Used to prevent understanding and speaking certain languages, ie for certain mobs, mutations etc.
 	var/list/blocked_languages = list()
 	/// If true, overrides tongue limitations.
@@ -51,6 +53,9 @@ Key procs
 	var/selected_language
 	/// Tracks the entity that owns the holder.
 	var/atom/owner
+
+	/// 1000 most common words in the English language. Used for broken (non-fluent) languages.
+	var/static/list/common_words = world.file2list("strings/1000_most_common.txt")
 
 /// Initializes, and copies in the languages from the current atom if available.
 /datum/language_holder/New(atom/_owner)
@@ -144,6 +149,30 @@ Key procs
 					blocked_languages -= language
 	return TRUE
 
+/// Adds a single language or list of languages to the broken language list.
+/datum/language_holder/proc/add_broken_language(languages, source = LANGUAGE_MIND)
+	if(!islist(languages))
+		languages = list(languages)
+	for(var/language in languages)
+		if(!broken_languages[language])
+			broken_languages[language] = list()
+		broken_languages[language] |= source
+	return TRUE
+
+/// Removes a single language or list of languages from the broken language list.
+/datum/language_holder/proc/remove_broken_language(languages, source = LANGUAGE_MIND)
+	if(!islist(languages))
+		languages = list(languages)
+	for(var/language in languages)
+		if(broken_languages[language])
+			if(source == LANGUAGE_ALL)
+				broken_languages -= language
+			else
+				broken_languages[language] -= source
+				if(!length(broken_languages[language]))
+					broken_languages -= language
+	return TRUE
+
 /// Checks if you have the language. If spoken is true, only checks if you can speak the language.
 /datum/language_holder/proc/has_language(language, spoken = FALSE)
 	if(language in blocked_languages)
@@ -151,6 +180,9 @@ Key procs
 	if(spoken)
 		return language in spoken_languages
 	return language in understood_languages
+
+/datum/language_holder/proc/is_fluent_in_language(language)
+	return !(language in broken_languages)
 
 /// Checks if you can speak the language. Tongue limitations should be supplied as an argument.
 /datum/language_holder/proc/can_speak_language(language)
@@ -230,6 +262,38 @@ Key procs
 		for(var/language in from_holder.blocked_languages)
 			add_blocked_language(language, from_holder.blocked_languages[language])
 	return TRUE
+
+///
+/datum/language_holder/proc/substitute_words(message)
+	var/datum/language/sub_language = get_random_spoken_language()
+	var/datum/language/language = GLOB.language_datum_instances[sub_language]
+
+	if(message)
+		var/list/message_split = splittext(message, " ")
+		var/list/new_message = list()
+
+		for(var/word in message_split)
+			var/suffix = null
+			var/suffix_foundon = 0
+			for(var/potential_suffix in list("." , "," , ";" , "!" , ":" , "?"))
+				suffix_foundon = findtext(word, potential_suffix, -length(potential_suffix))
+				if(suffix_foundon)
+					suffix = potential_suffix
+					break
+
+			if(suffix_foundon)
+				word = copytext(word, 1, suffix_foundon)
+
+			word = html_decode(word)
+			var/new_word = (lowertext(word) in common_words) ? word : language.scramble(word)
+
+			if(suffix)
+				new_word += suffix
+			new_message += new_word
+
+		message = jointext(new_message, " ")
+
+	return trim(message)
 
 
 //************************************************

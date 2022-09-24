@@ -52,6 +52,27 @@
 	if(ishumanbasic(human_holder))
 		human_holder.remove_language(/datum/language/uncommon)
 
+/datum/quirk/learner
+	name = "Language Learner"
+	desc = "You're still learning Galactic common! You only know the most common words in addition to your own language."
+	icon = "language"
+	value = 0
+	gain_text = "<span class='notice'>You forget advanced Galactic Common vocabulary."
+	lose_text = "<span class='notice'>Your Galactic Common vocabulary expands!"
+	medical_record_text = "Patient does not have an advanced grasp on Galactic Common and may require an interpreter."
+
+/datum/quirk/learner/add()
+	var/mob/living/carbon/human/human_holder = quirk_holder
+	human_holder.add_broken_language(/datum/language/common)
+	if(ishumanbasic(human_holder))
+		human_holder.grant_language(/datum/language/uncommon)
+
+/datum/quirk/learner/remove()
+	var/mob/living/carbon/human/human_holder = quirk_holder
+	human_holder.remove_broken_language(/datum/language/common)
+	if(ishumanbasic(human_holder))
+		human_holder.remove_language(/datum/language/uncommon)
+
 /datum/quirk/vegetarian
 	name = "Vegetarian"
 	desc = "You find the idea of eating meat morally and physically repulsive."

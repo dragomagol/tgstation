@@ -1338,6 +1338,21 @@
 	var/datum/language_holder/language_holder = get_language_holder()
 	return language_holder.remove_blocked_language(language, source)
 
+/// Adds a language to the broken language list.
+/atom/movable/proc/add_broken_language(language, source = LANGUAGE_ATOM)
+	var/datum/language_holder/language_holder = get_language_holder()
+	return language_holder.add_broken_language(language, source)
+
+/// Removes a language from the broken language list.
+/atom/movable/proc/remove_broken_language(language, source = LANGUAGE_ATOM)
+	var/datum/language_holder/language_holder = get_language_holder()
+	return language_holder.remove_broken_language(language, source)
+
+/// Removes a language from the broken language list.
+/atom/movable/proc/is_fluent_in_language(language)
+	var/datum/language_holder/language_holder = get_language_holder()
+	return language_holder.is_fluent_in_language(language)
+
 /// Checks if atom has the language. If spoken is true, only checks if atom can speak the language.
 /atom/movable/proc/has_language(language, spoken = FALSE)
 	var/datum/language_holder/language_holder = get_language_holder()

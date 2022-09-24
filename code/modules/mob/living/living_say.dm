@@ -226,6 +226,10 @@ GLOBAL_LIST_INIT(message_modes_stat_limits, list(
 		var/datum/language/L = GLOB.language_datum_instances[language]
 		spans |= L.spans
 
+	if(!is_fluent_in_language(language))
+		var/datum/language_holder/language_holder = get_language_holder()
+		message = language_holder.substitute_words(message)
+
 	if(message_mods[MODE_SING])
 		var/randomnote = pick("\u2669", "\u266A", "\u266B")
 		message = "[randomnote] [message] [randomnote]"
