@@ -596,6 +596,7 @@
 	icon_state = "dorm_available"
 	light_color = LIGHT_COLOR_BLUE
 	density = FALSE
+	circuit = /obj/item/circuitboard/computer/emergency_pod
 
 /obj/machinery/computer/shuttle/pod/Initialize(mapload)
 	AddElement(/datum/element/update_icon_blocker)

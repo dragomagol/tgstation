@@ -38,6 +38,11 @@
 	tickets.Cut()
 	return ..()
 
+/obj/machinery/ticket_machine/deconstruct(disassembled = TRUE)
+	if(!(flags_1 & NODECONSTRUCT_1))
+		new /obj/item/wallframe/ticket_machine(loc)
+	qdel(src)
+
 MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/ticket_machine, 32)
 
 /obj/machinery/ticket_machine/examine(mob/user)
@@ -82,6 +87,14 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/machinery/ticket_machine, 32)
 		if(!(obj_flags & EMAGGED))
 			current_ticket.audible_message(span_notice("\the [current_ticket] vibrates!"), hearing_distance = SAMETILE_MESSAGE_RANGE)
 		update_appearance() //Update our icon here rather than when they take a ticket to show the current ticket number being served
+
+/obj/item/wallframe/ticket_machine
+	name = "ticket machine frame"
+	desc = "An unmounted ticket machine. Attach it to a wall to use."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "ticketmachine_off"
+	result_path = /obj/machinery/ticket_machine
+	pixel_shift = 32
 
 /obj/machinery/button/ticket_machine
 	name = "increment ticket counter"

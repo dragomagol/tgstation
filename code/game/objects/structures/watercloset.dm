@@ -156,14 +156,21 @@
 	icon_state = "urinal"
 	density = FALSE
 	anchored = TRUE
-	var/exposed = 0 // can you currently put an item inside
-	var/obj/item/hiddenitem = null // what's in the urinal
+	/// Can you currently put an item inside
+	var/exposed = FALSE
+	/// What's in the urinal
+	var/obj/item/hiddenitem = null
 
 MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 
 /obj/structure/urinal/Initialize(mapload)
 	. = ..()
 	hiddenitem = new /obj/item/food/urinalcake
+
+/obj/structure/urinal/deconstruct(disassembled = TRUE)
+	if(!(flags_1 & NODECONSTRUCT_1))
+		new /obj/item/wallframe/urinal(loc)
+	qdel(src)
 
 /obj/structure/urinal/attack_hand(mob/living/user, list/modifiers)
 	. = ..()
@@ -222,6 +229,13 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 		exposed = !exposed
 	return TRUE
 
+/obj/item/wallframe/urinal
+	name = "urinal frame"
+	desc = "An unmounted urinal. Attach it to a wall to use."
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "urinal"
+	result_path = /obj/structure/urinal
+	pixel_shift = 32
 
 /obj/item/food/urinalcake
 	name = "urinal cake"
@@ -229,7 +243,10 @@ MAPPING_DIRECTIONAL_HELPERS(/obj/structure/urinal, 32)
 	icon = 'icons/obj/weapons/items_and_weapons.dmi'
 	icon_state = "urinalcake"
 	w_class = WEIGHT_CLASS_TINY
-	food_reagents = list(/datum/reagent/chlorine = 3, /datum/reagent/ammonia = 1)
+	food_reagents = list(
+		/datum/reagent/chlorine = 3,
+		/datum/reagent/ammonia = 1,
+	)
 	foodtypes = TOXIC | GROSS
 
 /obj/item/food/urinalcake/attack_self(mob/living/user)
