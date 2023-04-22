@@ -83,7 +83,7 @@
 	. = ..()
 	mobtype = list(
 		/mob/living/simple_animal/butterfly,
-		/mob/living/simple_animal/chick/holo,
+		/mob/living/basic/chick/holo,
 		/mob/living/simple_animal/pet/fox,
 		/mob/living/basic/rabbit,
 	)
